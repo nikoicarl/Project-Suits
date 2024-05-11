@@ -1,4 +1,4 @@
-# BASELINE PROJECT PLAN: PROJECT “SUITS”
+# PROJECT “SUITS”
 
 ## Introduction
 
