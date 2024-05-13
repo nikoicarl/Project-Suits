@@ -1,4 +1,4 @@
-# Project "Suits" Proposal
+# Project "Suits"
 
 ## Introduction
 
