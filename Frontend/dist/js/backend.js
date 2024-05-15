@@ -20,7 +20,7 @@ $(document).ready(function () {
 
         setTimeout(function () {
 
-            // insert data into membership table
+            //send data to login controller
             $.ajax({
                 type: "POST",
                 url: 'http://localhost:5010/login',
