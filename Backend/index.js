@@ -8,6 +8,8 @@ const app = express();
 // Connections
 const dbConnect = require('./dbConnect.js');
 const loginController = require('./controllers/loginController.js');
+const dashboardController = require('./controllers/dashboardController.js');
+const userFetchController = require('./controllers/userFetchController.js');
 
 // Use Cors
 app.use(express.json());
@@ -26,6 +28,8 @@ const dataBase = dbConnect(mysql);
 
 // include controller
 loginController(app, dataBase);
+dashboardController(app, dataBase);
+userFetchController(app, dataBase);
 
 
 // start server

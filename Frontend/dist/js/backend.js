@@ -44,7 +44,7 @@ $(document).ready(function () {
                             title: "Login successful.........redirecting to dashboard"
                         })
                         // redirect to dashboard
-                        window.location.href = "dashboard.html";
+                        window.location.href = "pages/dashboard.html";
                     }
                     // clear form data
                     $('.ps_loginForm').trigger('reset');
