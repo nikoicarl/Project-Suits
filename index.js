@@ -14,7 +14,8 @@ try {
     const userFetchController = require('./Backend/controllers/userFetchController.js');
 
     // Routers
-    homeRouter = require('./Backend/routers/homeRouter.js');
+    homeRouter = require('./Backend/Routers/homeRouter.js');
+    dashboardRouter = require('./Backend/Routers/dashboardRouter.js');
 
     // Use Cors
     start.use(express.json());
@@ -34,6 +35,7 @@ try {
     const Database = new DatabaseModel()
     Database.createConnection()
     homeRouter(start, Database)
+    dashboardRouter(start, Database)
 
     // use routers here
 
