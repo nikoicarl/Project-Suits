@@ -67,7 +67,10 @@ class Session {
                 status varchar(50)
             `),
 
-            foreignKeyStatement: (``),
+            foreignKeyStatement: (`
+                ALTER TABLE session 
+                ADD FOREIGN KEY(userID) REFERENCES user(userID); 
+            `),
 
             alterTableStatement: []
         });

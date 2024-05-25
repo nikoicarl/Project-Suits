@@ -21,7 +21,7 @@ class User {
         try {
             if (result) {
                 let sql = `
-                    INSERT IGNORE INTO users (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
+                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -36,7 +36,7 @@ class User {
     //Update method
     async updateTable (object) {
         try {
-            let sql = 'UPDATE users SET '+object.sql;
+            let sql = 'UPDATE user SET '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
             return result;
         } catch (error) {
@@ -58,7 +58,7 @@ class User {
     //Create table method
     async createTable() {
         const CreateUpdateTable = new CreateUpdateModel(this.Database, {
-            tableName: 'users',
+            tableName: 'user',
 
             createTableStatement: (`
                 userID BIGINT(100) PRIMARY KEY,
@@ -69,7 +69,11 @@ class User {
                 status varchar(50)
             `),
 
-            foreignKeyStatement: (``),
+            foreignKeyStatement: (`
+                ALTER TABLE user 
+                ADD FOREIGN KEY(roleID) REFERENCES role(roleID),
+                ADD FOREIGN KEY(sessionID) REFERENCES session(sessionID); 
+            `),
 
             alterTableStatement: []
         });
