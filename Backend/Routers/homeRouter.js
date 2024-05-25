@@ -1,4 +1,7 @@
 
+const User = require('../Models/UserModel');
+const Session = require('../Models/SessionModel');
+const Role = require('../Models/RoleModel');
 const path = require('path')
 const dotenv = require('dotenv')
 dotenv.config({path: path.join(__dirname, `../../system.env`)})
@@ -6,8 +9,19 @@ dotenv.config({path: path.join(__dirname, `../../system.env`)})
 module.exports = function (start, Database) {
 
     start.get('/', function (request, response) {
+        
         queryStr = request.query;
-        response.render('index', { pageNavigate: queryStr });
+        const confiq = process.env
+
+        if (confiq && confiq.DB_NAME && confiq.DB_NAME != '' || confiq.DB_NAME != undefined) {
+            
+            new User(Database);
+            new Session(Database);
+            new Role(Database);
+            response.render('index', { pageNavigate: queryStr });
+        } else {
+            console.log('First error run');
+        }
     });
 }
 

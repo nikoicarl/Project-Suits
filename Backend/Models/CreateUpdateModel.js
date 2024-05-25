@@ -55,8 +55,6 @@ class CreateUpdateModel {
                         ${this.createTableStatement}
                     );
                 `;
-
-                console.log(sql);
                 let result = await this.Database.setupConnection(sql, 'sql');
                 if (result && result.affectedRows != undefined) {
                     this.addForeignKeys();

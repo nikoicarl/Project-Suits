@@ -1,4 +1,3 @@
-const Session = require('./SessionModel');
 const CreateUpdateModel = require('./CreateUpdateModel');
 
 //Intialize Class
@@ -6,7 +5,6 @@ class User {
 
     //Constructor 
     constructor (Database) {
-        this.SessionModel = new Session(Database);
 
         this.Database = Database;
 
@@ -23,7 +21,7 @@ class User {
         try {
             if (result) {
                 let sql = `
-                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
+                    INSERT IGNORE INTO users (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -38,7 +36,7 @@ class User {
     //Update method
     async updateTable (object) {
         try {
-            let sql = 'UPDATE user SET '+object.sql;
+            let sql = 'UPDATE users SET '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
             return result;
         } catch (error) {
@@ -49,7 +47,7 @@ class User {
     //Fetch for prepared statement
     async preparedFetch (object) {
         try {
-            let sql = 'SELECT * FROM user WHERE '+object.sql;
+            let sql = 'SELECT * FROM users WHERE '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
             return result;
         } catch (error) {
@@ -60,7 +58,7 @@ class User {
     //Create table method
     async createTable() {
         const CreateUpdateTable = new CreateUpdateModel(this.Database, {
-            tableName: 'user',
+            tableName: 'users',
 
             createTableStatement: (`
                 userID BIGINT(100) PRIMARY KEY,
@@ -71,7 +69,7 @@ class User {
                 status varchar(50)
             `),
 
-            foreignKeyStatement: (`ALTER TABLE user ADD FOREIGN KEY(sessionID) REFERENCES session(sessionID);`),
+            foreignKeyStatement: (``),
 
             alterTableStatement: []
         });
