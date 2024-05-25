@@ -85,7 +85,8 @@ class DbConnect {
                 promisifyConnection = promisify(this.dbcon.query).bind(this.dbcon);
             }
     
-            return await promisifyConnection(sqlFormat);
+            return await promisifyConnection(sqlFormat)
+
         } catch (error) {
             // console.log(error);
         }
