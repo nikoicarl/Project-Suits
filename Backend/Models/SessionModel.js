@@ -8,7 +8,7 @@ class Session {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['sessionID', 'userID', 'activity', 'DateTime', 'status'];
+        this.columnsList = ['sessionID', 'userID', 'DateTime', 'activity'];
 
         //Call to create table if not exist
         this.createTable();
@@ -20,7 +20,7 @@ class Session {
         try {
             if (result) {
                 let sql = `
-                    INSERT IGNORE INTO session (${this.columnsList.toString()}) VALUES (?,?,?,?,?);
+                    INSERT IGNORE INTO session (${this.columnsList.toString()}) VALUES (?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -62,9 +62,8 @@ class Session {
             createTableStatement: (`
                 sessionID BIGINT(100) PRIMARY KEY,
                 userID BIGINT(100),
-                activity varchar(255),
-                DateTime datetime,
-                status varchar(50)
+                DateTime text,
+                activity varchar(255)
             `),
 
             foreignKeyStatement: (`

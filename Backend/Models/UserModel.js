@@ -9,7 +9,7 @@ class User {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['userID', 'username', 'password', 'roleID', 'sessionID', 'status'];
+        this.columnsList = ['userID', 'username', 'password', 'roleID', 'status'];
 
         //Call to create table if not exist
         this.createTable();
@@ -21,7 +21,7 @@ class User {
         try {
             if (result) {
                 let sql = `
-                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
+                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -47,7 +47,7 @@ class User {
     //Fetch for prepared statement
     async preparedFetch (object) {
         try {
-            let sql = 'SELECT * FROM users WHERE '+object.sql;
+            let sql = 'SELECT * FROM user WHERE '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
             return result;
         } catch (error) {
@@ -65,14 +65,12 @@ class User {
                 username varchar(255),
                 password text,
                 roleID BIGINT(100),
-                sessionID BIGINT(100),
                 status varchar(50)
             `),
 
             foreignKeyStatement: (`
                 ALTER TABLE user 
                 ADD FOREIGN KEY(roleID) REFERENCES role(roleID),
-                ADD FOREIGN KEY(sessionID) REFERENCES session(sessionID); 
             `),
 
             alterTableStatement: []

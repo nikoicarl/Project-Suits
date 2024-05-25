@@ -36,7 +36,7 @@ module.exports = function (socket, Database) {
                         let sessionid = gf.getTimeStamp();
 
                         //Insert into session
-                        let result = await SessionModel.insertTable([sessionid, gf.getDateTime(), null, userid, 'active']);
+                        let result = await SessionModel.insertTable([sessionid, userid, gf.getDateTime(), 'successfully logged in']);
                         if (result.affectedRows) {
                             let sampleData = gf.shuffle("qwertyuiopasdfghjklzxcvbnm");
                             socket.emit('_system_login', {
