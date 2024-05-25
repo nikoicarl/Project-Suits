@@ -1,7 +1,7 @@
 const ini = require('ini');
 const fs = require('fs');
-const path = require('path');
-const dotenv = require('dotenv');
+const path = require('path')
+const dotenv = require('dotenv')
 dotenv.config({ path: path.join(__dirname, `./../../system.env`)})
 
 class CreateUpdateModel {
@@ -19,7 +19,6 @@ class CreateUpdateModel {
         this.confiq = {
             DB_NAME: process.env.DB_NAME
         }
-
         this.Database = Database;
         this.tableName = Statements.tableName.trim();
         this.createTableStatement = Statements.createTableStatement;
@@ -32,7 +31,11 @@ class CreateUpdateModel {
     async checkTableExistence () {
         if (this.checkIfValue(this.tableName)) {
             let result = await this.checkIfTableExist(this.tableName, 'BASE TABLE');
+            // if (this.tableName == 'employee_bank') {
+            //     console.log('check table existence result: ', result)
+            // }
             if (result) {
+                // await this.createTrigger();
                 await this.alterTable();
                 this.addForeignKeys()
                 return true;
@@ -52,19 +55,21 @@ class CreateUpdateModel {
                         ${this.createTableStatement}
                     );
                 `;
+
+                console.log(sql);
                 let result = await this.Database.setupConnection(sql, 'sql');
                 if (result && result.affectedRows != undefined) {
                     this.addForeignKeys();
                     return true;
                 } else {
-                    // console.log(this.tableName + ' Create Table:: => ', result);
+                    console.log(this.tableName + ' Create Table:: => ', result);
                     return false;
                 }
             } else {
                 return false;
             }
         } catch (error) {
-            // console.log(this.tableName + ' Create Table: => ', error);
+            console.log(this.tableName + ' Create Table: => ', error);
             return false;
         }
     }

@@ -1,4 +1,4 @@
-const dateformat = require('date-format');
+const dateformat = require('dateformat');
 
 
 class GeneralFunction {

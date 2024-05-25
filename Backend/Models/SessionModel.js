@@ -60,7 +60,7 @@ class Session {
             tableName: 'session',
 
             createTableStatement: (`
-                sessionid BIGINT(100) PRIMARY KEY,
+                sessionID BIGINT(100) PRIMARY KEY,
                 userID BIGINT(100),
                 activity varchar(255),
                 DateTime datetime,

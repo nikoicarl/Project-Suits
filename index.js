@@ -30,7 +30,6 @@ try {
     //set static files folder
     start.use(express.static('Frontend/dist'))
 
-
     // use models here
     const Database = new DatabaseModel()
     Database.createConnection()
@@ -39,8 +38,7 @@ try {
     // use routers here
 
     // include controller
-    dashboardController(start, Database);
-    userFetchController(start, Database);
+
 
     //Create port server
     const server = start.listen(5010, function () {

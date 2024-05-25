@@ -1,17 +1,18 @@
 const Session = require('./SessionModel');
 const CreateUpdateModel = require('./CreateUpdateModel');
 
-//Intialize Class
-class User {
+
+class Role {
 
     //Constructor 
     constructor (Database) {
+        //Create foreign key tables
         this.SessionModel = new Session(Database);
 
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['userID', 'username', 'password', 'roleID', 'sessionID', 'status'];
+        this.columnsList = ['roleID', 'role', 'description', 'status'];
 
         //Call to create table if not exist
         this.createTable();
@@ -23,7 +24,7 @@ class User {
         try {
             if (result) {
                 let sql = `
-                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
+                    INSERT INTO role (${this.columnsList.toString()}) VALUES (?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -35,10 +36,11 @@ class User {
         }
     }
 
+
     //Update method
     async updateTable (object) {
         try {
-            let sql = 'UPDATE user SET '+object.sql;
+            let sql = 'UPDATE role SET '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
             return result;
         } catch (error) {
@@ -49,29 +51,27 @@ class User {
     //Fetch for prepared statement
     async preparedFetch (object) {
         try {
-            let sql = 'SELECT * FROM user WHERE '+object.sql;
+            let sql = 'SELECT * FROM role WHERE '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
             return result;
         } catch (error) {
             return error;
         }
     }
-
+    
     //Create table method
     async createTable() {
         const CreateUpdateTable = new CreateUpdateModel(this.Database, {
-            tableName: 'user',
+            tableName: 'role',
 
             createTableStatement: (`
-                userID BIGINT(100) PRIMARY KEY,
-                username varchar(255),
-                password text,
-                roleID BIGINT(100),
-                sessionID BIGINT(100),
+                roleID BIGINT(100) PRIMARY KEY,
+                role varchar(255),
+                description text,
                 status varchar(50)
             `),
 
-            foreignKeyStatement: (`ALTER TABLE user ADD FOREIGN KEY(sessionID) REFERENCES session(sessionID);`),
+            foreignKeyStatement: (``),
 
             alterTableStatement: []
         });
@@ -81,4 +81,4 @@ class User {
 
 }
 
-module.exports = User;
+module.exports = Role;
