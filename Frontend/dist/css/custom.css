@@ -1,5 +1,5 @@
 
-body {
+.ps_body {
     font-family: Arial, sans-serif;
     background-image: url('../img/Homebg.png'); /* Replace with your image path */
     background-size: cover;
@@ -23,19 +23,31 @@ body {
     border-radius: 10px;
 }
 
-.logo {
+.ps_logo {
     position: absolute;
     top: 20px;
     left: 20px;
     width: 90px; /* Adjust size as needed */
 }
 
-h1 {
+.ps_h1 {
     font-size: 2.5em;
     margin: 10px 0;
 }
 
-p {
+.ps_p {
     font-size: 1.2em;
     margin: 20px 0;
+}
+
+.nav-sidebar .nav-link {
+    color: #fff!important;
+}
+
+.nav-sidebar .nav-link:hover {
+    color: #ffffff36!important;
+}
+
+.ps_sidebar_bg {
+    background-color: rgb(32, 32, 32);
 }
