@@ -42,8 +42,8 @@ try {
 
 
     //Create port server
-    const server = start.listen(5010, function () {
-        console.log('You are listening to port 5010')
+    const server = start.listen(5020, function () {
+        console.log('You are listening to port 5020')
     })
 
     const mainSocket = socketIo(server)

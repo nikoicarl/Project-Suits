@@ -16,7 +16,6 @@ class DbConnect {
     createConnection () {
         const thisClass = this;
         try {
-            console.log(process.env.DB_CONNECTION_TYPE);
             if (process.env.DB_CONNECTION_TYPE == 'mysql') {
                 this.dbcon = mysql.createConnection({
                     host     : process.env.DB_HOST,
