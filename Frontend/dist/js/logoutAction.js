@@ -1,7 +1,10 @@
 (()=>{
+
+    // Include  socket connection
+    const socket = io();
+
     //Logout event
     $('a.ps_logout_btn').click(function(e) {
-        console.log('running');
         e.preventDefault();
 
         $(this).html('<div class="spinner-border text-white mr-2 align-self-center loader-sm"></div>');
