@@ -10,8 +10,7 @@ try {
 
     // Controllers
     const loginController = require('./Backend/controllers/loginController.js');
-    const dashboardController = require('./Backend/controllers/dashboardController.js');
-    const userFetchController = require('./Backend/controllers/userFetchController.js');
+    const logoutController = require("./Backend/controllers/logoutController.js");
 
     // Routers
     homeRouter = require('./Backend/Routers/homeRouter.js');
@@ -55,6 +54,7 @@ try {
 
         try {
             loginController(socket, Database);
+            logoutController(socket, Database);
 
         } catch (error) {
             console.log(error)
