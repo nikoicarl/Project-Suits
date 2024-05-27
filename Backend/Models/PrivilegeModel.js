@@ -1,4 +1,4 @@
-const CreateUpdateModel = require('../Models/CreateUpdateModel');
+const CreateUpdateModel = require('./CreateUpdateModel');
 
 //Intialize Class
 class Privilege {
@@ -8,11 +8,7 @@ class Privilege {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = [
-            'privilegeID', 
-            'userID',
-            'add_user','update_user', 'deactivate_user'
-        ];
+        this.columnsList = ['privilegeID', 'userID', 'add_user', 'edit_user', 'deactivate_user','add_role', 'edit_role', 'deactivate_role', 'add_department','edit_department', 'deactivate_role', 'add_document', 'edit_document', 'deactivate_document'];
 
         //Call to create table if not exist
         this.createTable();
@@ -24,7 +20,7 @@ class Privilege {
         try {
             if (result) {
                 let sql = `
-                    INSERT INTO privilege (${this.columnsList.toString()}) VALUES (?,?,?,?,?);
+                    INSERT IGNORE INTO privilege (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -67,11 +63,21 @@ class Privilege {
                 privilegeID BIGINT(100) PRIMARY KEY,
                 userID BIGINT(100),
                 add_user varchar(5),
-                update_user varchar(5),
-                deactivate_user varchar(5)
+                edit_user varchar(5),
+                deactivate_user varchar(5),
+                add_role varchar(5),
+                edit_role varchar(5),
+                deactivate_role varchar(5),
+                add_department varchar(5),
+                edit_department varchar(5),
+                deactivate_role varchar(5),
+                add_document varchar(5),
+                edit_document varchar(5),
+                deactivate_document varchar(5)
             `),
 
-            foreignKeyStatement: (``),
+            foreignKeyStatement: (`
+            `),
 
             alterTableStatement: []
         });
@@ -79,18 +85,6 @@ class Privilege {
         return result;
     }
 
-    //Insert method
-    async queryTable (sqlparam) {
-        let sql = `
-            INSERT INTO privilege ${sqlparam}
-        `;
-        try {
-            let result = await this.Database.setupConnection(sql, 'sql');
-            return result;
-        } catch (error) {
-            return error;
-        }
-    }
 }
 
-module.exports = Privilege;
+module.exports = Privilge;
