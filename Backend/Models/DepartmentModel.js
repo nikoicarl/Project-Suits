@@ -12,7 +12,7 @@ class Department {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['departmentID', 'department', 'description', 'status'];
+        this.columnsList = ['departmentID', 'userID', 'department', 'description', 'status'];
 
         //Call to create table if not exist
         this.createTable();
@@ -24,7 +24,7 @@ class Department {
         try {
             if (result) {
                 let sql = `
-                    INSERT INTO department (${this.columnsList.toString()}) VALUES (?,?,?,?);
+                    INSERT INTO department (${this.columnsList.toString()}) VALUES (?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -35,7 +35,6 @@ class Department {
             return error;
         }
     }
-
 
     //Update method
     async updateTable (object) {
@@ -66,6 +65,7 @@ class Department {
 
             createTableStatement: (`
                 departmentID BIGINT(100) PRIMARY KEY,
+                userID BIGINT(100),
                 department varchar(255),
                 description text,
                 status varchar(50)
