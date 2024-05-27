@@ -2,7 +2,8 @@
 const getSessionIDs = require('./getSessionIDs');
 const md5 = require('md5');
 
-const User = require('../Models/UserModel');
+
+const Role = require('../Models/RoleModel');
 const Session = require('../Models/SessionModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 

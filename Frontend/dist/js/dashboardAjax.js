@@ -51,7 +51,7 @@ $(document).ready(function () {
                                 <i class="${icon} text-white  mt-2" style="font-size:19px;"></i>
                                 <div class="timeline-item">
                                     <span class="time"><i class="far fa-clock"></i> ${time}</span>
-                                    <h3 class="timeline-header"><a href="#">System Administrator &nbsp;</a> ${data[i].activity.toUcwords()}</h3>
+                                    <h3 class="timeline-header"><a href="#"></a> ${data[i].activity.toUcwords()}</h3>
                                     <div class="timeline-body"></div>
                                 </div>
                             </div>
