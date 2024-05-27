@@ -15,11 +15,9 @@ module.exports = (socket, Database) => {
         let userid = session.userid;
         let sessionid = session.sessionid;
         
-        const PrivilegeModel = new Privilege(Database, userid);
+        const PrivilegeModel = new Privilege(Database);
 
         try {
-            let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
-
             if (param === "") {
                 socket.emit(melody1 + '_' + param, {
                     type: 'error',

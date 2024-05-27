@@ -17,47 +17,49 @@ $(document).ready(function () {
 
         socket.on(melody.melody1 + '_dashboard_activities_table', (data) => {
             if (data.type == 'error') {
-                console.log(data.message);
             } else {
                 if (data.length > 0) {
+                    console.log(data);
                     for (let i = 0; i < data.length; i++) {
                         let color, icon;
+                        const dateTimeParts = data[i].date_time.split(' ');
+                        const date = dateTimeParts[0];
+                        const time = dateTimeParts[1];
 
                         if (data[i].activity.toLocaleLowerCase().indexOf("deactivated") != -1) {
-                            color = "t-warning";
-                            icon = "icon-blocked";
+                            color = "bg-warning";
+                            icon = "icon-close";
                         } else if (data[i].activity.toLocaleLowerCase().indexOf("logged out") != -1) {
-                            color = "t-danger";
-                            icon = "icon-exit3";
+                            color = "bg-danger";
+                            icon = "fa fa-ban";
                         } else if (data[i].activity.toLocaleLowerCase().indexOf("logged in") != -1) {
-                            color = "t-info";
-                            icon = "icon-check2";
-                        } else if (data[i].activity.toLocaleLowerCase().indexOf("sent") != -1) {
-                            color = "t-success";
-                            icon = "icon-mail5";
+                            color = "bg-info";
+                            icon = "fa fa-check";
                         } else {
-                            color = "t-success";
-                            icon = "icon-check2";
+                            color = "bg-success";
+                            icon = "fa fa-check";
                         }
-
-                        $('.logig_dashboard_session_activity').append(`
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="${color}">
-                                        <i class="${icon} text-white  mt-2" style="font-size:19px;"></i>
-                                    </div>
+                        $('.ps_dashboard_session_activity').append(
+                            `<div class="timeline timeline-inverse">
+                            <div class="time-label">
+                                <span class="${color}">
+                                    ${date}
+                                </span>
+                            </div>
+                            <div>
+                                <i class="${icon} text-white  mt-2" style="font-size:19px;"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="far fa-clock"></i> ${time}</span>
+                                    <h3 class="timeline-header"><a href="#">System Administrator &nbsp;</a> ${data[i].activity}</h3>
+                                    <div class="timeline-body"></div>
                                 </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5 class="mt-2">${data[i].activity.toUcwords()}</h5>
-                                        <span class="">${data[i].date_time.fullDateTime()}</span>
-                                    </div>
-                                </div>
-                            </div>`)
+                            </div>
+                        </div>`
+                        )
                         ;
                     }
                 } else {
-                    $('.logig_dashboard_session_activity').html(`<h5 class="text-muted">No Session Activities</h5>`);
+                    $('.ps_dashboard_session_activity').html(`<h5 class="text-muted">No Session Activities</h5>`);
                 }
             }
         });
