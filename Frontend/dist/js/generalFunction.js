@@ -55,9 +55,9 @@ String.prototype.fullDateTime = function() {
         return '';
     } else {
         let date = new Date(inputDate);
-        let hh = date.getUTCHours();
-        let min = date.getUTCMinutes();
-        let sec = date.getUTCSeconds();
+        let hh = date.getHours();
+        let min = date.getMinutes();
+        let sec = date.getSeconds();
         return date.toDateString()+' '+hh+':'+(min < 10 ? '0'+min : min)+':'+(sec < 10 ? '0'+sec : sec);
     }
 }
@@ -83,12 +83,12 @@ String.prototype.dbDateFormat = function() {
         return '';
     } else {
         let date = new Date(inputDate);
-        let dd = date.getUTCDate();
-        let mm = date.getUTCMonth()+1; 
-        let yyyy = date.getUTCFullYear();
-        let hh = date.getUTCHours();
-        let min = date.getUTCMinutes();
-        let sec = date.getUTCSeconds();
+        let dd = date.getDate();
+        let mm = date.getMonth()+1; 
+        let yyyy = date.getFullYear();
+        let hh = date.getHours();
+        let min = date.getMinutes();
+        let sec = date.getSeconds();
         return yyyy+'-'+mm+'-'+dd+' '+hh+':'+min+':'+sec;
     }
 }

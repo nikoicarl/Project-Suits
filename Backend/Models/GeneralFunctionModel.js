@@ -30,7 +30,7 @@ class GeneralFunction {
 
     getFullYear() {
         let date = new Date();
-        return date.getUTCFullYear();
+        return date.getFullYear();
     }
 
     getTimeStamp () {
@@ -82,22 +82,22 @@ class GeneralFunction {
             return '';
         } else {
             let date = new Date(inputDate);
-            let dd = date.getUTCDate();
+            let dd = date.getDate();
             dd = dd < 10 ? '0'+dd : dd
-            let mm = date.getUTCMonth()+1;
+            let mm = date.getMonth()+1;
             mm = mm < 10 ? '0'+mm : mm
-            let yyyy = date.getUTCFullYear();
+            let yyyy = date.getFullYear();
             return yyyy+'-'+mm+'-'+dd;
         }
     }
 
     fullDateDBNow () {
         let date = new Date()
-        let dd = date.getUTCDate();
+        let dd = date.getDate();
         dd = dd < 10 ? '0'+dd : dd
-        let mm = date.getUTCMonth()+1;
+        let mm = date.getMonth()+1;
         mm = mm < 10 ? '0'+mm : mm
-        let yyyy = date.getUTCFullYear();
+        let yyyy = date.getFullYear();
         return yyyy+'-'+mm+'-'+dd;
     }
 
@@ -107,9 +107,9 @@ class GeneralFunction {
             return '';
         } else {
             let date = new Date(inputDate);
-            let hh = date.getUTCHours();
-            let min = date.getUTCMinutes();
-            let sec = date.getUTCSeconds();
+            let hh = date.getHours();
+            let min = date.getMinutes();
+            let sec = date.getSeconds();
             return date.toDateString()+' '+hh+':'+min+':'+sec;
         }
     }
@@ -130,14 +130,14 @@ class GeneralFunction {
             return '';
         } else {
             let date = new Date(inputDate);
-            let dd = date.getUTCDate();
+            let dd = date.getDate();
             dd = dd < 10 ? '0'+dd : dd
-            let mm = date.getUTCMonth()+1;
+            let mm = date.getMonth()+1;
             mm = mm < 10 ? '0'+mm : mm
-            let yyyy = date.getUTCFullYear();
-            let hh = date.getUTCHours();
-            let min = date.getUTCMinutes();
-            let sec = date.getUTCSeconds();
+            let yyyy = date.getFullYear();
+            let hh = date.getHours();
+            let min = date.getMinutes();
+            let sec = date.getSeconds();
             return yyyy+'-'+mm+'-'+dd+' '+hh+':'+min+':'+sec;
         }
     }
@@ -156,7 +156,7 @@ class GeneralFunction {
 
     getDateTime () {
         let date = new Date();
-        date = date.getUTCFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate()+' '+date.getUTCHours()+':'+date.getUTCMinutes()+':'+date.getUTCSeconds();
+        date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
         let todayDate = new Date(date);
         todayDate = dateformat(todayDate, 'yyyy-mm-dd HH:MM:ss');
         return todayDate;
@@ -164,7 +164,7 @@ class GeneralFunction {
 
     getTimeNow () {
         let date = new Date();
-        date = date.getUTCFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate()+' '+date.getUTCHours()+':'+date.getUTCMinutes()+':'+date.getUTCSeconds();
+        date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
         let timeNow = new Date(date);
         timeNow = dateformat(timeNow, 'HH:MM:ss');
         return timeNow;
@@ -172,7 +172,7 @@ class GeneralFunction {
 
     getDate () {
         let date = new Date();
-        date = date.getUTCFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate()+' '+date.getUTCHours()+':'+date.getUTCMinutes()+':'+date.getUTCSeconds();
+        date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
         let todayDate = new Date(date);
         todayDate = dateformat(todayDate, 'yyyy-mm-dd');
         return todayDate;
@@ -180,7 +180,7 @@ class GeneralFunction {
 
     getDateParam (param) {
         let date = new Date(param);
-        date = date.getUTCFullYear()+'-'+(date.getUTCMonth()+1)+'-'+date.getUTCDate()+' '+date.getUTCHours()+':'+date.getUTCMinutes()+':'+date.getUTCSeconds();
+        date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
         let todayDate = new Date(date);
         todayDate = dateformat(todayDate, 'yyyy-mm-dd');
         return todayDate;
@@ -188,8 +188,8 @@ class GeneralFunction {
 
     getMonth (){
         let date = new Date();
-        let mm = date.getUTCMonth()+1; 
-        let yyyy = date.getUTCFullYear();
+        let mm = date.getMonth()+1; 
+        let yyyy = date.getFullYear();
         return yyyy + '-' + (mm < 10 ? '0'+mm : mm);
     }
 

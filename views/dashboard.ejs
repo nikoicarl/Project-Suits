@@ -142,4 +142,46 @@
         <%- include('links/footlinks.ejs') %>
     </body>
 
+    
+    <% String.prototype.fullDate = function() { %>
+        <% var inputDate = this; %> 
+        <% if (inputDate == "" || inputDate == null || inputDate == undefined) { %>
+            <% return ''; %>
+        <% } else { %>
+            <% var date = new Date(inputDate); %>
+            <% return date.toDateString(); %>
+        <% } %>
+    <% } %>
+
+    <%String.prototype.fullDateTime = function() { %>
+        <% let inputDate = this; %>
+        <% if (inputDate === "" || inputDate === null || inputDate === undefined) { %>
+            <% return ''; %>
+            <%} else {%>
+                <% let date = new Date(inputDate); %>
+                <% let hh = date.getHours();%>
+                <% let min = date.getMinutes(); %>
+                <% let sec = date.getSeconds(); %>
+                <% return date.toDateString()+' '+hh+':'+(min < 10 ? '0'+min : min)+':'+(sec < 10 ? '0'+sec : sec); %>
+            <%  } %>
+    <%  }%>
+
+    <% String.prototype.toUcwords = function() { %>
+        <% let value = this; %>
+        <% if (value == "" || value == null || value == undefined) { %>
+            <% return ''; %>
+        <% } else { %>
+            <% return value.replace(/\w+/g, function(a){ %>
+                <% return a.charAt(0).toUpperCase() + a.slice(1).toLowerCase(); %>
+            <% }); %>
+        <% } %>
+    <% } %>
+
+    <% String.prototype.formatNumber = function() { %>
+        <% let value = Number(this); %>
+        <% return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); %>
+    <% } %>
+
+    <% var queryString = 'pub='+pageNavigate.pub+'&med='+pageNavigate.med; %>
+
 </html>
