@@ -70,7 +70,6 @@ class Privilege {
                 deactivate_role varchar(5),
                 add_department varchar(5),
                 edit_department varchar(5),
-                deactivate_role varchar(5),
                 add_document varchar(5),
                 edit_document varchar(5),
                 deactivate_document varchar(5)
