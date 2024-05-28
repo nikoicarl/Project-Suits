@@ -29,7 +29,7 @@ module.exports = (socket, Database) => {
                 const SessionModel = new Session(Database);
 
                 result = await SessionModel.preparedFetch({
-                    sql: 'userID =? ORDER BY `DateTime`',
+                    sql: 'userID =? ORDER BY `DateTime` DESC',
                     columns: [userID]
                 });
                 if (Array.isArray(result)) {
