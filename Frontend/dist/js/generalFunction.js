@@ -196,7 +196,7 @@ function customDropzone(dropzoneIdName, dropzoneInputIdName, dropzonePreviewIdNa
     let imageIdName, input;
 
     // $('.'+dropzoneIdName).attr('for', dropzoneInputIdName);
-    dropzonePreview.innerHTML = '<span class="logig_dropzone_title"> Click to upload supporting files/documents such as receipts, invoices etc. here. </span> <br> <span class="logig_dropzone_subtitle text-danger" style="font-size:12px;"> You can select up to 10 files </span>';
+    dropzonePreview.innerHTML = '<span class="ps_dropzone_title"> Click to upload supporting files/documents such as receipts, invoices etc. here. </span> <br> <span class="ps_dropzone_subtitle text-danger" style="font-size:12px;"> You can select up to 10 files </span>';
 
     let displayImages = function (event, mainFiles, checker) {
         if (mainFiles) {
@@ -292,17 +292,17 @@ function customDropzone(dropzoneIdName, dropzoneInputIdName, dropzonePreviewIdNa
     };
 
     dropzone.ondragover = function () {
-        this.className = 'logig_dropzone logig_dragover';
+        this.className = 'ps_dropzone ps_dragover';
         return false;
     };
 
     dropzone.ondragleave = function () {
-        this.className = 'logig_dropzone';
+        this.className = 'ps_dropzone';
         return false;
     };
 
     dropzone.ondragenter = function () {
-        this.className = 'logig_dropzone';
+        this.className = 'ps_dropzone';
         return false;
     };
     // console.log('itisrun');
@@ -378,7 +378,7 @@ async function readFileToUpload(file) {
 let navigationInterval;
 
 //Pagination
-function mainPagination(pageFileName, appname, pageScripts, navparent) {
+function mainPagination(pageFileName, pageScripts, navparent) {
     let previous_scripts = [];
 
     $(document).off('click.keyupevents');
@@ -392,12 +392,12 @@ function mainPagination(pageFileName, appname, pageScripts, navparent) {
     $(document).off('keyup.otherkeyup');
 
     //Render ejs page 
-    openPage(pageFileName, appname);
-    previous_scripts.push(pageFileName+'*forms/'+appname);
+    openPage(pageFileName);
+    previous_scripts.push(pageFileName+'*forms/');
 
     //Iterate active links
     $('ul.menu-categories li.menu a.dropdown-toggle').removeAttr('data-active');
-    $('li.logig_sidebar_nav_parent_'+navparent+' a.dropdown-toggle').attr('data-active', 'true');
+    $('li.ps_sidebar_nav_parent_'+navparent+' a.dropdown-toggle').attr('data-active', 'true');
 
     //Remove previous script
     let scriptsToRemove = JSON.parse(window.localStorage.getItem('previous_scripts'));
@@ -427,7 +427,6 @@ function mainPagination(pageFileName, appname, pageScripts, navparent) {
 
     const pagination = {
         pageFileName: pageFileName,
-        appname: appname,
         scripts: pageScripts,
         navparent: navparent
     }
@@ -439,17 +438,17 @@ function mainPagination(pageFileName, appname, pageScripts, navparent) {
 }
 
 //A method to open page
-function openPage(pageFileName, appname){
-    $('#logig_main_content_display').remove();
+function openPage(pageFileName){
+    $('#ps_main_content_display').remove();
 
     let pageScript = document.createElement("script");
     //Add script src to script tag
-    pageScript.setAttribute("src", "forms/"+appname+"/"+pageFileName+".js");
+    pageScript.setAttribute("src", "forms/"+pageFileName+".js");
     pageScript.setAttribute("id", pageFileName+"_script");
 
     //Add created script to last part of body
     $('#content div.row').append(`
-        <div class="col-md-12" id="logig_main_content_display"></div>
+        <div class="col-md-12" id="ps_main_content_display"></div>
     `);
     document.body.appendChild(pageScript);
 }
@@ -490,18 +489,18 @@ function addExternalScript(pageScriptFileName){
 
 //Clear navigation loader
 function openNavigationLoader() {
-    $('.logig_progress_bar_div').show();
-    $('.logig_progress_bar').attr("style", "width: 65%");
-    $('.logig_progress_bar').attr("aria-valuenow", 65);
+    $('.ps_progress_bar_div').show();
+    $('.ps_progress_bar').attr("style", "width: 65%");
+    $('.ps_progress_bar').attr("aria-valuenow", 65);
 }
 
 
 //Clear navigation loader
 function clearNavigationLoader() {
-    $('.logig_progress_bar').attr("style", "width: 100%");
-    $('.logig_progress_bar').attr("aria-valuenow", 100);
+    $('.ps_progress_bar').attr("style", "width: 100%");
+    $('.ps_progress_bar').attr("aria-valuenow", 100);
     setTimeout(() => {
-        $('.logig_progress_bar_div').hide();
+        $('.ps_progress_bar_div').hide();
     }, 500);
 }
 
