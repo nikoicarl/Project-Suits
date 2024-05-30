@@ -79,6 +79,17 @@ class User {
         return result;
     }
 
+    //Fetch for prepared statement
+    async countFetch (object) {
+        try {
+            let sql = 'SELECT COUNT(userID) FROM user WHERE '+object.sql;
+            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
 }
 
 module.exports = User;

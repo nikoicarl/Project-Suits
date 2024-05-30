@@ -79,6 +79,18 @@ class Department {
         return result;
     }
 
+
+    //Fetch for prepared statement
+    async countFetch (object) {
+        try {
+            let sql = 'SELECT COUNT(departmentID) FROM department WHERE '+object.sql;
+            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
 }
 
 module.exports = Department;

@@ -1,5 +1,28 @@
 $(document).ready(function () {
 
+    // Dashboard fetch method
+    DashboardFetch();
+
+    // General Dashboard Fetches
+    //================================================================================//
+    function DashboardFetch() {
+        socket.off('dashboardFetches');
+        socket.off(melody.melody1 + '_dashboard_data');
+
+        socket.emit('dashboardFetches', {
+            melody1: melody.melody1,
+            melody2: melody.melody2,
+            param: "dashboard_data"
+        });
+
+        // Response
+        socket.on(melody.melody1 + '_dashboard_data', data => {
+
+            $('.ps_user_count').text(Number(data.totalUsers))
+            $('.ps_document_count').text(Number(data.totalDocuments))
+            $('.ps_department_count').text(Number(data.totalDepartments))
+        });
+    }
 
     // fetch session activity table
     activitiesTableFetch();

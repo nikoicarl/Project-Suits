@@ -1,9 +1,8 @@
 
-const Privilege = require('../Models/PrivilegeModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const User = require('../Models/UserModel');
 const Department = require('../Models/DepartmentModel');
-const DocumentModel = require('../Models/DocumentModel');
+// const DocumentModel = require('../Models/DocumentModel');
 const getSessionIDs = require('./getSessionIDs');
 const gf = new GeneralFunction();
 
@@ -17,7 +16,7 @@ module.exports = (socket, Database) => {
         let userid = session.userid;
         let sessionid = session.sessionid;
         
-        const DocumentModel = new Document(Database);
+        // const DocumentModel = new Document(Database);
         const UserModel = new User(Database);
         const DepartmentModel = new Department(Database);
 
@@ -30,16 +29,17 @@ module.exports = (socket, Database) => {
             } else if (param === "dashboard_data") {
         
                 let userData = await UserModel.countFetch({
-                    sql: 'status = ?',
-                    columns: ['active']
+                    sql: 'status != ?',
+                    columns: ['inactive']
                 });
                 totalUsers = Array.isArray(userData) && userData.length > 0 ? userData[0]['COUNT(userID)'] : 0;
 
-                let documentData = await DocumentModel.countFetch({
-                    sql: 'status = ?',
-                    columns: ['active']
-                });
-                totalDocuments = Array.isArray(documentData) && documentData.length > 0 ? documentData[0]['COUNT(documentID)'] : 0;
+
+                // let documentData = await DocumentModel.countFetch({
+                //     sql: 'status = ?',
+                //     columns: ['active']
+                // });
+                // totalDocuments = Array.isArray(documentData) && documentData.length > 0 ? documentData[0]['COUNT(documentID)'] : 0;
 
                 let departmentData = await DepartmentModel.countFetch({
                     sql: 'status = ?',
@@ -49,7 +49,7 @@ module.exports = (socket, Database) => {
 
                 socket.emit(melody1 + '_' + param, {
                     totalUsers: totalUsers,
-                    totalDocuments: totalDocuments,
+                    totalDocuments: '0',
                     totalDepartments: totalDepartments
                 });
             }
