@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
     // Dashboard fetch method
-    DashboardFetch();
+    dashboardFetch();
 
     // General Dashboard Fetches
     //================================================================================//
-    function DashboardFetch() {
+    function dashboardFetch() {
         socket.off('dashboardFetches');
         socket.off(melody.melody1 + '_dashboard_data');
 
@@ -17,7 +17,6 @@ $(document).ready(function () {
 
         // Response
         socket.on(melody.melody1 + '_dashboard_data', data => {
-
             $('.ps_user_count').text(Number(data.totalUsers))
             $('.ps_document_count').text(Number(data.totalDocuments))
             $('.ps_department_count').text(Number(data.totalDepartments))
