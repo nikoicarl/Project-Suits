@@ -1,11 +1,7 @@
 AddDashboardCss();
 function AddDashboardCss() {
-    let stylesheet = document.getElementById('ps_external_stylesheet');
-    stylesheet.href = 'assets/light_css/apexcharts.css';
-    // let stylesheet1 = document.getElementById('ps_external_stylesheet1');
-    // stylesheet1.href = 'assets/light_css/dash_1.css';
-    let stylesheet2 = document.getElementById('ps_external_stylesheet2');
-    stylesheet2.href = 'assets/light_css/dash_2.css';
+    // let stylesheet = document.getElementById('ps_external_stylesheet');
+    // stylesheet.href = 'assets/light_css/apexcharts.css';
 }
 
 
@@ -59,6 +55,6 @@ function Activities() {
     $('#ps_main_content_display').html(html);
 
     //Add page ajax file(s)
-    addExternalScript('assets/js/apexcharts.min.js');
+    addExternalScript('');
     addPageScript('administration/dashboardAjax');
 })();
