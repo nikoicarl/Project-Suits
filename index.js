@@ -30,7 +30,7 @@ try {
     start.set('view engine', 'ejs')
 
     //set static files folder
-    start.use(express.static('Frontend/dist'))
+    start.use(express.static('stuff'))
 
     // use models here
     const Database = new DatabaseModel()

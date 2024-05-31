@@ -1,7 +1,7 @@
 
 .ps_body {
     font-family: Arial, sans-serif;
-    background-image: url('../img/Homebg.png'); /* Replace with your image path */
+    background-image: url('../img/Homebg.png'); 
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
