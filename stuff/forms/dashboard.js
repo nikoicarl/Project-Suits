@@ -103,5 +103,5 @@ function Activities() {
 
     //Add page ajax file(s)
     addExternalScript('');
-    addPageScript('administration/dashboardAjax');
+    // addPageScript('dashboardAjax');
 })();

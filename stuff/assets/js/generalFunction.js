@@ -391,6 +391,8 @@ function mainPagination(pageFileName, pageScripts, navparent) {
     $(document).off('change.otherchange');
     $(document).off('keyup.otherkeyup');
 
+
+
     //Render ejs page 
     openPage(pageFileName);
     previous_scripts.push(pageFileName+'*forms/');
@@ -442,6 +444,7 @@ function openPage(pageFileName){
     $('#ps_main_content_display').remove();
 
     let pageScript = document.createElement("script");
+
     //Add script src to script tag
     pageScript.setAttribute("src", "forms/"+pageFileName+".js");
     pageScript.setAttribute("id", pageFileName+"_script");

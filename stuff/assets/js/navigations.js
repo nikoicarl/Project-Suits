@@ -10,6 +10,7 @@
             let navparent = $(this).data("navparent");
             pageFileName = pageFileName.split("/")[1];
 
+
             ClearCssLinks();
             $('.flatpickr-calendar').remove();
             setTimeout(() => {
