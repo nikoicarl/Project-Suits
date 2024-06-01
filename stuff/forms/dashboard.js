@@ -1,19 +1,10 @@
 
 function Dashboard() {
+    // Change Breadcrumbs names
     $('.ps_main_page_breadcrumb').html(`Dashboard`);
     $('.ps_main_page_breadcrumb_navigation').html(`Dashboard`);
 
-    return `
-        <div class="layout-px-spacing mb-5">
-            <div class="row layout-top-spacing">
-                <div class="col-md-12" id="ps_dashboard_page_form_display"></div>
-            </div>
-        </div>
-    `;
-}
 
-
-function Dashboard() {
     return `
         <div class="container-fluid">
             <div class="row">
