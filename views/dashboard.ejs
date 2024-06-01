@@ -1,44 +1,5 @@
 <!DOCTYPE html> 
-    <!-- headlinks here -->
-    <%- include('links/headlinks.ejs') %>
 
-    <!-- body here -->
-    <body class="hold-transition sidebar-mini layout-fixed">
-        <div class="wrapper">
-            <!-- Preloader -->
-            <div class="preloader flex-column justify-content-center align-items-center">
-                <img class="animation__shake" src="assets/img/PEARSONSPECTERLOGO-removebg-preview.png" alt="AdminLTELogo"
-                    height="100" width="100" />
-            </div>
-
-            <!-- Navbar -->
-            <%- include('navs/topbar.ejs') %>
-            <!-- /.navbar -->
-
-            <!-- Sidebar -->
-            <%- include('navs/sidebar.ejs') %>
-            <!-- /.sidebar -->
-
-            <div class="content-wrapper">  
-                <div id="ps_main_content_display" class="col-md-12"></div>
-            </div>
-
-            <!-- Footer here  -->
-            <%- include('navs/footer.ejs') %>
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
-        </div>
-        <!-- ./wrapper -->
-
-        <!-- Footlinks here  -->
-        <%- include('links/footlinks.ejs') %>
-    </body>
-
-    
     <% String.prototype.fullDate = function() { %>
         <% var inputDate = this; %> 
         <% if (inputDate == "" || inputDate == null || inputDate == undefined) { %>
@@ -79,5 +40,49 @@
     <% } %>
 
     <% var queryString = 'pub='+pageNavigate.pub+'&med='+pageNavigate.med; %>
+
+    <!-- headlinks here -->
+    <%- include('links/headlinks.ejs') %>
+
+    <!-- body here -->
+    <body class="hold-transition sidebar-mini layout-fixed">
+        <div class="wrapper">
+            <!-- Preloader -->
+            <div class="preloader flex-column justify-content-center align-items-center">
+                <img class="animation__shake" src="assets/img/PEARSONSPECTERLOGO-removebg-preview.png" alt="AdminLTELogo"
+                    height="100" width="100" />
+            </div>
+
+            <!-- Navbar -->
+            <%- include('navs/topbar.ejs') %>
+            <!-- /.navbar -->
+
+            <!-- Sidebar -->
+            <%- include('navs/sidebar.ejs') %>
+            <!-- /.sidebar -->
+
+            <div class="content-wrapper">  
+                <!-- Breadcrumbs -->
+                <%- include('navs/breadcrumbs.ejs') %>
+
+                <section class="content">
+                    <div class="" id="ps_main_content_display" ></div>
+                </section>
+            </div>
+
+            <!-- Footer here  -->
+            <%- include('navs/footer.ejs') %>
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+            </aside>
+            <!-- /.control-sidebar -->
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- Footlinks here  -->
+        <%- include('links/footlinks.ejs') %>
+    </body>
 
 </html>

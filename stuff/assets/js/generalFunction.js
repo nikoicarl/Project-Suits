@@ -441,7 +441,7 @@ function mainPagination(pageFileName, pageScripts, navparent) {
 
 //A method to open page
 function openPage(pageFileName){
-    $('#ps_main_content_display').remove();
+    // $('#ps_main_content_display').remove();
 
     let pageScript = document.createElement("script");
 
@@ -449,6 +449,7 @@ function openPage(pageFileName){
     pageScript.setAttribute("src", "forms/"+pageFileName+".js");
     pageScript.setAttribute("id", pageFileName+"_script");
 
+    
     //Add created script to last part of body
     $('#content div.row').append(`
         <div class="col-md-12" id="ps_main_content_display"></div>

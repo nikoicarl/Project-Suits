@@ -36,7 +36,6 @@ $(document).ready(function () {
             param: 'dashboard_activities_table'
         });
 
-
         socket.on(melody.melody1 + '_dashboard_activities_table', (data) => {
             if (data.type == 'error') {
             } else {
