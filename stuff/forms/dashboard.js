@@ -4,7 +4,6 @@ function Dashboard() {
     $('.ps_main_page_breadcrumb').html(`Dashboard`);
     $('.ps_main_page_breadcrumb_navigation').html(`Dashboard`);
 
-
     return `
         <div class="container-fluid">
             <div class="row">

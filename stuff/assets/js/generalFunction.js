@@ -472,6 +472,7 @@ function addPageScript(pageScriptFileName){
 //A method to remove script(s) to document body
 function removePageScript(scriptName, directory) {
     const scriptList = document.querySelectorAll("script[src='"+directory+"/"+scriptName+".js']");
+    console.log(scriptList);
     const convertedNodeList = Array.from(scriptList);
     const testScript = convertedNodeList.find(script => script.id === scriptName+"_script");
     if (testScript !== undefined) {
