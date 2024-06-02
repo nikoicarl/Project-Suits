@@ -1,11 +1,5 @@
-AddDashboardCss();
-function AddDashboardCss() {
-    // let stylesheet = document.getElementById('ps_external_stylesheet');
-    // stylesheet.href = 'assets/light_css/apexcharts.css';
-}
 
-
-function Dashboard() {
+function Contact() {
     $('.ps_main_page_breadcrumb').html(`Contact IT Department`);
     $('.ps_main_page_breadcrumb_navigation').html(`  
         <div class="content-header">
@@ -28,7 +22,7 @@ function Dashboard() {
     return `
         <div class="layout-px-spacing mb-5">
             <div class="row layout-top-spacing">
-                <div class="col-md-12" id="ps_dashboard_page_form_display"></div>
+                <div class="col-md-12" id="ps_contact_page_form_display"></div>
             </div>
         </div>
     `;
@@ -42,10 +36,44 @@ function ContactForm() {
                 <form action="" class="ps_contact_form">
                     <div class="row">
                         <div class="col-md-6">
-                            
+                            <div class="form-group mb-4">
+                                <label>Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control ps_contact_name" placeholder="Name" required>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            
+                            <div class="form-group mb-4">
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control ps_contact_email" placeholder="example@mail.com" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label>User ID</label>
+                                <input type="text" class="form-control ps_contact_userID" placeholder="User ID" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label>Department </label>
+                                <input type="text" class="form-control ps_contact_department" placeholder="Department" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label>Issue </label>
+                                <textarea name=""  placeholder="Issue" class="form-control ps_contact_issue" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary ps_contact_submit float-right">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -55,10 +83,11 @@ function ContactForm() {
 }
 
 (()=>{
-    let html = ejs.render(Dashboard(), {});
+    let html = ejs.render(Contact(), {});
     $('#ps_main_content_display').html(html);
 
-    //Add page ajax file(s)
-    addExternalScript('');
-    addPageScript('administration/dashboardAjax');
+    html = ejs.render(ContactForm(), {});
+    $('#ps_contact_page_form_display').html(html);
+
+    addPageScript('contactAjax.js');
 })();
