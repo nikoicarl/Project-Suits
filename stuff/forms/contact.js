@@ -1,23 +1,7 @@
 
 function Contact() {
     $('.ps_main_page_breadcrumb').html(`Contact IT Department`);
-    $('.ps_main_page_breadcrumb_navigation').html(`  
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Contact IT Department</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Contact IT Department</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `);
+    $('.ps_main_page_breadcrumb_navigation').html(`Contact IT Department`);
 
     return `
         <div class="layout-px-spacing mb-5">

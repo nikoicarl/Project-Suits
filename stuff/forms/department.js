@@ -20,49 +20,33 @@ function DepartmentForm() {
                     <form class="ps_manage_department_form" action="" method="POST">
                         <div class="row">
                             <input type="hidden" class="ps_manage_department_hiddenid">
-                            <div class="col-md-4 mt-2">
+                            <div class="col-md-6 mt-2">
                                 <div class="form-group mb-2">
-                                    <label>Department Type <span class="text-danger">*</span></label>
-                                    <select class="form-control select_search ps_manage_department_type" required>
-                                        <option value="" selected> Department Type </option>
-                                        <option value="Individual"> Individual </option>
-                                        <option value="Corporate"> Corporate </option>
+                                    <label>User <span class="text-danger">*</span></label>
+                                    <select class="form-control select_search ps_manage_department_user" required>
+                                        <option value="" > Select User </option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4 mt-2">
+                            <div class="col-md-6 mt-2">
                                 <div class="form-group mb-2">
-                                    <label>Category </label>
-                                    <select class="form-control select_search ps_manage_department_category">
-                                        <option value="" selected> Category </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group mb-4">
                                     <label>Department Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control ps_manage_department_name" placeholder="Department Name" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="row ps_manage_department_type_change">
-                            <div class="col-md-4 mt-2">
+
+                        <div class="row">
+                            <div class="col-md-12 mt-3">
                                 <div class="form-group mb-4">
-                                    <label>Gender </label>
-                                    <select class="form-control select_search ps_manage_department_gender">
-                                        <option value="" selected> Gender </option>
-                                        <option value="Male"> Male </option>
-                                        <option value="Female"> Female </option>
-                                        <option value="Other"> Other </option>
-                                    </select>
+                                    <label>Description </label>
+                                    <textarea name=""  placeholder="Description" class="form-control ps_department_description" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 mt-3 text-right">
-                                <button class="btn ovasyte-bg-primary ps_manage_department_submit_btn" type="submit"> Submit</button>
+                                <button class="btn btn-primary ps_manage_department_submit_btn" type="submit"> Submit</button>
                             </div>
                         </div>
                     </form>
