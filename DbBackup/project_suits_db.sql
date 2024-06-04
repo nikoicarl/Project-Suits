@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 14, 2024 at 07:21 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.29
+-- Host: localhost:3306
+-- Generation Time: Jun 03, 2024 at 01:50 AM
+-- Server version: 5.7.24
+-- PHP Version: 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,19 +24,109 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `departmentID` bigint(100) NOT NULL,
+  `userID` bigint(100) DEFAULT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `description` text,
+  `status` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `document`
+--
+
+CREATE TABLE `document` (
+  `documentID` bigint(100) NOT NULL,
+  `userID` bigint(100) DEFAULT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `description` text,
+  `status` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE `role` (
+  `roleID` bigint(100) NOT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `description` text,
+  `status` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `session`
 --
 
 CREATE TABLE `session` (
-  `sessionID` int(11) NOT NULL,
-  `activity` varchar(255) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `sessionID` bigint(100) NOT NULL,
+  `userID` bigint(100) DEFAULT NULL,
+  `DateTime` text,
+  `activity` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `session`
+--
+
+INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
+(17177863, 1, '2024-06-02 18:07:32', 'logged into system'),
+(37171773, 1, '2024-06-02 18:15:08', 'logged out of system'),
+(63717817, 1, '2024-06-02 18:06:51', 'logged into system'),
+(71178376, 1, '2024-06-02 18:07:30', 'logged out of system');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `userID` bigint(100) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` text,
+  `roleID` bigint(100) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`userID`, `username`, `password`, `roleID`, `status`) VALUES
+(1, '1', '827ccb0eea8a706c4c34a16891f84e7b', 1, 'admin');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`departmentID`);
+
+--
+-- Indexes for table `document`
+--
+ALTER TABLE `document`
+  ADD PRIMARY KEY (`documentID`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`roleID`);
 
 --
 -- Indexes for table `session`
@@ -45,14 +135,10 @@ ALTER TABLE `session`
   ADD PRIMARY KEY (`sessionID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `user`
 --
-
---
--- AUTO_INCREMENT for table `session`
---
-ALTER TABLE `session`
-  MODIFY `sessionID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
