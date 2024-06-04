@@ -403,6 +403,7 @@ function mainPagination(pageFileName, pageScripts, navparent) {
 
     //Remove previous script
     let scriptsToRemove = JSON.parse(window.localStorage.getItem('previous_scripts'));
+    console.log(scriptsToRemove[i].split("*")[1] , 'scriptsToRemove[i].split("*")[1]');
     if (Array.isArray(scriptsToRemove)) {
         for (let i = 0; i < scriptsToRemove.length; i++) {
             removePageScript(scriptsToRemove[i].split("*")[0], scriptsToRemove[i].split("*")[1]);
@@ -473,6 +474,7 @@ function addPageScript(pageScriptFileName){
 function removePageScript(scriptName, directory) {
     const scriptList = document.querySelectorAll("script[src='"+directory+"/"+scriptName+".js']");
     const convertedNodeList = Array.from(scriptList);
+    console.log(convertedNodeList, 'convertedNodeList');
     const testScript = convertedNodeList.find(script => script.id === scriptName+"_script");
     if (testScript !== undefined) {
         testScript.parentNode.removeChild(testScript);
