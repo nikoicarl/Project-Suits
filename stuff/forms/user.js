@@ -58,5 +58,5 @@ function UserForm() {
     html = ejs.render(UserForm(), {});
     $('#ps_user_page_form_display').html(html);
 
-    addPageScript('userAjax.js');
+    addPageScript('userAjax');
 })();

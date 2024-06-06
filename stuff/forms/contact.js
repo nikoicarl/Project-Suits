@@ -73,5 +73,5 @@ function ContactForm() {
     html = ejs.render(ContactForm(), {});
     $('#ps_contact_page_form_display').html(html);
 
-    addPageScript('contactAjax.js');
+    addPageScript('contactAjax');
 })();

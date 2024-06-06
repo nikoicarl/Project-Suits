@@ -53,5 +53,5 @@ function RoleForm() {
     html = ejs.render(RoleForm(), {});
     $('#ps_role_page_form_display').html(html);
 
-    addPageScript('roleAjax.js');
+    addPageScript('roleAjax');
 })();

@@ -403,7 +403,6 @@ function mainPagination(pageFileName, pageScripts, navparent) {
 
     //Remove previous script
     let scriptsToRemove = JSON.parse(window.localStorage.getItem('previous_scripts'));
-    console.log(scriptsToRemove[i].split("*")[1] , 'scriptsToRemove[i].split("*")[1]');
     if (Array.isArray(scriptsToRemove)) {
         for (let i = 0; i < scriptsToRemove.length; i++) {
             removePageScript(scriptsToRemove[i].split("*")[0], scriptsToRemove[i].split("*")[1]);
