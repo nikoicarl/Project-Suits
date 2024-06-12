@@ -202,7 +202,6 @@ function customDropzone(dropzoneIdName, dropzoneInputIdName, dropzonePreviewIdNa
         if (mainFiles) {
             dropzonePreview.innerHTML = '<div class="row dropzone_preview_sub_div"> </div>';
             for (i = 0; i < mainFiles.length; i++) {
-                // console.log(mainFiles[i].type);
                 imageIdName = 'dropzoneImage_' + i;
                 let ext = mainFiles[i].type.split('/');
                 if (ext[1] == "png" || ext[1] == "jpg" || ext[1] == "jpeg") {
@@ -258,7 +257,6 @@ function customDropzone(dropzoneIdName, dropzoneInputIdName, dropzonePreviewIdNa
                 data: reader.result 
             });
         };
-        // console.log(memoAttachedFile);
     };
 
     // $(document).on('click', 'span.drozone_remove_image', function() {
@@ -473,7 +471,6 @@ function addPageScript(pageScriptFileName){
 function removePageScript(scriptName, directory) {
     const scriptList = document.querySelectorAll("script[src='"+directory+"/"+scriptName+".js']");
     const convertedNodeList = Array.from(scriptList);
-    console.log(convertedNodeList, 'convertedNodeList');
     const testScript = convertedNodeList.find(script => script.id === scriptName+"_script");
     if (testScript !== undefined) {
         testScript.parentNode.removeChild(testScript);
