@@ -18,7 +18,7 @@ $(document).ready(function () {
                 socketObject: socket,
                 socketEvent: 'ovasyte_general_file_upload'
             }, 'image/*', 1)
-            $('.ps_dropzone_title').text('Click to upload image here');
+            $('.ps_dropzone_title').text('Click to upload pdf here');
             $('.ps_dropzone_subtitle').text(``);
             // $('.ps_cake_drop_zone_label').css('height', '150px');
             $('.ps_dropzone_inner').addClass('mt-4');

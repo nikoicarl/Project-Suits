@@ -23,7 +23,14 @@ function DocumentForm() {
                             <label for=""> Upload Document</label>
                             <div class="w-100 ps_dropzone_input" id="ps_dropzone_input"></div>
                         </div>
+                        
+                        <div class="col-md-12 mt-3">
+                            <label>Give names to selected files (Use comma separated Values). eg. new name one, new name two</label>
+                            <input type="text" class="form-control ps_document_upload_dropzone_rename" placeholder="Give names to selected files (Use comma separated Values)">
+                        </div>
                     </div>
+
+                    
 
                     <div class="row">
                         <div class="col-md-12">
