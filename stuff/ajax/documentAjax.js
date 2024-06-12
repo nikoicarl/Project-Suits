@@ -12,8 +12,8 @@ $(document).ready(function () {
     function pageDropZone() {
         setTimeout(function () {
             FileNamesHolder = []
-            UploadChecker = 0;
-            DropZone('ps_dropzone_input', 'black', dropZoneIcons, {
+            UploadChecker = 0
+            DropZone('ps_dropzone_input', '#dcdcdc', dropZoneIcons, {
                 requestType: 'socket',
                 socketObject: socket,
                 socketEvent: 'ovasyte_general_file_upload'
