@@ -40,6 +40,11 @@ return `
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary ps_report_submit float-right">Submit</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
