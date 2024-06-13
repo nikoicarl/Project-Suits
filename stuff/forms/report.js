@@ -21,9 +21,7 @@ return `
                 <div class="col-md-6">
                     <div class="form-group mb-4">
                         <label>Name <span class="text-danger">*</span></label>
-                        <select class="form-control select_search ps_report_user">
-                            <option value=""> Select User </option>
-                        </select>
+                        <select class="form-control select_search ps_report_user"></select>
                     </div>
                 </div>
                 <div class="col-md-6">
