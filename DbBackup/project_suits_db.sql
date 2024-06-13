@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 04, 2024 at 06:40 AM
+-- Generation Time: Jun 13, 2024 at 06:24 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -91,31 +91,43 @@ INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
 (1771197, 1001, '2024-05-30 12:25:31', 'logged out of system'),
 (10871987, 1001, '2024-05-30 10:24:02', 'logged into system'),
 (11170170, 1001, '2024-05-30 13:30:27', 'logged out of system'),
+(11178237, 1001, '2024-06-12 11:35:45', 'logged into system'),
+(11281717, 1001, '2024-06-12 11:32:37', 'logged into system'),
 (11377124, 1001, '2024-05-31 20:58:29', 'logged out of system'),
 (11547771, 1001, '2024-05-31 10:11:07', 'logged out of system'),
 (11571717, 1001, '2024-05-31 09:06:39', 'logged into system'),
 (11737712, 1001, '2024-05-30 20:48:21', 'logged out of system'),
+(11812177, 1001, '2024-06-12 11:33:13', 'logged into system'),
 (11870378, 1001, '2024-06-02 19:13:58', 'logged into system'),
 (11880476, 1001, '2024-05-27 13:13:57', 'logged out of system'),
+(12187117, 1001, '2024-06-12 11:32:59', 'logged out of system'),
 (12785164, 1001, '2024-05-27 13:42:48', 'logged out of system'),
+(12878416, 1001, '2024-06-12 19:47:42', 'logged out of system'),
+(14827112, 1001, '2024-06-12 12:44:10', 'logged into system'),
 (15174077, 1001, '2024-06-03 14:39:17', 'logged into system'),
 (16419748, 1001, '2024-05-27 14:22:33', 'logged out of system'),
 (16777311, 1001, '2024-06-02 13:55:58', 'logged into system'),
 (17098197, 1001, '2024-05-30 13:10:05', 'logged into system'),
 (17178531, 1001, '2024-06-02 19:25:25', 'logged into system'),
+(17617350, 1001, '2024-06-05 22:51:28', 'logged into system'),
+(17681428, 1001, '2024-06-12 19:47:47', 'logged into system'),
 (17731241, 1001, '2024-05-31 20:58:39', 'logged into system'),
 (17738511, 1001, '2024-06-02 19:25:18', 'logged out of system'),
 (17812571, 1001, '2024-05-30 21:08:46', 'logged into system'),
 (17861644, 1001, '2024-05-27 14:18:15', 'logged into system'),
 (17868114, 1001, '2024-05-27 15:15:01', 'logged out of system'),
 (17917001, 1001, '2024-05-30 13:29:53', 'logged into system'),
+(18175122, 1001, '2024-06-12 11:00:07', 'logged into system'),
 (18718642, 1001, '2024-05-27 15:16:45', 'logged into system'),
 (18746118, 1001, '2024-05-27 15:15:09', 'logged into system'),
 (19081777, 1001, '2024-05-30 12:37:59', 'logged into system'),
 (19760172, 1001, '2024-05-28 13:10:42', 'logged into system'),
+(21184867, 1001, '2024-06-12 19:47:58', 'logged into system'),
 (21377612, 1001, '2024-06-02 14:04:06', 'logged out of system'),
 (21707196, 1001, '2024-05-28 13:10:35', 'logged out of system'),
+(21718412, 1001, '2024-06-12 12:44:05', 'logged out of system'),
 (22711017, 1001, '2024-05-30 13:50:26', 'logged into system'),
+(28117117, 1001, '2024-06-12 11:32:12', 'logged out of system'),
 (37167167, 1001, '2024-06-02 18:03:56', 'logged out of system'),
 (41617881, 1001, '2024-05-27 15:16:01', 'logged out of system'),
 (45716814, 1001, '2024-05-27 14:30:52', 'logged into system'),
@@ -125,12 +137,15 @@ INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
 (59781761, 1001, '2024-05-27 17:59:37', 'logged into system'),
 (61447871, 1001, '2024-05-27 14:19:27', 'logged into system'),
 (61870173, 1001, '2024-05-30 03:10:25', 'logged into system'),
+(64771791, 1001, '2024-06-03 22:41:22', 'logged into system'),
 (66171377, 1001, '2024-06-02 18:04:04', 'logged into system'),
 (67271179, 1001, '2024-05-28 13:22:35', 'logged out of system'),
 (67418451, 1001, '2024-05-27 14:15:31', 'logged out of system'),
 (67814110, 1001, '2024-05-27 13:16:42', 'logged out of system'),
+(69721581, 1001, '2024-06-13 09:20:34', 'logged out of system'),
 (70191170, 1001, '2024-05-30 13:29:34', 'logged out of system'),
 (71538618, 1001, '2024-05-27 18:05:13', 'logged out of system'),
+(71711182, 1001, '2024-06-12 11:32:15', 'logged into system'),
 (71871078, 1001, '2024-05-30 09:51:37', 'logged into system'),
 (71879170, 1001, '2024-05-30 12:37:52', 'logged out of system'),
 (75717141, 1001, '2024-05-31 09:56:21', 'logged into system'),
@@ -140,14 +155,17 @@ INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
 (76811177, 1001, '2024-05-31 11:04:32', 'logged into system'),
 (77101272, 1001, '2024-05-31 19:00:42', 'logged into system'),
 (77126173, 1001, '2024-06-02 14:12:26', 'logged into system'),
+(78171112, 1001, '2024-06-12 11:32:29', 'logged out of system'),
 (78261145, 1001, '2024-05-27 13:42:55', 'logged into system'),
 (81081777, 1001, '2024-05-30 09:51:36', 'logged into system'),
 (81127771, 1001, '2024-05-30 20:57:25', 'logged into system'),
+(81771213, 1001, '2024-06-12 11:35:27', 'logged out of system'),
 (84186271, 1001, '2024-05-27 15:17:30', 'logged out of system'),
 (84611017, 1001, '2024-05-27 13:16:47', 'logged into system'),
 (86071137, 1001, '2024-05-30 03:10:15', 'logged out of system'),
 (87119976, 1001, '2024-05-29 08:50:42', 'logged into system'),
 (87811460, 1001, '2024-05-27 13:14:02', 'logged into system'),
+(87862114, 1001, '2024-06-12 19:47:54', 'logged out of system'),
 (91676291, 1001, '2024-05-28 13:09:12', 'logged into system'),
 (91777012, 1001, '2024-05-30 12:27:12', 'logged into system'),
 (97088711, 1001, '2024-05-30 10:23:56', 'logged out of system'),
@@ -173,7 +191,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`userID`, `username`, `password`, `roleID`, `status`) VALUES
 (1001, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 1, 'admin'),
-(1002, '321312', '31231', 123123, '31231');
+(1002, '321312', '31231', 123123, 'active');
 
 --
 -- Indexes for dumped tables
