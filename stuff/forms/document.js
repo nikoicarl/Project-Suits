@@ -1,73 +1,57 @@
 
 function Document() {
-    // Change Breadcrumbs names
-    $('.ps_main_page_breadcrumb').html(`Document`);
-    $('.ps_main_page_breadcrumb_navigation').html(`Document`);
+    $('.ps_main_page_breadcrumb').html(`Manage Document`);
+    $('.ps_main_page_breadcrumb_navigation').html(`Manage Document`);
 
     return `
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4 col-4">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3 class ="ps_document_count">0</h3>
-                            <p>Documents</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-folder"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-4">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3 class ="ps_department_count">0</h3>
-                            <p>Departments</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-4">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3 class ="ps_user_count">0</h3>
-                            <p>Users</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header p-2">
-                            <h3>Recent Activity</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="" id="timeline" style="height: 250px;overflow-y: auto;">
-                                <div class="ps_document_session_activity"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="layout-px-spacing mb-5">
+            <div class="row layout-top-spacing">
+                <div class="col-md-12" id="ps_document_page_form_display"></div>
             </div>
         </div>
     `;
-
 }
 
+
+function DocumentForm() {
+    return `
+        <div class="card">
+            <div class="card-body">
+                <form action="" class="ps_document_form">  
+                    <div class="row mb-4">
+                        <div class="col-md-12 mt-3 ps_dropzone_action">
+                            <label for=""> Upload Document</label>
+                            <div class="w-100 ps_dropzone_input" id="ps_dropzone_input"></div>
+                        </div>
+                        
+                        <div class="col-md-12 mt-3">
+                            <label>Give names to selected files (Use comma separated Values). eg. new name one, new name two</label>
+                            <input type="text" class="form-control ps_document_upload_dropzone_rename" placeholder="Give names to selected files (Use comma separated Values)">
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary ps_document_submit float-right">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+}
 
 (()=>{
     let html = ejs.render(Document(), {});
     $('#ps_main_content_display').html(html);
 
-    //Add page ajax file(s)
+    html = ejs.render(DocumentForm(), {});
+    $('#ps_document_page_form_display').html(html);
+
+
+    addExternalScript('assets/js/DropZone.js');
+
     addPageScript('documentAjax');
 })();

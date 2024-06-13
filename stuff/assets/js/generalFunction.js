@@ -202,7 +202,6 @@ function customDropzone(dropzoneIdName, dropzoneInputIdName, dropzonePreviewIdNa
         if (mainFiles) {
             dropzonePreview.innerHTML = '<div class="row dropzone_preview_sub_div"> </div>';
             for (i = 0; i < mainFiles.length; i++) {
-                // console.log(mainFiles[i].type);
                 imageIdName = 'dropzoneImage_' + i;
                 let ext = mainFiles[i].type.split('/');
                 if (ext[1] == "png" || ext[1] == "jpg" || ext[1] == "jpeg") {
@@ -258,7 +257,6 @@ function customDropzone(dropzoneIdName, dropzoneInputIdName, dropzonePreviewIdNa
                 data: reader.result 
             });
         };
-        // console.log(memoAttachedFile);
     };
 
     // $(document).on('click', 'span.drozone_remove_image', function() {
@@ -405,7 +403,7 @@ function mainPagination(pageFileName, pageScripts, navparent) {
     let scriptsToRemove = JSON.parse(window.localStorage.getItem('previous_scripts'));
     if (Array.isArray(scriptsToRemove)) {
         for (let i = 0; i < scriptsToRemove.length; i++) {
-            removePageScript(scriptsToRemove[i].split("*")[0], scriptsToRemove[i].split("*")[1]);
+            removePageScript(scriptsToRemove[i].split("*")[0]);
         }
     }
 
@@ -470,8 +468,8 @@ function addPageScript(pageScriptFileName){
 }
 
 //A method to remove script(s) to document body
-function removePageScript(scriptName, directory) {
-    const scriptList = document.querySelectorAll("script[src='"+directory+"/"+scriptName+".js']");
+function removePageScript(scriptName) {
+    const scriptList = document.querySelectorAll("script[src='"+scriptName+".js']");
     const convertedNodeList = Array.from(scriptList);
     const testScript = convertedNodeList.find(script => script.id === scriptName+"_script");
     if (testScript !== undefined) {

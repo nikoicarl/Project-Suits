@@ -1,73 +1,62 @@
 
 function User() {
-    // Change Breadcrumbs names
     $('.ps_main_page_breadcrumb').html(`Manage User`);
-    $('.ps_main_page_breadcrumb_navigation').html(`User`);
+    $('.ps_main_page_breadcrumb_navigation').html(`Manage User`);
 
     return `
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4 col-4">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3 class ="ps_document_count">0</h3>
-                            <p>Documents</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-folder"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-4">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3 class ="ps_department_count">0</h3>
-                            <p>Departments</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-4">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3 class ="ps_user_count">0</h3>
-                            <p>Users</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header p-2">
-                            <h3>Recent Activity</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="" id="timeline" style="height: 250px;overflow-y: auto;">
-                                <div class="ps_document_session_activity"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="layout-px-spacing mb-5">
+            <div class="row layout-top-spacing">
+                <div class="col-md-12" id="ps_user_page_form_display"></div>
             </div>
         </div>
     `;
-
 }
 
 
+function UserForm() {
+    return `
+        <div class="card">
+            <div class="card-body">
+                <form action="" class="ps_user_form">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-4">
+                                <label>Username <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control ps_user_username" placeholder="Username" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-4">
+                                <label>Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control ps_user_password" placeholder="Password" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group mb-4">
+                                <label>Confirm Password </label>
+                                <input type="password" class="form-control ps_user_confirm_password" placeholder="Confirm Password" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary ps_user_submit float-right">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    `;
+}
+
 (()=>{
-    let html = ejs.render(Document(), {});
+    let html = ejs.render(User(), {});
     $('#ps_main_content_display').html(html);
 
-    //Add page ajax file(s)
-    addPageScript('documentAjax');
+    html = ejs.render(UserForm(), {});
+    $('#ps_user_page_form_display').html(html);
+
+    addPageScript('userAjax');
 })();

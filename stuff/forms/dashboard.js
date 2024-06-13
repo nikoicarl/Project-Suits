@@ -7,7 +7,7 @@ function Dashboard() {
     return `
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4 col-4">
+                <div class="col-md-4">
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3 class ="ps_document_count">0</h3>
@@ -19,7 +19,7 @@ function Dashboard() {
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-4">
+                <div class="col-md-4">
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3 class ="ps_department_count">0</h3>
@@ -31,7 +31,7 @@ function Dashboard() {
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-4">
+                <div class="col-md-4">
                     <div class="small-box bg-danger">
                         <div class="inner">
                             <h3 class ="ps_user_count">0</h3>

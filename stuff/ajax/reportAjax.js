@@ -1,6 +1,9 @@
-
 $(document).ready(function () {
 
+    //Date range picker
+    $('#ps_report_date_range').daterangepicker()
+
+    // User Dropdown
     let holdUser;
     userDropdown();
     //User Dropdown
@@ -20,10 +23,10 @@ $(document).ready(function () {
             if (data.type == "error") {
                 console.log(data.message);
             } else {
-                $('select.ps_manage_department_user').html(`<option value="" ${holdUser !== undefined ? '' : 'selected'}> Select User </option>`);
+                $('select.ps_report_user').html(`<option value="" ${holdUser !== undefined ? '' : 'selected'}> Select User </option>`);
                 data.forEach(function (item, index) {
 
-                    $('select.ps_manage_department_user').append(`<option value="${item.userID}"> ${item.userID}</option>`);
+                    $('select.ps_report_user').append(`<option value="${item.userID}"> ${item.userID}</option>`);
                 });
             }
         });
