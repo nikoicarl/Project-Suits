@@ -23,9 +23,7 @@ function DepartmentForm() {
                             <div class="col-md-6 mt-2">
                                 <div class="form-group mb-2">
                                     <label>User <span class="text-danger">*</span></label>
-                                    <select class="form-control select_search ps_manage_department_user" required>
-                                        <option value="" > Select User </option>
-                                    </select>
+                                    <select class="form-control select_search ps_manage_department_user"></select>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-2">

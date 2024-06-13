@@ -403,7 +403,7 @@ function mainPagination(pageFileName, pageScripts, navparent) {
     let scriptsToRemove = JSON.parse(window.localStorage.getItem('previous_scripts'));
     if (Array.isArray(scriptsToRemove)) {
         for (let i = 0; i < scriptsToRemove.length; i++) {
-            removePageScript(scriptsToRemove[i].split("*")[0], scriptsToRemove[i].split("*")[1]);
+            removePageScript(scriptsToRemove[i].split("*")[0]);
         }
     }
 
@@ -468,8 +468,8 @@ function addPageScript(pageScriptFileName){
 }
 
 //A method to remove script(s) to document body
-function removePageScript(scriptName, directory) {
-    const scriptList = document.querySelectorAll("script[src='"+directory+"/"+scriptName+".js']");
+function removePageScript(scriptName) {
+    const scriptList = document.querySelectorAll("script[src='"+scriptName+".js']");
     const convertedNodeList = Array.from(scriptList);
     const testScript = convertedNodeList.find(script => script.id === scriptName+"_script");
     if (testScript !== undefined) {
