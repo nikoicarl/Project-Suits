@@ -9,7 +9,7 @@ class User {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['userID', 'username', 'password', 'roleID', 'status'];
+        this.columnsList = ['userID', 'username', 'password', 'roleID', 'dateTime', 'status'];
 
         //Call to create table if not exist
         this.createTable();
@@ -21,7 +21,7 @@ class User {
         try {
             if (result) {
                 let sql = `
-                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?);
+                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -65,6 +65,7 @@ class User {
                 username varchar(255),
                 password text,
                 roleID BIGINT(100),
+                dateTime text,
                 status varchar(50)
             `),
 
@@ -73,7 +74,9 @@ class User {
                 ADD FOREIGN KEY(roleID) REFERENCES role(roleID),
             `),
 
-            alterTableStatement: []
+            alterTableStatement: [
+                'dateTime text'
+            ],
         });
         let result = await CreateUpdateTable.checkTableExistence();
         return result;

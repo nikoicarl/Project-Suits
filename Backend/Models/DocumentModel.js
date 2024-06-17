@@ -67,7 +67,7 @@ class Document {
                 documentID BIGINT(100) PRIMARY KEY,
                 userID BIGINT(100),
                 fileName varchar(255),
-                dateTime varchar(50),
+                dateTime text,
                 status varchar(50)
             `),
 

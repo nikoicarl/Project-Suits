@@ -12,7 +12,7 @@ class Role {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['roleID', 'role', 'description', 'status'];
+        this.columnsList = ['roleID', 'role', 'description', 'dateTime', 'status'];
 
         //Call to create table if not exist
         this.createTable();
@@ -24,7 +24,7 @@ class Role {
         try {
             if (result) {
                 let sql = `
-                    INSERT INTO role (${this.columnsList.toString()}) VALUES (?,?,?,?);
+                    INSERT INTO role (${this.columnsList.toString()}) VALUES (?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -68,12 +68,15 @@ class Role {
                 roleID BIGINT(100) PRIMARY KEY,
                 role varchar(255),
                 description text,
+                dateTime text,
                 status varchar(50)
             `),
 
             foreignKeyStatement: (``),
 
-            alterTableStatement: []
+            alterTableStatement: [
+                'dateTime text'
+            ],
         });
         let result = await CreateUpdateTable.checkTableExistence();
         return result;
