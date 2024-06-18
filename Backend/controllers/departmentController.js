@@ -58,17 +58,16 @@ module.exports = (socket, Database)=>{
                                 result = await DepartmentModel.insertTable([departmentID, name, description, color, 'active', gf.getDateTime(), sessionid]);
                             } else {
                                 result = await DepartmentModel.updateTable({
-                                    sql: 'name = ?, description = ?, color = ? WHERE departmentID = ? AND status = ?',
-                                    columns: [name, description, color, departmentID, 'active']
+                                    sql: 'userID = ?, department = ?, description = ? WHERE departmentID = ? AND status = ?',
+                                    columns: [userID, name, description, departmentID, 'active']
                                 });
                             }
                             if (result.affectedRows !== undefined) {
                                 const SessionActivityModel = new SessionActivity(Database);
                                 let activityid = gf.getTimeStamp();
-                                result = await SessionActivityModel.insertTable([activityid, sessionid, (hiddenid == "" || hiddenid == undefined) ? 'added a new department' : 'updated a department record', 'active', gf.getDateTime()]);
+                                result = await SessionActivityModel.insertTable([activityid, userid, gf.getDateTime(), (hiddenid == "" || hiddenid == undefined) ? 'added a new department' : 'updated a department record']);
                                 let message = hiddenid == "" || hiddenid == undefined ? 'Department has been created successfully' : 'Department has been updated successfully';
                                 if (result.affectedRows) {
-                                    socket.broadcast.emit('departmentBroadcast', 'success broadcast');
                                     socket.emit(melody1+'_insertNewDepartment', {
                                         type: 'success',
                                         message: message
