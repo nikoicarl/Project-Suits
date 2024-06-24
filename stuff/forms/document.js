@@ -59,7 +59,7 @@ return `
         </div>
     </div>
     <div class="card-body table-responsive p-0" >
-        <table class="table table-head-fixed text-nowrap">
+        <table class="table table-head-fixed text-nowrap table-striped">
             <thead>
                 <tr>
                     <th>#</th>
@@ -74,7 +74,7 @@ return `
                     <td>Law & Ethics Report</td>
                     <td>15MB</td>
                     <td>
-                        <a href="" class="badge badge-success p-2"><span class="fa fa-eye mr-1"></span>  View</a>
+                        <a href="" class="p-2"><span class="fa fa-eye mr-1"></span>  View</a>
                     </td>
                 </tr>
             </tbody>
