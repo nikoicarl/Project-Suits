@@ -14,6 +14,7 @@ try {
     const tableFetchController = require("./Backend/controllers/tableFetchController");
     const dashboardController = require("./Backend/controllers/dashboardController");
     const dropdownController = require("./Backend/controllers/dropdownController");
+    const departmentController = require("./Backend/controllers/departmentController");
 
     // Routers
     homeRouter = require('./Backend/Routers/homeRouter.js');
@@ -61,6 +62,7 @@ try {
             tableFetchController(socket, Database);
             dashboardController(socket, Database);
             dropdownController(socket, Database);
+            departmentController(socket, Database);
 
         } catch (error) {
             console.log(error)

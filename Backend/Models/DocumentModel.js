@@ -66,8 +66,8 @@ class Document {
             createTableStatement: (`
                 documentID BIGINT(100) PRIMARY KEY,
                 userID BIGINT(100),
-                department varchar(255),
-                description text,
+                fileName varchar(255),
+                dateTime text,
                 status varchar(50)
             `),
 
