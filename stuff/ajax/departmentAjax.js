@@ -1,6 +1,14 @@
 
 $(document).ready(function () {
 
+    let Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        heightAuto:true
+    });
+
     let holdUser;
 
     //User Dropdown

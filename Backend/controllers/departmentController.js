@@ -1,6 +1,6 @@
 const Department = require('../Models/DepartmentModel');
 // const Privilege = require('../Models/PrivilegeModel');
-const SessionActivity = require('../Models/SessionModel');
+const Session = require('../Models/SessionModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const getSessionIDs = require('./getSessionIDs');
 const gf = new GeneralFunction();
@@ -19,10 +19,11 @@ module.exports = (socket, Database)=>{
         let userid = session.userid;
         let sessionid = session.sessionid;
 
-        if (md5(userid) == browserblob.melody2) {
+
+        if (browserblob.melody2) {
             //Initiate connection
             const DepartmentModel = new Department(Database);
-            const PrivilegeModel = new Privilege(Database, userid);
+            // const PrivilegeModel = new Privilege(Database, userid);
 
             //Check for empty
             let result = await gf.ifEmpty([name]);
@@ -32,18 +33,18 @@ module.exports = (socket, Database)=>{
                     message: 'Enter department name!'
                 });
             } else {
-                let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
+                // let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
                 
                 let privilege;
                 if (hiddenid == "" || hiddenid == undefined) {
-                    privilege = privilegeData.add_department;
+                    privilege = "yes";
                 } else {
-                    privilege = privilegeData.update_department;
+                    privilege = "yes";
                 }
                 if (privilege == "yes") {
                     let departmentID = hiddenid == "" || hiddenid == undefined ? 0 : hiddenid;
                     result = await DepartmentModel.preparedFetch({
-                        sql: 'name = ? AND departmentID != ? AND status =?',
+                        sql: 'department = ? AND departmentID != ? AND status =?',
                         columns: [name, departmentID, 'active']
                     });
                     if (Array.isArray(result)) {
@@ -55,7 +56,7 @@ module.exports = (socket, Database)=>{
                         } else {
                             if (hiddenid == "" || hiddenid == undefined) {
                                 departmentID = gf.getTimeStamp();
-                                result = await DepartmentModel.insertTable([departmentID, name, description, color, 'active', gf.getDateTime(), sessionid]);
+                                result = await DepartmentModel.insertTable([departmentID,userID, name, description, gf.getDateTime(), 'active']);
                             } else {
                                 result = await DepartmentModel.updateTable({
                                     sql: 'userID = ?, department = ?, description = ? WHERE departmentID = ? AND status = ?',
@@ -63,9 +64,9 @@ module.exports = (socket, Database)=>{
                                 });
                             }
                             if (result.affectedRows !== undefined) {
-                                const SessionActivityModel = new SessionActivity(Database);
+                                const SessionModel = new Session(Database);
                                 let activityid = gf.getTimeStamp();
-                                result = await SessionActivityModel.insertTable([activityid, userid, gf.getDateTime(), (hiddenid == "" || hiddenid == undefined) ? 'added a new department' : 'updated a department record']);
+                                result = await SessionModel.insertTable([activityid, userid, gf.getDateTime(), (hiddenid == "" || hiddenid == undefined) ? 'added a new department' : 'updated a department record']);
                                 let message = hiddenid == "" || hiddenid == undefined ? 'Department has been created successfully' : 'Department has been updated successfully';
                                 if (result.affectedRows) {
                                     socket.emit(melody1+'_insertNewDepartment', {
