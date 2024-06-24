@@ -44,7 +44,7 @@ return `
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Fixed Header Table</h3>
+        <h3 class="card-title">Documents</h3>
 
         <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
@@ -74,7 +74,7 @@ return `
                     <td>Law & Ethics Report</td>
                     <td>15MB</td>
                     <td>
-                        <a href="" class="badge badge-info p-2"><span class="fa fa-eye mr-2"></span>  View</a>
+                        <a href="" class="badge badge-success p-2"><span class="fa fa-eye mr-1"></span>  View</a>
                     </td>
                 </tr>
             </tbody>
