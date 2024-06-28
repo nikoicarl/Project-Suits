@@ -66,7 +66,7 @@ class User {
                 password text,
                 roleID BIGINT(100),
                 dateTime text,
-                status varchar(50)
+                status varchar(1)
             `),
 
             foreignKeyStatement: (`

@@ -69,7 +69,7 @@ class Role {
                 role varchar(255),
                 description text,
                 dateTime text,
-                status varchar(50)
+                status varchar(1)
             `),
 
             foreignKeyStatement: (``),

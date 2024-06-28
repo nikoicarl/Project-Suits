@@ -68,7 +68,7 @@ class Document {
                 userID BIGINT(100),
                 fileName varchar(255),
                 dateTime text,
-                status varchar(50)
+                status varchar(1)
             `),
 
             foreignKeyStatement: (``),
