@@ -25,7 +25,7 @@ module.exports = function (socket, Database) {
             //Check existence of username
             let checkresult = await UserModel.preparedFetch({
                 sql: 'userID = ? AND status = ? OR  userID = ? AND status = ?',
-                columns: [userID, 'a', userID, 'admin']
+                columns: [userID, 'a', userID, 'ad']
             });
 
             if (Array.isArray(checkresult)) {

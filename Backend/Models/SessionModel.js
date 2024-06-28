@@ -63,7 +63,7 @@ class Session {
                 sessionID BIGINT(100) PRIMARY KEY,
                 userID BIGINT(100),
                 DateTime text,
-                activity varchar(1)
+                activity varchar(255)
             `),
 
             foreignKeyStatement: (`
