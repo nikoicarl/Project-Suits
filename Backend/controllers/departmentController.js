@@ -45,7 +45,7 @@ module.exports = (socket, Database)=>{
                     let departmentID = hiddenid == "" || hiddenid == undefined ? 0 : hiddenid;
                     result = await DepartmentModel.preparedFetch({
                         sql: 'department = ? AND departmentID != ? AND status =?',
-                        columns: [name, departmentID, 'active']
+                        columns: [name, departmentID, 'a']
                     });
                     if (Array.isArray(result)) {
                         if (result.length > 0) {
@@ -56,11 +56,11 @@ module.exports = (socket, Database)=>{
                         } else {
                             if (hiddenid == "" || hiddenid == undefined) {
                                 departmentID = gf.getTimeStamp();
-                                result = await DepartmentModel.insertTable([departmentID,userID, name, description, gf.getDateTime(), 'active']);
+                                result = await DepartmentModel.insertTable([departmentID,userID, name, description, gf.getDateTime(), 'a']);
                             } else {
                                 result = await DepartmentModel.updateTable({
                                     sql: 'userID = ?, department = ?, description = ? WHERE departmentID = ? AND status = ?',
-                                    columns: [userID, name, description, departmentID, 'active']
+                                    columns: [userID, name, description, departmentID, 'a']
                                 });
                             }
                             if (result.affectedRows !== undefined) {

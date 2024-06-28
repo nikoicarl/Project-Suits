@@ -30,7 +30,7 @@ module.exports = (socket, Database) => {
 
                 result = await UserModel.preparedFetch({
                     sql: 'status = ?',
-                    columns: ['active']
+                    columns: ['a']
                 });
                 if (Array.isArray(result)) {
                     socket.emit(melody1 + '_' + param, result);
