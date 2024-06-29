@@ -12,37 +12,65 @@ function Profile() {
     `;
 }
 
-
 function ProfileForm() {
     return `
+   <div class="container mt-5">
         <div class="card">
             <div class="card-body">
+                <!-- Personal Information -->
+                <h5>Personal Information</h5>
                 <form action="" class="ps_profile_form">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group mb-4">
-                                <label>Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control ps_profile_name" placeholder="Name" required>
-                            </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>First Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label>Last Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" placeholder="Last Name" required>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group mb-4">
-                                <label>Description </label>
-                                <textarea name=""  placeholder="Description" class="form-control ps_profile_description" rows="2"></textarea>
-                            </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Phone <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" placeholder="Phone" required>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label>Address</label>
+                            <input type="text" id="autocomplete" class="form-control" placeholder="Address">
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary ps_profile_submit float-right">Submit</button>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" placeholder="Email Address">
+                        </div>
+                    </div>
+                    <!-- Account Changes -->
+                    <h5>Account Changes</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Current Password <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" placeholder="Current Password" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>New Password <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" placeholder="New Password" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Confirm Password <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" placeholder="Confirm Password" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary ps_profile_submit">Save Changes</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+    </div>
 
     `;
 }

@@ -569,6 +569,32 @@ function displayFileIcon(fileName) {
     return iconsHtml
 }
 
+// Load the Google Maps Places API script dynamically
+    function loadMaps() {
+
+        function loadGoogleMapsAPI() {
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB8sEX-yL1gcEnnCLM5jS4NQGS5c4n3nYI&libraries=places';
+            script.async = true;
+            script.defer = true;
+            script.onload = initAutocomplete;
+            document.head.appendChild(script);
+        }
+    
+        // Initialize the autocomplete function
+        function initAutocomplete() {
+            const input = document.getElementById('autocomplete');
+            if (input) {
+                const autocomplete = new google.maps.places.Autocomplete(input);
+                autocomplete.setFields(['address_component']);
+            }
+        }
+    
+        // Attach the loadGoogleMapsAPI function to the window load event
+        window.addEventListener('load', loadGoogleMapsAPI);
+    }
+
+
 socket.on('_no_remaining_sms_alert', (data) => {
     if (data.type == 'caution') {
         swal({
