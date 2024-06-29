@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 25, 2024 at 06:28 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.29
+-- Host: localhost:3306
+-- Generation Time: Jun 29, 2024 at 12:25 AM
+-- Server version: 5.7.24
+-- PHP Version: 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,19 +31,9 @@ CREATE TABLE `department` (
   `departmentID` bigint(100) NOT NULL,
   `userID` bigint(100) DEFAULT NULL,
   `department` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `dateTime` text NOT NULL,
+  `description` text,
   `status` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `department`
---
-
-INSERT INTO `department` (`departmentID`, `userID`, `department`, `description`, `dateTime`, `status`) VALUES
-(81173688, 1002, '312', '321', '2024-06-17 22:25:03', 'active'),
-(81868781, 1002, '231', '3123', '2024-06-17 22:34:01', 'active'),
-(86271188, 1002, '432', '432', '2024-06-17 22:24:08', 'active');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -55,9 +45,9 @@ CREATE TABLE `document` (
   `documentID` bigint(100) NOT NULL,
   `userID` bigint(100) DEFAULT NULL,
   `department` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `status` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -68,16 +58,9 @@ CREATE TABLE `document` (
 CREATE TABLE `role` (
   `roleID` bigint(100) NOT NULL,
   `role` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `status` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `role`
---
-
-INSERT INTO `role` (`roleID`, `role`, `description`, `status`) VALUES
-(1, 'System Administrator', 'sysadmin', 'admin');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -88,114 +71,38 @@ INSERT INTO `role` (`roleID`, `role`, `description`, `status`) VALUES
 CREATE TABLE `session` (
   `sessionID` bigint(100) NOT NULL,
   `userID` bigint(100) DEFAULT NULL,
-  `DateTime` text DEFAULT NULL,
+  `DateTime` text,
   `activity` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `session`
 --
 
 INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
-(1418576, 1001, '2024-05-27 13:09:22', 'logged into system'),
-(1771197, 1001, '2024-05-30 12:25:31', 'logged out of system'),
-(10871987, 1001, '2024-05-30 10:24:02', 'logged into system'),
-(11170170, 1001, '2024-05-30 13:30:27', 'logged out of system'),
-(11178237, 1001, '2024-06-12 11:35:45', 'logged into system'),
-(11281717, 1001, '2024-06-12 11:32:37', 'logged into system'),
-(11377124, 1001, '2024-05-31 20:58:29', 'logged out of system'),
-(11547771, 1001, '2024-05-31 10:11:07', 'logged out of system'),
-(11571717, 1001, '2024-05-31 09:06:39', 'logged into system'),
-(11737712, 1001, '2024-05-30 20:48:21', 'logged out of system'),
-(11812177, 1001, '2024-06-12 11:33:13', 'logged into system'),
-(11870378, 1001, '2024-06-02 19:13:58', 'logged into system'),
-(11880476, 1001, '2024-05-27 13:13:57', 'logged out of system'),
-(12187117, 1001, '2024-06-12 11:32:59', 'logged out of system'),
-(12785164, 1001, '2024-05-27 13:42:48', 'logged out of system'),
-(12878416, 1001, '2024-06-12 19:47:42', 'logged out of system'),
-(13817866, 1001, '2024-06-17 21:08:04', 'logged into system'),
-(14827112, 1001, '2024-06-12 12:44:10', 'logged into system'),
-(15174077, 1001, '2024-06-03 14:39:17', 'logged into system'),
-(16419748, 1001, '2024-05-27 14:22:33', 'logged out of system'),
-(16777311, 1001, '2024-06-02 13:55:58', 'logged into system'),
-(17098197, 1001, '2024-05-30 13:10:05', 'logged into system'),
-(17178531, 1001, '2024-06-02 19:25:25', 'logged into system'),
-(17617350, 1001, '2024-06-05 22:51:28', 'logged into system'),
-(17621587, 1001, '2024-06-17 18:47:38', 'logged out of system'),
-(17681428, 1001, '2024-06-12 19:47:47', 'logged into system'),
-(17731241, 1001, '2024-05-31 20:58:39', 'logged into system'),
-(17738511, 1001, '2024-06-02 19:25:18', 'logged out of system'),
-(17812571, 1001, '2024-05-30 21:08:46', 'logged into system'),
-(17861644, 1001, '2024-05-27 14:18:15', 'logged into system'),
-(17868114, 1001, '2024-05-27 15:15:01', 'logged out of system'),
-(17886177, 1001, '2024-06-17 22:15:58', 'logged into system'),
-(17917001, 1001, '2024-05-30 13:29:53', 'logged into system'),
-(18175122, 1001, '2024-06-12 11:00:07', 'logged into system'),
-(18718642, 1001, '2024-05-27 15:16:45', 'logged into system'),
-(18746118, 1001, '2024-05-27 15:15:09', 'logged into system'),
-(19081777, 1001, '2024-05-30 12:37:59', 'logged into system'),
-(19084317, 1001, '2024-06-13 11:55:33', 'logged into system'),
-(19760172, 1001, '2024-05-28 13:10:42', 'logged into system'),
-(21184867, 1001, '2024-06-12 19:47:58', 'logged into system'),
-(21377612, 1001, '2024-06-02 14:04:06', 'logged out of system'),
-(21707196, 1001, '2024-05-28 13:10:35', 'logged out of system'),
-(21718412, 1001, '2024-06-12 12:44:05', 'logged out of system'),
-(22711017, 1001, '2024-05-30 13:50:26', 'logged into system'),
-(28117117, 1001, '2024-06-12 11:32:12', 'logged out of system'),
-(33791138, 1001, '2024-06-13 21:29:19', 'logged into system'),
-(37167167, 1001, '2024-06-02 18:03:56', 'logged out of system'),
-(41617881, 1001, '2024-05-27 15:16:01', 'logged out of system'),
-(45716814, 1001, '2024-05-27 14:30:52', 'logged into system'),
-(47171468, 1001, '2024-05-27 14:19:12', 'logged out of system'),
-(47614971, 1001, '2024-05-28 18:06:39', 'logged into system'),
-(51711774, 1001, '2024-05-31 10:11:15', 'logged into system'),
-(52110947, 1001, '2024-06-24 10:34:59', 'logged into system'),
-(59781761, 1001, '2024-05-27 17:59:37', 'logged into system'),
-(61447871, 1001, '2024-05-27 14:19:27', 'logged into system'),
-(61818927, 1001, '2024-06-13 10:10:09', 'logged into system'),
-(61870173, 1001, '2024-05-30 03:10:25', 'logged into system'),
-(64771791, 1001, '2024-06-03 22:41:22', 'logged into system'),
-(66171377, 1001, '2024-06-02 18:04:04', 'logged into system'),
-(67177818, 1001, '2024-06-17 22:15:54', 'logged out of system'),
-(67271179, 1001, '2024-05-28 13:22:35', 'logged out of system'),
-(67418451, 1001, '2024-05-27 14:15:31', 'logged out of system'),
-(67814110, 1001, '2024-05-27 13:16:42', 'logged out of system'),
-(69721581, 1001, '2024-06-13 09:20:34', 'logged out of system'),
-(70191170, 1001, '2024-05-30 13:29:34', 'logged out of system'),
-(71538618, 1001, '2024-05-27 18:05:13', 'logged out of system'),
-(71562910, 1001, '2024-06-24 10:37:23', 'logged into system'),
-(71711182, 1001, '2024-06-12 11:32:15', 'logged into system'),
-(71871078, 1001, '2024-05-30 09:51:37', 'logged into system'),
-(71879170, 1001, '2024-05-30 12:37:52', 'logged out of system'),
-(75717141, 1001, '2024-05-31 09:56:21', 'logged into system'),
-(75921176, 1001, '2024-06-01 08:48:23', 'logged out of system'),
-(76112977, 1001, '2024-05-28 13:22:11', 'logged out of system'),
-(76116068, 1001, '2024-05-27 18:43:29', 'logged into system'),
-(76811177, 1001, '2024-05-31 11:04:32', 'logged into system'),
-(77101272, 1001, '2024-05-31 19:00:42', 'logged into system'),
-(77126173, 1001, '2024-06-02 14:12:26', 'logged into system'),
-(78117652, 1001, '2024-06-17 18:47:46', 'logged into system'),
-(78171112, 1001, '2024-06-12 11:32:29', 'logged out of system'),
-(78261145, 1001, '2024-05-27 13:42:55', 'logged into system'),
-(79161278, 1001, '2024-06-24 15:38:54', 'logged into system'),
-(81081777, 1001, '2024-05-30 09:51:36', 'logged into system'),
-(81127771, 1001, '2024-05-30 20:57:25', 'logged into system'),
-(81771213, 1001, '2024-06-12 11:35:27', 'logged out of system'),
-(81887681, NULL, '2024-06-17 22:34:01', 'added a new department'),
-(83937211, 1001, '2024-06-13 21:27:41', 'logged into system'),
-(84186271, 1001, '2024-05-27 15:17:30', 'logged out of system'),
-(84611017, 1001, '2024-05-27 13:16:47', 'logged into system'),
-(86071137, 1001, '2024-05-30 03:10:15', 'logged out of system'),
-(86766117, 1001, '2024-06-17 16:40:54', 'logged into system'),
-(87119976, 1001, '2024-05-29 08:50:42', 'logged into system'),
-(87811460, 1001, '2024-05-27 13:14:02', 'logged into system'),
-(87862114, 1001, '2024-06-12 19:47:54', 'logged out of system'),
-(88181367, NULL, '2024-06-17 22:25:03', 'added a new department'),
-(88816127, NULL, '2024-06-17 22:24:08', 'added a new department'),
-(91676291, 1001, '2024-05-28 13:09:12', 'logged into system'),
-(91777012, 1001, '2024-05-30 12:27:12', 'logged into system'),
-(97088711, 1001, '2024-05-30 10:23:56', 'logged out of system'),
-(97767112, 1001, '2024-05-28 13:22:21', 'logged into system');
+(5187311, 2001, '2024-06-13 10:58:55', 'logged into system'),
+(11317018, 1001, '2024-06-13 10:51:44', 'logged into system'),
+(13781013, 1001, '2024-06-13 10:56:11', 'logged out of system'),
+(14475167, 1, '2024-06-03 15:43:32', 'logged into system'),
+(17177863, 1, '2024-06-02 18:07:32', 'logged into system'),
+(17418137, 1, '2024-06-03 09:23:41', 'logged into system'),
+(17471295, 1, '2024-06-03 15:15:40', 'logged out of system'),
+(17651574, 1, '2024-06-03 16:15:38', 'logged out of system'),
+(25178741, 1, '2024-06-03 15:14:34', 'logged into system'),
+(27874115, 1, '2024-06-03 15:14:28', 'logged out of system'),
+(37171773, 1, '2024-06-02 18:15:08', 'logged out of system'),
+(41318717, 1, '2024-06-03 09:24:48', 'logged out of system'),
+(41752917, 1, '2024-06-03 15:15:52', 'logged into system'),
+(41926710, 2001, '2024-06-28 17:20:44', 'logged into system'),
+(47157013, 1, '2024-06-03 15:16:51', 'logged out of system'),
+(54187171, 1, '2024-06-03 14:56:50', 'logged into system'),
+(56174715, 1, '2024-06-03 16:15:40', 'logged into system'),
+(57701145, 1, '2024-06-03 15:50:10', 'logged into system'),
+(63717817, 1, '2024-06-02 18:06:51', 'logged into system'),
+(71178376, 1, '2024-06-02 18:07:30', 'logged out of system'),
+(71447518, 1, '2024-06-03 15:47:42', 'logged into system'),
+(71654571, 1, '2024-06-03 16:15:50', 'logged out of system'),
+(81170368, 1001, '2024-06-10 18:13:15', 'logged into system');
 
 -- --------------------------------------------------------
 
@@ -206,18 +113,30 @@ INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
 CREATE TABLE `user` (
   `userID` bigint(100) NOT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `password` text DEFAULT NULL,
+  `password` text,
   `roleID` bigint(100) DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`userID`, `username`, `password`, `roleID`, `status`) VALUES
-(1001, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 1, 'admin'),
-(1002, '321312', '31231', 123123, 'active');
+(1001, 'Jessica Pearson', '827ccb0eea8a706c4c34a16891f84e7b', 100, 'ad'),
+(2001, 'Harvey Specter', 'd0970714757783e6cf17b26fb8e2298f', 200, 'a'),
+(2011, 'Louis Litt', 'd0970714757783e6cf17b26fb8e2298f', 201, 'a'),
+(2012, 'Katrina Bennett', 'd0970714757783e6cf17b26fb8e2298f', 211, 'a'),
+(2021, 'Samantha Wheeler', 'd0970714757783e6cf17b26fb8e2298f', 202, 'a'),
+(2022, 'Dana Scott', 'd0970714757783e6cf17b26fb8e2298f', 212, 'a'),
+(2031, 'Alex Williams', 'd0970714757783e6cf17b26fb8e2298f', 203, 'a'),
+(2032, 'Travis Tanner', 'd0970714757783e6cf17b26fb8e2298f', 213, 'a'),
+(3001, 'Rachel Zane', '2bd12a930c3012f9bb4e0ea9bec9a3fc', 301, 'a'),
+(3011, 'Harold Gunderson', '2bd12a930c3012f9bb4e0ea9bec9a3fc', 311, 'a'),
+(4001, 'Donna Paulson', '674f3c2c1a8a6f90461e8a66fb5550ba', 401, 'a'),
+(4011, 'Gretchen', '674f3c2c1a8a6f90461e8a66fb5550ba', 411, 'a'),
+(5001, 'Nathan Kruger', '91022ad929eaa50da47fb4d9e820b6cc', 501, 'a'),
+(5011, 'Jeff Malone', '91022ad929eaa50da47fb4d9e820b6cc', 511, 'a');
 
 --
 -- Indexes for dumped tables
@@ -245,24 +164,13 @@ ALTER TABLE `role`
 -- Indexes for table `session`
 --
 ALTER TABLE `session`
-  ADD PRIMARY KEY (`sessionID`),
-  ADD KEY `userID` (`userID`);
+  ADD PRIMARY KEY (`sessionID`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userID`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `session`
---
-ALTER TABLE `session`
-  ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
