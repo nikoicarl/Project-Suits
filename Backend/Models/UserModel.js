@@ -9,7 +9,7 @@ class User {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['userID', 'username', 'password', 'roleID', 'dateTime', 'status'];
+        this.columnsList = ['userID', 'firstName','lastName', 'email', 'phone', 'address', 'username', 'password', 'roleID', 'dateTime', 'status'];
 
         //Call to create table if not exist
         this.createTable();
