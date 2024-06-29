@@ -21,7 +21,7 @@ class User {
         try {
             if (result) {
                 let sql = `
-                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
+                    INSERT IGNORE INTO user (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?,?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -62,6 +62,11 @@ class User {
 
             createTableStatement: (`
                 userID BIGINT(100) PRIMARY KEY,
+                firstName varchar(50),
+                lastName varchar(50),
+                email varchar(50),
+                phone varchar(10), 
+                address text,
                 username varchar(255),
                 password text,
                 roleID BIGINT(100),
@@ -75,7 +80,12 @@ class User {
             `),
 
             alterTableStatement: [
-                'dateTime text'
+                'dateTime text',
+                'firstName varchar(50)',
+                'lastName varchar(50)',
+                'email varchar(50)',
+                'phone varchar(10)',
+                'address text'
             ],
         });
         let result = await CreateUpdateTable.checkTableExistence();
