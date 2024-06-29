@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 29, 2024 at 12:25 AM
+-- Generation Time: Jun 29, 2024 at 05:51 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -35,6 +35,17 @@ CREATE TABLE `department` (
   `status` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`departmentID`, `userID`, `department`, `description`, `status`) VALUES
+(1, NULL, 'Admin', 'Administrator', 'a'),
+(2, NULL, 'Lawyers', 'Lawyers Department', 'a'),
+(3, NULL, 'Paralegal', 'Paralegal Department', 'a'),
+(4, NULL, 'Human Resource', 'HR Department', 'a'),
+(5, NULL, 'Accounting', 'Accounting Department', 'a');
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +73,27 @@ CREATE TABLE `role` (
   `status` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`roleID`, `role`, `description`, `status`) VALUES
+(100, 'Admin', 'The Administrator has full access to the system. It can manage the departments, users and their privileges.', 'ad'),
+(200, 'Lawyer', 'This role code is for lawyers. Specifically, it is for the Sr. Corporate Lawyer of the firm.', 'a'),
+(201, 'Lawyer', 'This role code is for lawyers. Specifically, this role is for the Sr. Civil Lawyer of the firm.', 'a'),
+(202, 'Lawyer', 'This role code is for lawyers. Specifically, it is for the Sr. Criminal Lawyer of the firm.', 'a'),
+(203, 'Lawyer', 'This role code is for lawyers. Specifically, it is for the Sr. Financial Lawyer of the firm.', 'a'),
+(210, 'Associate', 'This role code is for Junior Associates. Specifically, this role is for Jr. Associate for 200.', 'a'),
+(211, 'Associate', 'This role code is for Junior Associates. Specifically, this role is for Jr. Associate for 201.', 'a'),
+(212, 'Associate', 'This role code is for Junior Associates. Specifically, this role is for Jr. Associate for 202.', 'a'),
+(213, 'Associate', 'This role code is for Junior Associates. Specifically, this role is for Jr. Associate for 203.', 'a'),
+(301, 'Paralegals', 'This role code is for paralegals. Specifically, it is for the Sr. Paralegal of the firm.', 'a'),
+(311, 'Assistant Paralegal', 'This role code is for Junior Paralegals. Specifically, this role is for Jr. Paralegal for 301.', 'a'),
+(401, 'Human Resources', 'This role code is for HR employees. Specifically, it is for the Sr. HR Manager of the firm.', 'a'),
+(411, 'Assistant HR', 'This role code is for Junior Associates. Specifically, this role is for Jr. HR Manager for 401.', 'a'),
+(501, 'Accounting Manager', 'This role code is for accountants. Specifically, it is for the Sr. Accounting Manager of the firm.', 'a'),
+(511, 'Junior Accountant', 'This role code is for Junior Associates. Specifically, this role is for a Jr. Accountant for 501.', 'a');
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +114,7 @@ CREATE TABLE `session` (
 INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
 (5187311, 2001, '2024-06-13 10:58:55', 'logged into system'),
 (11317018, 1001, '2024-06-13 10:51:44', 'logged into system'),
+(11762390, 1001, '2024-06-28 20:33:31', 'logged into system'),
 (13781013, 1001, '2024-06-13 10:56:11', 'logged out of system'),
 (14475167, 1, '2024-06-03 15:43:32', 'logged into system'),
 (17177863, 1, '2024-06-02 18:07:32', 'logged into system'),
@@ -90,6 +123,8 @@ INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
 (17651574, 1, '2024-06-03 16:15:38', 'logged out of system'),
 (25178741, 1, '2024-06-03 15:14:34', 'logged into system'),
 (27874115, 1, '2024-06-03 15:14:28', 'logged out of system'),
+(31769172, 1001, '2024-06-28 20:45:13', 'logged out of system'),
+(32591617, 2001, '2024-06-28 18:41:58', 'logged into system'),
 (37171773, 1, '2024-06-02 18:15:08', 'logged out of system'),
 (41318717, 1, '2024-06-03 09:24:48', 'logged out of system'),
 (41752917, 1, '2024-06-03 15:15:52', 'logged into system'),
@@ -99,9 +134,12 @@ INSERT INTO `session` (`sessionID`, `userID`, `DateTime`, `activity`) VALUES
 (56174715, 1, '2024-06-03 16:15:40', 'logged into system'),
 (57701145, 1, '2024-06-03 15:50:10', 'logged into system'),
 (63717817, 1, '2024-06-02 18:06:51', 'logged into system'),
+(63912751, 2001, '2024-06-28 18:41:55', 'logged out of system'),
+(71129365, 2001, '2024-06-28 18:42:14', 'logged out of system'),
 (71178376, 1, '2024-06-02 18:07:30', 'logged out of system'),
 (71447518, 1, '2024-06-03 15:47:42', 'logged into system'),
 (71654571, 1, '2024-06-03 16:15:50', 'logged out of system'),
+(79161235, 1001, '2024-06-28 18:42:46', 'logged into system'),
 (81170368, 1001, '2024-06-10 18:13:15', 'logged into system');
 
 -- --------------------------------------------------------
