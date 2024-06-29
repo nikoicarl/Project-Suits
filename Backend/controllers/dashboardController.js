@@ -37,13 +37,13 @@ module.exports = (socket, Database) => {
 
                 let documentData = await DocumentModel.countFetch({
                     sql: 'status = ?',
-                    columns: ['active']
+                    columns: ['a']
                 });
                 totalDocuments = Array.isArray(documentData) && documentData.length > 0 ? documentData[0]['COUNT(documentID)'] : 0;
 
                 let departmentData = await DepartmentModel.countFetch({
                     sql: 'status = ?',
-                    columns: ['active']
+                    columns: ['a']
                 });
                 totalDepartments = Array.isArray(departmentData) && departmentData.length > 0 ? departmentData[0]['COUNT(departmentID)'] : 0;
 

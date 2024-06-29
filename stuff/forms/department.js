@@ -51,6 +51,53 @@ function DepartmentForm() {
                 </div>
             </div>
         </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Departments</h3>
+        
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+        
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0" >
+                <table class="table table-head-fixed text-nowrap table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Department</th>
+                            <th>User</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Finance</td>
+                            <td>William Clarke</td>
+                            <td>This is a description</td>
+                            <td>
+                                <span class="badge badge-success p-2">Active</span>
+                            </td>
+                            <td>
+                                <a href="" class="p-2"><span class="fa fa-pen mr-1"></span>  Edit</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
     `;
 }
 
