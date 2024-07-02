@@ -10,45 +10,52 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="/dashboard" class="nav-link  ps_main_navigation_btn"  data-navparent="navbar_overall_parent" data-scripts="single::/dashboardAjax">
+                    <a href="/dashboard" class="nav-link  ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/dashboardAjax">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/document" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent" data-scripts="single::/documentAjax">
+                    <a href="/document" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/documentAjax">
                         <i class="nav-icon fas fa-folder"></i>
                         <p>Manage Documents</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/department" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent" data-scripts="single::/departmentAjax">
+                    <a href="/department" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/departmentAjax">
                         <i class="nav-icon fas fa-chart-bar"></i>
                         <p>Manage Department</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/privilege" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent" data-scripts="single::/privilegeAjax">
+                    <a href="/privilege" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/privilegeAjax">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>Manage Privileges</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/user" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent" data-scripts="single::/userAjax">
+                    <a href="/user" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/userAjax">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Manage User</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/role" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent" data-scripts="single::/roleAjax">
+                    <a href="/role" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/roleAjax">
                         <i class="nav-icon fas fa-user-alt"></i>
                         <p>Manage Role</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/contact" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent" data-scripts="single::/contactAjax
+                    <a href="/contact" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/contactAjax
                     ">
                         <i class="nav-icon fas fa-laptop"></i>
                         <p>Contact IT Department</p>
@@ -56,11 +63,43 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="/report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent" data-scripts="single::/reportAjax
-                    ">
+                    <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-chart-area"></i>
-                        <p>Reports</p>
+                        <p>
+                            Reports
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/upload_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/uploadReportAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Document Upload </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/uploadreport" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/uploadreportAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Document Upload </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/department_state_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/departmentStateReportAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Department State </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/deactivation_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/deactivationReportAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Deactivation  </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>
