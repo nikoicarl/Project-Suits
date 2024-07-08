@@ -1,31 +1,22 @@
 const CreateUpdateModel = require('./CreateUpdateModel');
 const Apps = require('./AppsModel');
 const CombinePrivilege = require('./CombinePrivilegeModel');
-const GeneralFunction = require('../administration/GeneralFunctionModel');
+const GeneralFunction = require('./GeneralFunctionModel');
 const gf = new GeneralFunction();
 
-const PrivilegeAccount = require('../accounts/PrivilegeAccountModel');
-const PrivilegeAdministration = require('../administration/PrivilegeAdministrationModel');
-const PrivilegeCustomerService = require('../administration/PrivilegeCustomerServiceModel');
-const PrivilegeReport = require('../administration/PrivilegeReportModel');
-const PrivilegeHumanResource = require('../hr/PrivilegeHumanResourceModel');
-const PrivilegeWasteManagement = require('../operations/PrivilegeWasteManagementModel');
-const PrivilegePos = require('../pos/PrivilegePosModel');
-const PrivilegeProcurement = require('../procurement/PrivilegeProcurementModel');
-const PrivilegeMother = require('../administration/PrivilegeMotherModel');
-const PrivilegePharmacy = require('../pharmacy/PrivilegePharmacyModel');
-const PrivilegeManagement = require('../management/PrivilegeManagementModel');
+const PrivilegePearsonSpector = require('./PrivilegeModel');
+
 
 class PrivilegeFeature {
     /**
      * Constructor of this class
      * @param {object} Database - A database connection object that will allows connection to the database.
-     * @param {number} accountid - An account id in which queries will be performed on.
+     * @param {number} accountID - An account id in which queries will be performed on.
      */
-    constructor(Database, accountid) {
+    constructor(Database, accountID) {
         this.Database = Database;
 
-        this.accountid = accountid;
+        this.accountID = accountID;
 
         this.apps = [];
 
@@ -38,15 +29,23 @@ class PrivilegeFeature {
      * A method that fetches for categorized app supported by business for frontend display.
      */
     async getFrontendPrivileges() {
-        let appList = [];
-        appList['dbmns'] = {
-            tableTitle: PrivilegeAccount.tableTitle,
-            tableName: PrivilegeAccount.tableName,
-            funcName: PrivilegeAccount.funcName,
-            allCheckBox: PrivilegeAccount.allCheckBoxName,
-            icon: PrivilegeAccount.icon,
-            columnList: PrivilegeAccount.columnList
-        };
+        let appList = {};
+        let apps = await this.fetchApps();
+        if (apps.length > 0) {
+            for (let i = 0; i < apps.length; i++) {
+                const app = apps[i];
+                if (app.app == 'pearson_spector') {
+                    appList['pearson_spector'] = {
+                        tableTitle: PrivilegePearsonSpector.tableTitle,
+                        tableName: PrivilegePearsonSpector.tableName,
+                        funcName: PrivilegePearsonSpector.funcName,
+                        allCheckBox: PrivilegePearsonSpector.allCheckBoxName,
+                        icon: PrivilegePearsonSpector.icon,
+                        columnList: PrivilegePearsonSpector.columnList
+                    };
+                } 
+            }
+        }
 
         return appList;
     }
@@ -58,21 +57,21 @@ class PrivilegeFeature {
      * @param {string} columnsValue - The value of the first column.
      * @param {string} category - The column of which the it value should be updated.
      * @param {string} categoryValue - The value of the first column.
-     * @param {number} accountid - An account id in which queries will be performed on.
+     * @param {number} accountID - An account id in which queries will be performed on.
      */
-    async updateSingleTable(table, column, columnsValue, category, categoryValue, accountid) {
-        let result = await this.checkSinglePrivilegeExistence(table, accountid);
+    async updateSingleTable(table, column, columnsValue, category, categoryValue, accountID) {
+        let result = await this.checkSinglePrivilegeExistence(table, accountID);
         let queryresult = '';
         if (result.length > 0) {
             queryresult = await this.Database.setupConnection({
-                sql: 'UPDATE '+table+' SET '+column+' = ?, '+category+' = ? WHERE accountid = ?',
-                columns: [columnsValue, categoryValue, accountid]
+                sql: 'UPDATE '+table+' SET '+column+' = ?, '+category+' = ? WHERE accountID = ?',
+                columns: [columnsValue, categoryValue, accountID]
             }, 'object');
         } else {
             let privilegeid = gf.getTimeStamp();
             queryresult = await this.Database.setupConnection({
-                sql: 'INSERT INTO '+table+' (privilegeid, accountid, '+column+', '+category+') VALUES(?, ?, ?, ?)',
-                columns: [privilegeid, accountid, columnsValue, categoryValue]
+                sql: 'INSERT INTO '+table+' (privilegeid, accountID, '+column+', '+category+') VALUES(?, ?, ?, ?)',
+                columns: [privilegeid, accountID, columnsValue, categoryValue]
             }, 'object');
         }
         if (queryresult.affectedRows) {
@@ -86,24 +85,31 @@ class PrivilegeFeature {
      * A method to run an update query for a all columns
      * @param {string} table - Privilege table of which this query should be executed on.
      * @param {string} dataValue - The constant value which are: yes||no to update the looped columns.
-     * @param {number} accountid - An account id in which queries will be performed on.
+     * @param {number} accountID - An account id in which queries will be performed on.
      */
-    async updateAllTableColumns(table, dataValue, accountid) {
+    async updateAllTableColumns(table, dataValue, accountID) {
         let privilegeArray = [], sql;
-        let queryresult = '';
+        if (table == 'privilege_pearson_specter') {
+            privilegeArray = PrivilegePearsonSpector.columnList;
+        }
+
+        for (let i = 0; i < privilegeArray.length; i++) {
+            let result = await this.checkSinglePrivilegeExistence(table, accountID);
+            let queryresult = '';
             if (result.length > 0) {
                 queryresult = await this.Database.setupConnection({
-                    sql: 'UPDATE '+table+' SET '+privilegeArray[i]+' = ? WHERE accountid = ?',
-                    columns: [dataValue, accountid]
+                    sql: 'UPDATE '+table+' SET '+privilegeArray[i]+' = ? WHERE accountID = ?',
+                    columns: [dataValue, accountID]
                 }, 'object');
             } else {
                 let privilegeid = gf.getTimeStamp();
                 queryresult = await this.Database.setupConnection({
-                    sql: 'INSERT INTO '+table+' (privilegeid, accountid, '+privilegeArray[i]+') VALUES(?, ?, ?)',
-                    columns: [privilegeid, accountid, dataValue]
+                    sql: 'INSERT INTO '+table+' (privilegeid, accountID, '+privilegeArray[i]+') VALUES(?, ?, ?)',
+                    columns: [privilegeid, accountID, dataValue]
                 }, 'object');
             }
             queryresult.affectedRows != undefined ? '' : console.log(queryresult);
+        }
         return {
             affectedRows: 1
         }
@@ -114,23 +120,23 @@ class PrivilegeFeature {
      * @param {string} table - Privilege table of which this query should be executed on.
      * @param {array} columns - Columns array contains all columns for a particular app in the privileges. 
      * @param {string} dataValue - The constant value which are: yes||no to update the looped columns.
-     * @param {number} accountid - An account id in which queries will be performed on.
+     * @param {number} accountID - An account id in which queries will be performed on.
      */
-    async updateAllExternalTableColumns(table, columns, dataValue, accountid) {
+    async updateAllExternalTableColumns(table, columns, dataValue, accountID) {
         let sql;
         for (let i = 0; i < columns.length; i++) {
-            let result = await this.checkSinglePrivilegeExistence(table, accountid);
+            let result = await this.checkSinglePrivilegeExistence(table, accountID);
             let queryresult = '';
             if (result.length > 0) {
                 queryresult = await this.Database.setupConnection({
-                    sql: 'UPDATE '+table+' SET '+columns[i]+' = ? WHERE accountid = ?',
-                    columns: [dataValue, accountid]
+                    sql: 'UPDATE '+table+' SET '+columns[i]+' = ? WHERE accountID = ?',
+                    columns: [dataValue, accountID]
                 }, 'object');
             } else {
                 let privilegeid = gf.getTimeStamp();
                 queryresult = await this.Database.setupConnection({
-                    sql: 'INSERT INTO '+table+' (privilegeid, accountid, '+columns[i]+') VALUES(?, ?, ?)',
-                    columns: [privilegeid, accountid, dataValue]
+                    sql: 'INSERT INTO '+table+' (privilegeid, accountID, '+columns[i]+') VALUES(?, ?, ?)',
+                    columns: [privilegeid, accountID, dataValue]
                 }, 'object');
             }
             queryresult.affectedRows != undefined ? '' : console.log(queryresult);
@@ -143,9 +149,9 @@ class PrivilegeFeature {
     /**
      * A method to run an insert query for a all related tables and columns
      * @param {number} privilegeid - A pre generated privilege ID.
-     * @param {number} accountid - An account id in which queries will be performed on.
+     * @param {number} accountID - An account id in which queries will be performed on.
      */
-    async insertTable (privilegeid, accountid, checker) {
+    async insertTable (privilegeid, accountID, checker) {
         let apps = await this.fetchApps();
         try {
             let affectedRows = 0;
@@ -153,25 +159,18 @@ class PrivilegeFeature {
                 for (let i = 0; i < apps.length; i++) {
                     const app = apps[i];
                     let sql, columns;
-                    if (app.app == 'account') {
-                        sql = 'INSERT INTO privilege_account (privilegeid, accountid) VALUES(?, ?)';
-                        columns = [privilegeid, accountid];
-                    } else if (app.app == 'administration') {
-                        if (checker == 'admin') {
-                            await this.loopToCreateTables(['administration']);
-                            sql = 'INSERT INTO privilege_administration (privilegeid, accountid, add_privilege, add_setup) VALUES(?, ?, ?, ?)';
-                            columns = [privilegeid, accountid, 'yes', 'yes'];
-                        } else {
-                            sql = 'INSERT INTO privilege_administration (privilegeid, accountid) VALUES(?, ?)';
-                            columns = [privilegeid, accountid];
+                    if (app.app == 'pearson_spector') {
+                        sql = 'INSERT INTO privilege_pearson_specter (privilegeid, accountID) VALUES(?, ?)';
+                        columns = [privilegeid, accountID];
+                    }
+                    if (sql !== undefined && columns !== undefined) {
+                        let result = await this.Database.setupConnection({
+                            sql: sql,
+                            columns: columns
+                        }, 'object');
+                        if (result && result.affectedRows) {
+                            affectedRows++;
                         }
-                    } 
-                    let result = await this.Database.setupConnection({
-                        sql: sql,
-                        columns: columns
-                    }, 'object');
-                    if (result.affectedRows) {
-                        affectedRows++;
                     }
                 }
                 return {
@@ -183,6 +182,7 @@ class PrivilegeFeature {
                 };
             }
         } catch (error) {
+            console.log('Inserting into privilege error: ', error)
             return error;
         }
     }
@@ -190,12 +190,12 @@ class PrivilegeFeature {
     /**
      * A method to check if userid exist in database
      * @param {string} table - Table name in which query should be run on
-     * @param {number} accountid - Userid for the checking
+     * @param {number} accountID - Userid for the checking
      */
-    async checkSinglePrivilegeExistence(table, accountid) {
+    async checkSinglePrivilegeExistence(table, accountID) {
         let result = await this.Database.setupConnection({
-            sql: 'SELECT * FROM '+table+' WHERE accountid = ?',
-            columns: [accountid]
+            sql: 'SELECT * FROM '+table+' WHERE accountID = ?',
+            columns: [accountID]
         }, 'object');
         return (Array.isArray(result) && result.length > 0) ? result : [];
     }
@@ -207,14 +207,14 @@ class PrivilegeFeature {
         if (apps.length > 0) {
             for (let i = 0; i < apps.length; i++) {
                 const app = apps[i];
-                if (app.app == 'account') {
-                    privilegeData['account'] = {};
-                    let result = await this.fetchPrivilege('privilege_account');
-                    let columnsList = PrivilegeAccount.columnList;
+                if (app.app == 'pearson_spector') {
+                    privilegeData['pearson_spector'] = {};
+                    let result = await this.fetchPrivilege('privilege_pearson_specter');
+                    let columnsList = PrivilegePearsonSpector.columnList;
                     if (columnsList.length > 0) {
                         for (let i = 0; i < columnsList.length; i++) {
                             const column = columnsList[i];
-                            privilegeData.account[column] = result[column];
+                            privilegeData.pearson_spector[column] = result[column];
                             privilegeColumns[column] = result[column];
                         }
                     }
@@ -231,23 +231,23 @@ class PrivilegeFeature {
     async fetchPrivilege(app) {
         try {
             let dataOne;
-            let result = await this.checkSinglePrivilegeExistence(app, this.accountid);
+            let result = await this.checkSinglePrivilegeExistence(app, this.accountID);
             if (result.length > 0) {
                 dataOne = await this.Database.setupConnection({
-                    sql: 'SELECT * FROM '+app+' WHERE accountid = ?',
-                    columns: [this.accountid]
+                    sql: 'SELECT * FROM '+app+' WHERE accountID = ?',
+                    columns: [this.accountID]
                 }, 'object');
                 dataOne = Array.isArray(dataOne) && dataOne.length > 0 ? dataOne[0] : {};
             } else {
                 let privilegeid = gf.getTimeStamp();
                 let queryresult = await this.Database.setupConnection({
-                    sql: 'INSERT INTO '+app+' (privilegeid, accountid) VALUES(?, ?)',
-                    columns: [privilegeid, this.accountid]
+                    sql: 'INSERT INTO '+app+' (privilegeid, accountID) VALUES(?, ?)',
+                    columns: [privilegeid, this.accountID]
                 }, 'object');
-                if (queryresult.affectedRows != undefined) {
+                if (queryresult && queryresult.affectedRows != undefined) {
                     dataOne = await this.Database.setupConnection({
-                        sql: 'SELECT * FROM '+app+' WHERE accountid = ?',
-                        columns: [this.accountid]
+                        sql: 'SELECT * FROM '+app+' WHERE accountID = ?',
+                        columns: [this.accountID]
                     }, 'object');
                     dataOne = Array.isArray(dataOne) && dataOne.length > 0 ? dataOne[0] : {};
                 } else {
@@ -256,8 +256,8 @@ class PrivilegeFeature {
             }
 
             let dataTwo = await this.Database.setupConnection({
-                sql: 'SELECT * FROM '+app+' WHERE accountid IN (SELECT groupid FROM user_group WHERE accountid=? AND status=?)',
-                columns: [this.accountid, 'active']
+                sql: 'SELECT * FROM '+app+' WHERE accountID IN (SELECT groupid FROM user_group WHERE accountID=? AND status=?)',
+                columns: [this.accountID, 'active']
             }, 'object');
             dataTwo = Array.isArray(dataTwo) && dataTwo.length > 0 ? dataTwo[0] : {};
 
@@ -309,21 +309,14 @@ class PrivilegeFeature {
                 const app = apps[i];
                 let statement;
                 
-                if (app == 'account') {
+                if (app == 'pearson_spector') {
                     statement = {
-                        tableName: PrivilegeAccount.tableName,
-                        createTableStatement: PrivilegeAccount.createTableStatement,
+                        tableName: PrivilegePearsonSpector.tableName,
+                        createTableStatement: PrivilegePearsonSpector.createTableStatement,
                         foreignKeyStatement: '',
-                        alterTableStatement: PrivilegeAccount.alterTableStatement
+                        alterTableStatement: PrivilegePearsonSpector.alterTableStatement
                     }
-                } else {
-                    statement = {
-                        tableName: '',
-                        createTableStatement: '',
-                        foreignKeyStatement: '',
-                        alterTableStatement: ''
-                    }
-                }
+                } 
 
                 const CreateUpdateTable = new CreateUpdateModel(this.Database, statement);
                 await CreateUpdateTable.checkTableExistence();

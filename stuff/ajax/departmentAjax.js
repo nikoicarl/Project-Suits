@@ -142,9 +142,9 @@ $(document).ready(function () {
                         let activateOrDeactivate, validate_delete;
                 
                         if (row.status == "d") {
-                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="deactivate_department" data-getdata="${row.department.toUcwords()}" data-activate="activate mr-2"><i class="icon-checkmark3"></i> Reactivate</a>`;
+                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="deactivate_department" data-getdata="${row.department.toUcwords()}" data-activate="activate"><i class="icon-checkmark3 mr-2"></i> Reactivate</a>`;
                         } else {
-                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="deactivate_department" data-getdata="${row.department.toUcwords()}" data-activate="deactivate mr-2"><i class="icon-blocked"></i> Deactivate</a>`;
+                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="deactivate_department" data-getdata="${row.department.toUcwords()}" data-activate="deactivate"><i class="icon-blocked mr-2"></i> Deactivate</a>`;
                         }
                 
                         if ($('.hidden_delete_for_admin').val() == 'admin') {

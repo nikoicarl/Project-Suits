@@ -1,89 +1,67 @@
-const CreateUpdateModel = require('./CreateUpdateModel');
+const PrivilegePearsonSpecter = {
+    /** 
+     * @const {string} tableTitle - Title of table which will be used at the frontend
+    */
+    tableTitle: 'Pearson Specter',
+    
+    /** 
+     * @const {string} tableName - Key name of or privilege column name
+    */
+    tableName: 'privilege_pearson_specter',
 
-//Intialize Class
-class Privilege {
+    /** 
+     * @const {string} funcName - The value of funcName is used for accessing functionalities. eg. func_admin opens administration sidebar link
+    */
+    funcName: 'func_pearson_specter',
 
-    //Constructor 
-    constructor (Database) {
-        this.Database = Database;
+    /** 
+     * @const {string} allCheckBoxName - The value of allCheckBoxName is used to turn on and off of the "all" checkbox
+    */
+    allCheckBoxName: 'pearson_specter',
 
-        //Table columns
-        this.columnsList = ['privilegeID', 'userID', 'add_user', 'edit_user', 'deactivate_user','add_role', 'edit_role', 'deactivate_role', 'add_department','edit_department', 'deactivate_role', 'add_document', 'edit_document', 'deactivate_document'];
+    /** 
+     * @const {string} icon - Icon for the fieldset
+    */
+    icon: '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>',
 
-        //Call to create table if not exist
-        this.createTable();
-    }
+    /** 
+     * @const {Array} columnList - List of columns names for this table
+    */
+    columnList: [
+        'add_user', 'update_user', 'deactivate_user', 
+        'add_role', 'update_role', 'deactivate_role',
+        'add_department', 'update_department', 'deactivate_department', 
+        'add_document', 'update_document', 'deactivate_document', 
+        'func_pearson_spector', 
+        'pearson_spector'
+    ],
 
-    //Insert method
-    async insertTable (columns) {
-        let result = await this.createTable();
-        try {
-            if (result) {
-                let sql = `
-                    INSERT IGNORE INTO privilege (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
-                `;
-                result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
-                return result;
-            } else {
-                return result;
-            }
-        } catch (error) {
-            return error;
-        }
-    }
+    /** 
+     * @const {Array} createTableStatement - Create table sql statement as string
+    */
+    createTableStatement: (`
+        privilegeID BIGINT(100) PRIMARY KEY,
+        accountID BIGINT(100),
+        add_user varchar(1),
+        update_user varchar(1),
+        deactivate_user varchar(1),
+        add_role varchar(1),
+        update_role varchar(1),
+        deactivate_role varchar(1),
+        add_department varchar(1),
+        update_department varchar(1),
+        deactivate_department varchar(1),
+        add_document varchar(1),
+        update_document varchar(1),
+        deactivate_document varchar(1),
+        func_pearson_spector varchar(1), 
+        pearson_spector varchar(1)
+    `),
 
-    //Update method
-    async updateTable (object) {
-        try {
-            let sql = 'UPDATE privilege SET '+object.sql;
-            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
-            return result;
-        } catch (error) {
-            return error;
-        }
-    }
-
-    //Fetch for prepared statement
-    async preparedFetch (object) {
-        try {
-            let sql = 'SELECT * FROM privilege WHERE '+object.sql;
-            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
-            return result;
-        } catch (error) {
-            return error;
-        }
-    }
-
-    //Create table method
-    async createTable() {
-        const CreateUpdateTable = new CreateUpdateModel(this.Database, {
-            tableName: 'privilege',
-
-            createTableStatement: (`
-                privilegeID BIGINT(100) PRIMARY KEY,
-                userID BIGINT(100),
-                add_user varchar(5),
-                edit_user varchar(5),
-                deactivate_user varchar(5),
-                add_role varchar(5),
-                edit_role varchar(5),
-                deactivate_role varchar(5),
-                add_department varchar(5),
-                edit_department varchar(5),
-                add_document varchar(5),
-                edit_document varchar(5),
-                deactivate_document varchar(5)
-            `),
-
-            foreignKeyStatement: (`
-            `),
-
-            alterTableStatement: []
-        });
-        let result = await CreateUpdateTable.checkTableExistence();
-        return result;
-    }
-
+    /** 
+     * @const {string} alterTableStatement - Alter table sql statement as an array. EXAMPLE: ['name-varchar(5)', 'gender-varchar(5)']
+    */
+    alterTableStatement: [],
 }
 
-module.exports = Privilge;
+module.exports = PrivilegePearsonSpecter;
