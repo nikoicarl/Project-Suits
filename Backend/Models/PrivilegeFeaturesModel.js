@@ -68,10 +68,10 @@ class PrivilegeFeature {
                 columns: [columnsValue, categoryValue, accountID]
             }, 'object');
         } else {
-            let privilegeid = gf.getTimeStamp();
+            let privilegeID = gf.getTimeStamp();
             queryresult = await this.Database.setupConnection({
-                sql: 'INSERT INTO '+table+' (privilegeid, accountID, '+column+', '+category+') VALUES(?, ?, ?, ?)',
-                columns: [privilegeid, accountID, columnsValue, categoryValue]
+                sql: 'INSERT INTO '+table+' (privilegeID, accountID, '+column+', '+category+') VALUES(?, ?, ?, ?)',
+                columns: [privilegeID, accountID, columnsValue, categoryValue]
             }, 'object');
         }
         if (queryresult.affectedRows) {
@@ -102,10 +102,10 @@ class PrivilegeFeature {
                     columns: [dataValue, accountID]
                 }, 'object');
             } else {
-                let privilegeid = gf.getTimeStamp();
+                let privilegeID = gf.getTimeStamp();
                 queryresult = await this.Database.setupConnection({
-                    sql: 'INSERT INTO '+table+' (privilegeid, accountID, '+privilegeArray[i]+') VALUES(?, ?, ?)',
-                    columns: [privilegeid, accountID, dataValue]
+                    sql: 'INSERT INTO '+table+' (privilegeID, accountID, '+privilegeArray[i]+') VALUES(?, ?, ?)',
+                    columns: [privilegeID, accountID, dataValue]
                 }, 'object');
             }
             queryresult.affectedRows != undefined ? '' : console.log(queryresult);
@@ -133,10 +133,10 @@ class PrivilegeFeature {
                     columns: [dataValue, accountID]
                 }, 'object');
             } else {
-                let privilegeid = gf.getTimeStamp();
+                let privilegeID = gf.getTimeStamp();
                 queryresult = await this.Database.setupConnection({
-                    sql: 'INSERT INTO '+table+' (privilegeid, accountID, '+columns[i]+') VALUES(?, ?, ?)',
-                    columns: [privilegeid, accountID, dataValue]
+                    sql: 'INSERT INTO '+table+' (privilegeID, accountID, '+columns[i]+') VALUES(?, ?, ?)',
+                    columns: [privilegeID, accountID, dataValue]
                 }, 'object');
             }
             queryresult.affectedRows != undefined ? '' : console.log(queryresult);
@@ -148,10 +148,10 @@ class PrivilegeFeature {
 
     /**
      * A method to run an insert query for a all related tables and columns
-     * @param {number} privilegeid - A pre generated privilege ID.
+     * @param {number} privilegeID - A pre generated privilege ID.
      * @param {number} accountID - An account id in which queries will be performed on.
      */
-    async insertTable (privilegeid, accountID, checker) {
+    async insertTable (privilegeID, accountID, checker) {
         let apps = await this.fetchApps();
         try {
             let affectedRows = 0;
@@ -160,8 +160,8 @@ class PrivilegeFeature {
                     const app = apps[i];
                     let sql, columns;
                     if (app.app == 'pearson_spector') {
-                        sql = 'INSERT INTO privilege_pearson_specter (privilegeid, accountID) VALUES(?, ?)';
-                        columns = [privilegeid, accountID];
+                        sql = 'INSERT INTO privilege_pearson_specter (privilegeID, accountID) VALUES(?, ?)';
+                        columns = [privilegeID, accountID];
                     }
                     if (sql !== undefined && columns !== undefined) {
                         let result = await this.Database.setupConnection({
@@ -239,10 +239,10 @@ class PrivilegeFeature {
                 }, 'object');
                 dataOne = Array.isArray(dataOne) && dataOne.length > 0 ? dataOne[0] : {};
             } else {
-                let privilegeid = gf.getTimeStamp();
+                let privilegeID = gf.getTimeStamp();
                 let queryresult = await this.Database.setupConnection({
-                    sql: 'INSERT INTO '+app+' (privilegeid, accountID) VALUES(?, ?)',
-                    columns: [privilegeid, this.accountID]
+                    sql: 'INSERT INTO '+app+' (privilegeID, accountID) VALUES(?, ?)',
+                    columns: [privilegeID, this.accountID]
                 }, 'object');
                 if (queryresult && queryresult.affectedRows != undefined) {
                     dataOne = await this.Database.setupConnection({
