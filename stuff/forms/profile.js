@@ -14,57 +14,51 @@ function Profile() {
 
 function ProfileForm() {
     return `
-   <div class="container mt-5">
+    <div class="container mt-5">
         <div class="card">
             <div class="card-body">
                 <!-- Personal Information -->
                 <h5>Personal Information</h5>
                 <form action="" class="ps_profile_form">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
+                    <div class="row mt-2">
+                        <div class="form-group col-md-6">
                             <label>First Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" placeholder="First Name" required>
                         </div>
-                        <div class="form-group col-md-8">
+                        <div class="form-group col-md-6">
                             <label>Last Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" placeholder="Last Name" required>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label>Phone <span class="text-danger">*</span></label>
+                    <div class="row ">
+                        <div class="form-group col-md-6 mt-2">
+                            <label>Phone </label>
                             <input type="tel" class="form-control" placeholder="Phone" required>
                         </div>
-                        <div class="form-group col-md-8">
-                            <label>Address</label>
-                            <input type="text" id="autocomplete" class="form-control" placeholder="Address">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6 mt-2">
                             <label>Email Address</label>
-                            <input type="email" class="form-control" placeholder="Email Address">
+                            <input type="email" class="form-control" placeholder="example@mail.com">
                         </div>
                     </div>
-                    <!-- Account Changes -->
-                    <h5>Account Changes</h5>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label>Current Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" placeholder="Current Password" required>
+                    <div class="row ">
+                        <div class="form-group col-md-12 mt-2">
+                            <label>Address</label>
+                            <textarea name=""  placeholder="Address" class="form-control ps_department_description" rows="2"></textarea>
                         </div>
-                        <div class="form-group col-md-4">
+                    </div>
+                    <div class="row ">
+                        <div class="form-group col-md-6 mt-2">
                             <label>New Password <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" placeholder="New Password" required>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6 mt-2">
                             <label>Confirm Password <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" placeholder="Confirm Password" required>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="row mt-2">
                         <div class="col-md-12 text-right">
-                            <button type="submit" class="btn btn-primary ps_profile_submit">Save Changes</button>
+                            <button type="submit" class="btn btn-primary ps_profile_submit">Submit</button>
                         </div>
                     </div>
                 </form>
