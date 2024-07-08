@@ -19,13 +19,7 @@ return `
             <form class="ps_manage_department_form" action="" method="POST">
                 <div class="row">
                     <input type="hidden" class="ps_manage_department_hiddenid">
-                    <div class="col-md-6 mt-2">
-                        <div class="form-group mb-2">
-                            <label>User <span class="text-danger">*</span></label>
-                            <select class="form-control select_search ps_manage_department_user"></select>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-2">
+                    <div class="col-md-12 mt-2">
                         <div class="form-group mb-2">
                             <label>Department Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control ps_manage_department_name"

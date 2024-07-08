@@ -20,7 +20,6 @@ $(document).ready(function () {
 
         //Get form data from html
         let ps_manage_department_hiddenid = $('.ps_manage_department_hiddenid', this).val();
-        let ps_manage_department_user = $('.ps_manage_department_user', this).val();
         let ps_manage_department_name = $('.ps_manage_department_name', this).val();
         let ps_department_description = $('.ps_department_description', this).val();
 
@@ -37,7 +36,6 @@ $(document).ready(function () {
                 "melody1": melody.melody1,
                 "melody2": melody.melody2,
                 "ps_manage_department_hiddenid": ps_manage_department_hiddenid,
-                "ps_manage_department_user": ps_manage_department_user,
                 "ps_manage_department_name": ps_manage_department_name,
                 "ps_department_description": ps_department_description
             });
@@ -58,7 +56,7 @@ $(document).ready(function () {
                 //Empty the form 
                 $('.ps_manage_department_form').trigger('reset');
                 socket.off(melody.melody1+'_insertNewDepartment'); 
-                // DepartmentTableFetch();
+                DepartmentTableFetch();
             } else if (data.type == "caution") {
                 Toast.fire({
                     text: data.message,
@@ -144,13 +142,13 @@ $(document).ready(function () {
                         let activateOrDeactivate, validate_delete;
                 
                         if (row.status == "d") {
-                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="deactivate_department" data-getdata="${row.department.toUcwords()}" data-activate="activate"><i class="icon-checkmark3"></i> Reactivate</a>`;
+                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="deactivate_department" data-getdata="${row.department.toUcwords()}" data-activate="activate mr-2"><i class="icon-checkmark3"></i> Reactivate</a>`;
                         } else {
-                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="deactivate_department" data-getdata="${row.department.toUcwords()}" data-activate="deactivate"><i class="icon-blocked"></i> Deactivate</a>`;
+                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="deactivate_department" data-getdata="${row.department.toUcwords()}" data-activate="deactivate mr-2"><i class="icon-blocked"></i> Deactivate</a>`;
                         }
                 
                         if ($('.hidden_delete_for_admin').val() == 'admin') {
-                            validate_delete = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="delete_department" data-getdata="${row.department.toUcwords()}"><i class="icon-close2"></i> Delete</a>`;
+                            validate_delete = `<a href="#" class="dropdown-item ps_department_table_edit_btn" data-getid="${row.departmentID}" data-getname="delete_department" data-getdata="${row.department.toUcwords()}"><i class="icon-close2 mr-2"></i> Delete</a>`;
                         } else {
                             validate_delete = '';
                         }
@@ -161,7 +159,8 @@ $(document).ready(function () {
                                     <i class="icon-menu7" style="font-size:20px"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="ps_department_table_edit_btn dropdown-item" href="#" data-getid="`+ row.departmentID + `" data-getname="specific_department"><i class="icon-pencil"></i></i>Edit Details</a> 
+                                    <a class="ps_department_table_edit_btn dropdown-item" href="#" data-getid="`+ row.departmentID + `" data-getname="specific_department"><i class="icon-add mr-2"></i></i>Assign User</a> 
+                                    <a class="ps_department_table_edit_btn dropdown-item" href="#" data-getid="`+ row.departmentID + `" data-getname="specific_department"><i class="icon-pencil mr-2"></i></i>Edit Details</a> 
                                     ${activateOrDeactivate}
                                     ${validate_delete}
                                 </div>
@@ -199,7 +198,7 @@ $(document).ready(function () {
                     //Delete Item
                     if (deleteDepartment(getname, dataId, getdata)) {
                         //Result alert
-                        toast.fire(
+                        Toast.fire(
                             'Deleted!',
                             'Item has been deleted.',
                             'success'
@@ -216,12 +215,16 @@ $(document).ready(function () {
                 mssg = 'Are you sure you want to deactivate '+getdata+ '?';
             }
             Toast.fire({
-                title: 'Caution!',
+                title: "Are you sure?",
                 text: mssg,
-                type: 'warning',
+                icon: "warning",
+                showConfirmButton : true,
                 showCancelButton: true,
-                confirmButtonText: 'Yes'
-            }).then(function(result) {
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, deactivate it!"
+            }).then((result) => {
+            if (result.isConfirmed) {
                 //Check if yes is clicked
                 if (result.value) {
                     //Delete Item
@@ -235,13 +238,14 @@ $(document).ready(function () {
                             mssg = 'is deactivated.';
                         }
                         //Result alert
-                        toast.fire(
+                        Toast.fire(
                             title,
                             getdata + ' ' + mssg,
                             'success'
                         )
                     }
                 }
+            }
             });
             
         } else {
@@ -312,7 +316,7 @@ $(document).ready(function () {
                 console.log(data['message']);
                 return false;
             } else if (data.type == "caution") {
-                toast.fire({
+                Toast.fire({
                     text: data.message,
                     type: 'warning',
                     padding: '1em'

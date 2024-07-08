@@ -12,7 +12,7 @@ class Department {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['departmentID', 'userID', 'department', 'description', 'dateTime', 'status'];
+        this.columnsList = ['departmentID', 'userIDs', 'department', 'description', 'dateTime', 'status'];
 
         //Call to create table if not exist
         this.createTable();
@@ -27,6 +27,7 @@ class Department {
                     INSERT INTO department (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
+                console.log(result);
                 return result;
             } else {
                 return result;
@@ -65,7 +66,7 @@ class Department {
 
             createTableStatement: (`
                 departmentID BIGINT(100) PRIMARY KEY,
-                userID BIGINT(100),
+                userIDs text,
                 department varchar(255),
                 description text,
                 dateTime text,
@@ -75,7 +76,7 @@ class Department {
             foreignKeyStatement: (``),
 
             alterTableStatement: [
-                'dateTime text'
+                'dateTime text, userIDs text'
             ],
         });
         let result = await CreateUpdateTable.checkTableExistence();

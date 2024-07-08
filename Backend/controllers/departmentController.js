@@ -9,7 +9,6 @@ const md5 = require('md5');
 module.exports = (socket, Database)=>{
     socket.on('insertNewDepartment', async (browserblob)=>{
         let hiddenid = browserblob.ps_manage_department_hiddenid;
-        let userID = browserblob.ps_manage_department_user;
         let name = browserblob.ps_manage_department_name;
         let description = browserblob.ps_department_description;
 
@@ -56,10 +55,10 @@ module.exports = (socket, Database)=>{
                         } else {
                             if (hiddenid == "" || hiddenid == undefined) {
                                 departmentID = gf.getTimeStamp();
-                                result = await DepartmentModel.insertTable([departmentID,userID, name, description, gf.getDateTime(), 'a']);
+                                result = await DepartmentModel.insertTable([departmentID, '0', name, description, gf.getDateTime(), 'a']);
                             } else {
                                 result = await DepartmentModel.updateTable({
-                                    sql: 'userID = ?, department = ?, description = ? WHERE departmentID = ? AND status = ?',
+                                    sql: 'department = ?, description = ? WHERE departmentID = ? AND status = ?',
                                     columns: [userID, name, description, departmentID, 'a']
                                 });
                             }
