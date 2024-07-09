@@ -77,7 +77,7 @@ function displayPrivilege(main) {
             <fieldset class="mt-4 mb-3">
                 <legend class="font-weight-semibold  font-size-sm m-0 p-0"> 
                     ${main.icon}
-                    <span class="text-uppercase" style="font-size:0.75em;"> ${main.tableTitle.toUpperCase()} </span>
+                    <span class="text-uppercase" style="font-size:0.6em;"> ${main.tableTitle.toUpperCase()} </span>
                     <a href="#" class="float-right text-default collapsed" data-toggle="collapse" data-target="#all_${main.tableName}" aria-expanded="false">
                         <i class="icon-circle-down2"></i>
                     </a>
