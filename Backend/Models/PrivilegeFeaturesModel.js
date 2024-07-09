@@ -64,14 +64,14 @@ class PrivilegeFeature {
         let queryresult = '';
         if (result.length > 0) {
             queryresult = await this.Database.setupConnection({
-                sql: 'UPDATE '+table+' SET '+column+' = ?, '+category+' = ? WHERE accountID = ?',
-                columns: [columnsValue, categoryValue, accountID]
+                sql: 'UPDATE '+table+' SET '+column+' = ? WHERE accountID = ?',
+                columns: [columnsValue, accountID]
             }, 'object');
         } else {
             let privilegeID = gf.getTimeStamp();
             queryresult = await this.Database.setupConnection({
-                sql: 'INSERT INTO '+table+' (privilegeID, accountID, '+column+', '+category+') VALUES(?, ?, ?, ?)',
-                columns: [privilegeID, accountID, columnsValue, categoryValue]
+                sql: 'INSERT INTO '+table+' (privilegeID, accountID, '+column+') VALUES(?, ?, ?)',
+                columns: [privilegeID, accountID, columnsValue]
             }, 'object');
         }
         if (queryresult.affectedRows) {

@@ -27,7 +27,6 @@ module.exports = (socket, Database) => {
                 let dataId = browserblob.dataId;
                 const PrivilegeModel = new Privilege(Database, dataId);
                 result = (await PrivilegeModel.getPrivileges()).privilegeColumns;
-                console.log(result);
                 socket.emit(melody1 + '_' + param, result);
             }
             

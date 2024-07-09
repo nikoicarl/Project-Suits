@@ -42,9 +42,10 @@
                 title: 'Caution',
                 text: main_mssg,
                 type: 'warning',
-                showConfirmButtonText: true,
+                showConfirmButton : true,
                 showCancelButton: true,
-                confirmButtonText: 'Yes'
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
             }).then(function(result) {
                 //Check if yes is clicked
                 if (result.value) {
@@ -123,9 +124,10 @@
                 title: 'Caution',
                 text: mssg,
                 type: 'warning',
-                showConfirmButtonText: true,
+                showConfirmButton : true,
                 showCancelButton: true,
-                confirmButtonText: 'Yes'
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
             }).then(function(result) {
                 //Check if yes is clicked
                 if (result.value) {

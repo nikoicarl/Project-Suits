@@ -44,20 +44,15 @@ module.exports = (socket, Database)=>{
                 
                 const SessionActivityModel = new SessionActivity(Database);
 
-                if (group === "" && user === "" || group === undefined && user === undefined || group === null && user === null || group === ' ' && user === ' ') {
+                if (user === "" || user === undefined ||  user === null ||  user === ' ') {
                     socket.emit(melody1+'_'+param, {
                         type: 'caution',
-                        message: 'Select a Group or User to assign this privilege'
+                        message: 'Select a User to assign this privilege'
                     });
                 } else {
                     let accountID, activity_mssg, begin_mssg, add_mssg, message;
-                    if (user === "") {
-                        accountID = group;
-                        activity_mssg = "group";
-                    } else {
-                        accountID = user;
-                        activity_mssg = "user";
-                    }
+                    accountID = user;
+                    activity_mssg = "user";
         
                     if (dataValue == "yes") {
                         begin_mssg = "Enabling";
