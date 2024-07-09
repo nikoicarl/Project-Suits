@@ -319,7 +319,6 @@
                     $('input.checkBox').prop('checked', false);
                     console.log(data['message']);
                 } else {
-                    console.log(data);
                     if (data.length < 1 || data == undefined) {
                         $('input.checkBox').prop('checked', false);
                     } else {
