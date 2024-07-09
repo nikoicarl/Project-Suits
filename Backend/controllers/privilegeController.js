@@ -77,7 +77,7 @@ module.exports = (socket, Database)=>{
                         result = await PrivilegeModel.updateSingleTable(table, columnName, dataValue, category, 'yes', accountID);
                         if (result.affectedRows) {
                             let activityID = gf.getTimeStamp();
-                            result = await SessionActivityModel.insertTable([activityID, userID, gf.getDateTime(), 'updated a '+activity_mssg+'']);
+                            result = await SessionActivityModel.insertTable([activityID, userID, gf.getDateTime(), 'updated a '+activity_mssg+' privilege']);
                             socket.emit(melody1+'_'+param, {
                                 type: 'success',
                                 message: message

@@ -7,6 +7,7 @@ const Role = require('../Models/RoleModel');
 const Session = require('../Models/SessionModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const Department = require('../Models/DepartmentModel');
+const Privilege = require('../Models/PrivilegeFeaturesModel');
 
 const gf = new GeneralFunction();
 
@@ -21,6 +22,8 @@ module.exports = (socket, Database) => {
         let sessionID = session.sessionID;
 
         try {
+            const PrivilegeModel = new Privilege(Database, userid);
+            let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
             if (param === "") {
                 socket.emit(melody1 + '_' + param, {
                     type: 'error',
@@ -40,7 +43,7 @@ module.exports = (socket, Database) => {
                             sessionData.push({
                                 sessionid: result[i].sessionID,
                                 activity: result[i].activity,
-                                date_time: result[i].DateTime,
+                                datetime: result[i].DateTime,
                             });
                         }
                         socket.emit(melody1 + '_' + param, sessionData);
@@ -54,9 +57,27 @@ module.exports = (socket, Database) => {
                     });
                 }
             } else if (param === "department_table") {
-                const DepartmentModel = new Department(Database);
+                if (privilegeData !== undefined && privilegeData.pearson_specter.add_department == "yes" || privilegeData.pearson_specter.update_department == "yes" || privilegeData.pearson_specter.deactivate_department == "yes") {
+                    const DepartmentModel = new Department(Database);
+                    result = await DepartmentModel.preparedFetch({
+                        sql: 'status != ? ORDER BY datetime DESC',
+                        columns: ['i']
+                    });
+                    if (Array.isArray(result)) {
+                        socket.emit(melody1 + '_' + param, result);
+                    } else {
+                        socket.emit(melody1 + '_' + param, {
+                            type: 'error',
+                            message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                        });
+                    }
+                } else {
+                    socket.emit(melody1 + '_' + param, []);
+                }
+            }else if (param === "role_table") {
+                const RoleModel = new Role(Database);
 
-                result = await DepartmentModel.preparedFetch({
+                result = await RoleModel.preparedFetch({
                     sql: 'status =?',
                     columns: ['a']
                 });
