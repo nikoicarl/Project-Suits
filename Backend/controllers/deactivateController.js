@@ -7,7 +7,8 @@ const Session = require('../Models/SessionModel');
 const Privilege = require('../Models/PrivilegeFeaturesModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const Department = require('../Models/DepartmentModel');
-
+const User = require('../Models/UserModel');
+const Document = require('../Models/DocumentModel');
 
 const gf = new GeneralFunction();
 
@@ -46,7 +47,41 @@ module.exports = (socket, Database) => {
                         message = 'You have no privilege to perform this task!';
                     }
                 } else if (param === "deactivate_role") {
-
+                    const RoleModel = new Role(Database);
+                    if (privilegeData !== undefined && privilegeData.pearson_specter.deactivate_role == "yes") {
+                        let dataId = browserblob.dataId;
+                        let checker = browserblob.checker == "deactivate" ? 'd' : 'a';
+                        result = await RoleModel.updateTable({
+                            sql: 'status=? WHERE roleID=?',
+                            columns: [checker, dataId]
+                        });
+                    } else {
+                        message = 'You have no privilege to perform this task!';
+                    }
+                } else if (param === "deactivate_user") {
+                    const UserModel = new User(Database);
+                    if (privilegeData !== undefined && privilegeData.pearson_specter.deactivate_user == "yes") {
+                        let dataId = browserblob.dataId;
+                        let checker = browserblob.checker == "deactivate" ? 'd' : 'a';
+                        result = await UserModel.updateTable({
+                            sql: 'status=? WHERE userID=?',
+                            columns: [checker, dataId]
+                        });
+                    } else {
+                        message = 'You have no privilege to perform this task!';
+                    }
+                } else if (param === "deactivate_document") {
+                    const DocumentModel = new Document(Database);
+                    if (privilegeData !== undefined && privilegeData.pearson_specter.deactivate_document == "yes") {
+                        let dataId = browserblob.dataId;
+                        let checker = browserblob.checker == "deactivate" ? 'd' : 'a';
+                        result = await DocumentModel.updateTable({
+                            sql: 'status=? WHERE documentID=?',
+                            columns: [checker, dataId]
+                        });
+                    } else {
+                        message = 'You have no privilege to perform this task!';
+                    }
                 }
                 if (message == undefined) {
                     message = result.affectedRows ? 'deactivate successful' : 'deactivate unsuccessful';
