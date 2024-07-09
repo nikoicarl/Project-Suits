@@ -76,8 +76,8 @@ module.exports = (socket, Database)=>{
                     if (privilegeData.pearson_specter.add_privilege == "yes") {
                         result = await PrivilegeModel.updateSingleTable(table, columnName, dataValue, category, 'yes', accountID);
                         if (result.affectedRows) {
-                            let activityid = gf.getTimeStamp();
-                            result = await SessionActivityModel.insertTable([activityid, sessionID, 'updated a '+activity_mssg+' privilege', 'active', gf.getDateTime()]);
+                            let activityID = gf.getTimeStamp();
+                            result = await SessionActivityModel.insertTable([activityID, userID, gf.getDateTime(), 'updated a '+activity_mssg+'']);
                             socket.emit(melody1+'_'+param, {
                                 type: 'success',
                                 message: message
@@ -116,8 +116,9 @@ module.exports = (socket, Database)=>{
                         //Update privilege
                         result = await PrivilegeModel.updateAllTableColumns(table, dataValue, accountID);
                         if (result.affectedRows) {
-                            let activityid = gf.getTimeStamp();
-                            result = await SessionActivityModel.insertTable([activityid, sessionID, 'updated a privilege', 'active', gf.getDateTime()]);
+                            let activityID = gf.getTimeStamp();
+                            result = await SessionActivityModel.insertTable([activityID, userID, gf.getDateTime(), 'updated a privilege']);
+
                             if (result.affectedRows) {
                                 socket.emit(melody1+'_'+param, {
                                     type: 'success',
