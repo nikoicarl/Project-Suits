@@ -16,7 +16,8 @@ function Dashboard() {
                         <div class="icon">
                             <i class="ion ion-folder"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/document" class="nav-link ps_main_navigation_btn small-box-footer" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/documentAjax">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -28,7 +29,8 @@ function Dashboard() {
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/department" class="nav-link ps_main_navigation_btn small-box-footer" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/departmentAjax">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -40,7 +42,8 @@ function Dashboard() {
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/user" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/userAjax small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
