@@ -43,7 +43,7 @@ module.exports = (socket, Database) => {
                             sessionData.push({
                                 sessionid: result[i].sessionID,
                                 activity: result[i].activity,
-                                datetime: result[i].DateTime,
+                                dateTime: result[i].DateTime,
                             });
                         }
                         socket.emit(melody1 + '_' + param, sessionData);

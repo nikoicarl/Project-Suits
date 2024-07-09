@@ -41,8 +41,9 @@ $(document).ready(function () {
             } else {
                 if (data.length > 0) {
                     for (let i = 0; i < data.length; i++) {
+                        console.log(data);
                         let color, icon;
-                        const dateTimeParts = data[i].date_time.split(' ');
+                        const dateTimeParts = data[i].dateTime.split(' ');
                         const time = dateTimeParts[1];
 
                         if (data[i].activity.toLocaleLowerCase().indexOf("deactivated") != -1) {
@@ -65,7 +66,7 @@ $(document).ready(function () {
                             `<div class="timeline timeline-inverse">
                             <div class="time-label">
                                 <span class="${color}">
-                                    ${data[i].date_time.fullDate()}
+                                    ${data[i].dateTime.fullDate()}
                                 </span>
                             </div>
                             <div>
