@@ -22,7 +22,7 @@ module.exports = (socket, Database) => {
         let sessionID = session.sessionID;
 
         try {
-            const PrivilegeModel = new Privilege(Database, userid);
+            const PrivilegeModel = new Privilege(Database, userID);
             let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
             if (param === "") {
                 socket.emit(melody1 + '_' + param, {
@@ -57,7 +57,7 @@ module.exports = (socket, Database) => {
                     });
                 }
             } else if (param === "department_table") {
-                if (privilegeData !== undefined && privilegeData.pearson_specter.add_department == "yes" || privilegeData.pearson_specter.update_department == "yes" || privilegeData.pearson_specter.deactivate_department == "yes") {
+                if (privilegeData !== undefined && privilegeData.pearson_specter.add_department == "yes" || privilegeData.pearson_specter.edit_department == "yes" || privilegeData.pearson_specter.deactivate_department == "yes") {
                     const DepartmentModel = new Department(Database);
                     result = await DepartmentModel.preparedFetch({
                         sql: 'status != ? ORDER BY datetime DESC',

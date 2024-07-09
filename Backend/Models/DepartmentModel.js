@@ -27,7 +27,6 @@ class Department {
                     INSERT INTO department (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
-                console.log(result);
                 return result;
             } else {
                 return result;

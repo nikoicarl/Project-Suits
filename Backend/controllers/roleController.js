@@ -36,9 +36,9 @@ module.exports = (socket, Database)=>{
                 
                 let privilege;
                 if (hiddenid == "" || hiddenid == undefined) {
-                    privilege = privilegeData.pearson_spector.add_role;
+                    privilege = privilegeData.pearson_specter.add_role;
                 } else {
-                    privilege = privilegeData.pearson_spector.update_role;
+                    privilege = privilegeData.pearson_specter.update_role;
                 }
                 if (privilege == "yes") {
                     let roleID = hiddenid == "" || hiddenid == undefined ? 0 : hiddenid;

@@ -1,5 +1,5 @@
 const Department = require('../Models/DepartmentModel');
-// const Privilege = require('../Models/PrivilegeModel');
+const Privilege = require('../Models/PrivilegeFeaturesModel');
 const Session = require('../Models/SessionModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const getSessionIDs = require('./getSessionIDs');
@@ -15,14 +15,14 @@ module.exports = (socket, Database)=>{
         let melody1 = browserblob.melody1;
 
         let session = getSessionIDs(melody1);
-        let userid = session.userid;
-        let sessionid = session.sessionid;
+        let userID = session.userID;
+        let sessionID = session.sessionID;
 
 
         if (browserblob.melody2) {
             //Initiate connection
             const DepartmentModel = new Department(Database);
-            const PrivilegeModel = new Privilege(Database, userid);
+            const PrivilegeModel = new Privilege(Database, userID);
 
             //Check for empty
             let result = await gf.ifEmpty([name]);
@@ -36,9 +36,9 @@ module.exports = (socket, Database)=>{
                 
                 let privilege;
                 if (hiddenid == "" || hiddenid == undefined) {
-                    privilege = privilegeData.pearson_spector.add_department;
+                    privilege = privilegeData.pearson_specter.add_department;
                 } else {
-                    privilege = privilegeData.pearson_spector.update_department;
+                    privilege = privilegeData.pearson_specter.update_department;
                 }
                 if (privilege == "yes") {
                     let departmentID = hiddenid == "" || hiddenid == undefined ? 0 : hiddenid;
@@ -65,7 +65,7 @@ module.exports = (socket, Database)=>{
                             if (result.affectedRows !== undefined) {
                                 const SessionModel = new Session(Database);
                                 let activityid = gf.getTimeStamp();
-                                result = await SessionModel.insertTable([activityid, userid, gf.getDateTime(), (hiddenid == "" || hiddenid == undefined) ? 'added a new department' : 'updated a department record']);
+                                result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (hiddenid == "" || hiddenid == undefined) ? 'added a new department' : 'updated a department record']);
                                 let message = hiddenid == "" || hiddenid == undefined ? 'Department has been created successfully' : 'Department has been updated successfully';
                                 if (result.affectedRows) {
                                     socket.emit(melody1+'_insertNewDepartment', {
