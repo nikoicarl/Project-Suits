@@ -28,10 +28,11 @@ const PrivilegePearsonSpecter = {
      * @const {Array} columnList - List of columns names for this table
     */
     columnList: [
+        'add_privilege',
         'add_user', 'edit_user', 'deactivate_user', 
         'add_role', 'edit_role', 'deactivate_role',
         'add_department', 'edit_department', 'deactivate_department', 
-        'add_document', 'edit_document', 'deactivate_document', 
+        'add_document', 'edit_document', 'deactivate_document',
         'func_pearson_spector', 
         'pearson_spector'
     ],
@@ -42,20 +43,21 @@ const PrivilegePearsonSpecter = {
     createTableStatement: (`
         privilegeID BIGINT(100) PRIMARY KEY,
         accountID BIGINT(100),
-        add_user varchar(1),
-        edit_user varchar(1),
-        deactivate_user varchar(1),
-        add_role varchar(1),
-        edit_role varchar(1),
-        deactivate_role varchar(1),
-        add_department varchar(1),
-        edit_department varchar(1),
-        deactivate_department varchar(1),
-        add_document varchar(1),
-        edit_document varchar(1),
-        deactivate_document varchar(1),
-        func_pearson_spector varchar(1), 
-        pearson_spector varchar(1)
+        add_privilege varchar(3),
+        add_user varchar(3),
+        edit_user varchar(3),
+        deactivate_user varchar(3),
+        add_role varchar(3),
+        edit_role varchar(3),
+        deactivate_role varchar(3),
+        add_department varchar(3),
+        edit_department varchar(3),
+        deactivate_department varchar(3),
+        add_document varchar(3),
+        edit_document varchar(3),
+        deactivate_document varchar(3),
+        func_pearson_spector varchar(3), 
+        pearson_spector varchar(3)
     `),
 
     /** 

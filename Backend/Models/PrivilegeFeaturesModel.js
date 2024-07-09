@@ -34,8 +34,8 @@ class PrivilegeFeature {
         if (apps.length > 0) {
             for (let i = 0; i < apps.length; i++) {
                 const app = apps[i];
-                if (app.app == 'pearson_spector') {
-                    appList['pearson_spector'] = {
+                if (app.app == 'pearson_specter') {
+                    appList['pearson_specter'] = {
                         tableTitle: PrivilegePearsonSpector.tableTitle,
                         tableName: PrivilegePearsonSpector.tableName,
                         funcName: PrivilegePearsonSpector.funcName,
@@ -159,8 +159,8 @@ class PrivilegeFeature {
                 for (let i = 0; i < apps.length; i++) {
                     const app = apps[i];
                     let sql, columns;
-                    if (app.app == 'pearson_spector') {
-                        sql = 'INSERT INTO privilege_pearson_specter (privilegeID, accountID) VALUES(?, ?)';
+                    if (app.app == 'pearson_specter') {
+                        sql = 'INSERT INTO privilege_pearson_specter (privilegeID, accountID, add_privilege) VALUES(?, ?, ?)';
                         columns = [privilegeID, accountID];
                     }
                     if (sql !== undefined && columns !== undefined) {
@@ -207,14 +207,14 @@ class PrivilegeFeature {
         if (apps.length > 0) {
             for (let i = 0; i < apps.length; i++) {
                 const app = apps[i];
-                if (app.app == 'pearson_spector') {
-                    privilegeData['pearson_spector'] = {};
+                if (app.app == 'pearson_specter') {
+                    privilegeData['pearson_specter'] = {};
                     let result = await this.fetchPrivilege('privilege_pearson_specter');
                     let columnsList = PrivilegePearsonSpector.columnList;
                     if (columnsList.length > 0) {
                         for (let i = 0; i < columnsList.length; i++) {
                             const column = columnsList[i];
-                            privilegeData.pearson_spector[column] = result[column];
+                            privilegeData.pearson_specter[column] = result[column];
                             privilegeColumns[column] = result[column];
                         }
                     }
@@ -309,7 +309,7 @@ class PrivilegeFeature {
                 const app = apps[i];
                 let statement;
                 
-                if (app == 'pearson_spector') {
+                if (app == 'pearson_specter') {
                     statement = {
                         tableName: PrivilegePearsonSpector.tableName,
                         createTableStatement: PrivilegePearsonSpector.createTableStatement,

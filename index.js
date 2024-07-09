@@ -1,3 +1,5 @@
+const specificFetchController = require("./Backend/controllers/specificFetchController.js");
+
 try {
     // Dependencies
     const express = require("express");
@@ -15,6 +17,8 @@ try {
     const dashboardController = require("./Backend/controllers/dashboardController");
     const dropdownController = require("./Backend/controllers/dropdownController");
     const departmentController = require("./Backend/controllers/departmentController");
+    const privilegeController = require("./Backend/controllers/privilegeController.js");
+    const specificFetchController = require ("./Backend/controllers/specificFetchController.js");
 
     // Routers
     homeRouter = require('./Backend/Routers/homeRouter.js');
@@ -63,6 +67,8 @@ try {
             dashboardController(socket, Database);
             dropdownController(socket, Database);
             departmentController(socket, Database);
+            privilegeController(socket, Database);
+            specificFetchController(socket, Database);
 
         } catch (error) {
             console.log(error)

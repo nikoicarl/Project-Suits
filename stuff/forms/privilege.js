@@ -13,55 +13,115 @@ function Privilege() {
 }
 
 
-function PrivilegeForm() {
+function PrivilegeForm(data) {
+    let htmlData = '';
+    if (data) {
+        for (const app in data) {
+            if (data.hasOwnProperty(app)) {
+                const main = data[app];
+                htmlData += displayPrivilege(main);
+            }
+        }
+    } else {
+        htmlData = '';
+    }
     return `
-        <div class="card">
+        <div class="card component-card_1 mb-5 ps_privilege_navigation ps_privilege_main_form mt-3">   
             <div class="card-body">
-                <form action="" class="ps_privilege_form">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="text-danger">Select the user or role you want to change privilges for</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group mb-4">
-                                <label>User</label>
-                                <select class="form-control select_search ps_privilege_user"></select>
+                <div class="ps_privilege_div">
+                    <form class="ps_manage_privilege_form">
+                        <p class="text-danger">Select the user or role you want to change privileges for</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label >User </label>
+                                    <select class="form-control basic ps_privilege_user ps_assign_privilege_user">
+                                        <!-- <option selected="selected">Select User</option> -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label >Role </label>
+                                    <select class="form-control basic ps_privilege_department ps_assign_privilege_department">
+                                        <!-- <option selected="selected">Select Privilege</option> -->
+                                    </select>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group mb-4">
-                                <label>Role</label>
-                                <select class="form-control select_search ps_privilege_role"></select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <p class="m-0 p-1"> PETTY CASH TOP UP </p>
-                            <label class="switch s-dark"> <input type="checkbox" id="petty_cash_top_up" class="petty_cash_top_up checkBox group_accounts" name="petty_cash_top_up" value="yes" data-column="petty_cash_top_up" data-all="no" data-category="func_accounts" data-table="privilege_account"> <span class="slider round"></span> </label>
-                        </div>
-                    
-                        <div class="col-md-3 mb-2">
-                            <p class="m-0 p-1"> DISBURSE PETTY CASH </p>
-                            <label class="switch s-dark"> <input type="checkbox" id="disburse_petty_cash" class="disburse_petty_cash checkBox group_accounts" name="disburse_petty_cash" value="yes" data-column="disburse_petty_cash" data-all="no" data-category="func_accounts" data-table="privilege_account"> <span class="slider round"></span> </label>
-                        </div>
-                    </div>
-                </form>
+                        ${htmlData}
+                    </form>
+                </div>
             </div>
         </div>
     `;
+}
+
+function displayPrivilege(main) {
+    let formHtml = '';
+    if (main != undefined && main.tableTitle != undefined) {
+        let checkboxes = '';
+        for (let i = 0; i < main.columnList.length; i++) {
+            const item = main.columnList[i];
+            if (item == main.allCheckBox || item == main.funcName) {} else {
+                let title = item.toString().replace(/_/g, ' ');
+                checkboxes += `
+                    <div class="col-md-3 mb-2">
+                        <p class="m-0 p-1"> ${title.toUpperCase()} </p>
+                        <label class="switch s-dark"> <input type="checkbox" id="${item}" class="${item} checkBox group_${main.allCheckBox}" name="${item}" value="yes" data-column="${item}" data-all="no" data-category="${main.funcName}" data-table="${main.tableName}"> <span class="slider round"></span> </label>
+                    </div>
+                `;
+            }
+        }
+        formHtml = `
+            <fieldset class="mt-4 mb-3">
+                <legend class="font-weight-semibold  font-size-sm m-0 p-0"> 
+                    ${main.icon}
+                    <span class="text-uppercase" style="font-size:0.75em;"> ${main.tableTitle.toUpperCase()} </span>
+                    <a href="#" class="float-right text-default collapsed" data-toggle="collapse" data-target="#all_${main.tableName}" aria-expanded="false">
+                        <i class="icon-circle-down2"></i>
+                    </a>
+                    <div class="custom-control custom-switch float-right mr-3 mt-2">
+                        <input type="checkbox" class="custom-control-input checkBoxAll ${main.allCheckBox}" name="${main.allCheckBox}" value="yes" data-column="${main.allCheckBox}" data-table="${main.tableName}" id="${main.allCheckBox}">
+                        <label class="custom-control-label" for="${main.allCheckBox}" style="font-size:0.7em!important">ALL</label>
+                    </div>
+                </legend>
+                <hr class="m-0 p-0">  
+                <div class="collapse " id="all_${main.tableName}" >
+                    <div class="row mt-3">
+                        ${checkboxes}
+                    </div>
+                </div>
+            </fieldset>
+        `;
+    } else {
+        formHtml = ``;
+    }
+
+    return formHtml;
+}
+
+function appPrivileges() {
+    socket.off(melody.melody1+'_get_app_privileges');
+    socket.emit('privilege', {
+        melody1: melody.melody1,
+        melody2: melody.melody2,
+        param: 'get_app_privileges'
+    });
+
+    socket.on(melody.melody1+'_get_app_privileges', (data) => {
+        html = ejs.render(PrivilegeForm(data), {});
+        $('#ps_privilege_page_form_display').html(html);
+
+        //Add page ajax file(s)
+        addPageScript('privilegeAjax');
+    });
 }
 
 (() => {
     let html = ejs.render(Privilege(), {});
     $('#ps_main_content_display').html(html);
 
-    html = ejs.render(PrivilegeForm(), {});
-    $('#ps_privilege_page_form_display').html(html);
-
-    addPageScript('privilegeAjax');
+    //Fetch for App privileges
+    appPrivileges();
 })();

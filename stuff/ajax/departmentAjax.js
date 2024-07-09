@@ -4,16 +4,7 @@ $(document).ready(function () {
     // Global Variable & Functions here
     let holdUser;
     DepartmentTableFetch();
-
-    // Alert 
-    let Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        heightAuto:true
-    });
-
+    
     // Form Submit
     $(document).on('submit', 'form.ps_manage_department_form', function (e) {
         e.preventDefault();

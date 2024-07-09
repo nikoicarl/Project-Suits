@@ -4,6 +4,15 @@ const socket = io();
 //Initialize melody here
 let melody = JSON.parse(window.localStorage.getItem('melody'));
 
+//  Toast Alert 
+let Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    heightAuto:true
+});
+
 if (melody && melody.melody2.length > 6) { } else {
     window.location.replace("/dashboard");
 }
