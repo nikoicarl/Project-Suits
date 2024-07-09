@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    let privilege = JSON.parse($('.hidden_privilege_data').val());
+
     // Dashboard fetch method
     dashboardFetch();
 
