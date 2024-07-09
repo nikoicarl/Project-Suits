@@ -70,6 +70,9 @@
                 </section>
             </div>
 
+            <input type="hidden" class="hidden_userdata" value="<%= JSON.stringify(userData) %>">
+            <input type="hidden" class="hidden_privilege_data" value="<%= JSON.stringify(privilege); %>">
+
             <!-- Footer here  -->
             <%- include('navs/footer.ejs') %>
 

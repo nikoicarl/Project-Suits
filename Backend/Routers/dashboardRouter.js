@@ -28,9 +28,10 @@ module.exports = function (start, Database) {
             if (md5(userID) == queryStr.pub) {
                 const UserModel = new User(Database);
                 let userResult = await UserModel.preparedFetch({
-                    sql: 'userID',
+                    sql: 'userID = ?',
                     columns: [userID]
                 });
+                
                 if (Array.isArray(userResult)) {
                     if (userResult.length > 0) {
                         const PrivilegeModel = new Privilege(Database, userID);

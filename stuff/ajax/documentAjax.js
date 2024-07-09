@@ -61,16 +61,16 @@ $(document).ready(function () {
             },
             columns: [
                 {
-                field: 'name',
+                field: 'fileName',
                 title: "Document",
                 type: 'text',
                 template: function (row) {
-                    return (row.document).toUcwords();
+                    return (row.fileName).toUcwords();
                 }
                 },
                 {
-                    field: 'description',
-                    title: "Description",
+                    field: 'dateTime',
+                    title: "Date Uploaded",
                     type: 'text'
                 },
                 {

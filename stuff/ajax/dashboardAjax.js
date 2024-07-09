@@ -1,6 +1,11 @@
 $(document).ready(function () {
 
     let privilege = JSON.parse($('.hidden_privilege_data').val());
+    let userData = JSON.parse($('.hidden_userdata').val());
+
+    // Username on topbar
+    $('.ps_topbar_fullname').text(userData.username);
+
 
     // Dashboard fetch method
     dashboardFetch();
