@@ -112,24 +112,30 @@ $(document).ready(function () {
                     template: function (row) {
                         return (row.department).toUcwords();
                     }
-                },
-                {
-                    field: 'description',
-                    title: "Description",
-                    type: 'text'
-                },
-                {
-                    field: 'status',
-                    title: "Status",
-                    type: 'text',
-                    template: function (row) {
-                        return row.status == 'a' ? `<span class="badge badge-success"> Active </span>` : `<span class="badge badge-danger"> ${row.status.toUcwords()} </span>`;
-                    }
-                },
-                {
-                    field: 'action',
-                    title: 'Action',
-                    template: function (row) {
+                                    },
+                                    {
+                                        field: 'description',
+                                        title: "Description",
+                                        type: 'text'
+                                    },
+                                    {
+                                        field: 'status',
+                                        title: "Status",
+                                        type: 'text',
+                                        template: function (row) {
+                                            if (row.status == 'a') {
+                                                return `<span class="badge badge-success"> Active </span>`;
+                                            } else if (row.status == 'd') {
+                                                return `<span class="badge badge-danger"> Deactivated </span>`;
+                                            } else {
+                                                return `<span class="badge badge-danger"> ${row.status.toUpperCase()} </span>`;
+                                            }
+                                        }
+                                    },
+                                    {
+                                        field: 'action',
+                                        title: 'Action',
+                                        template: function (row) {
                         let activateOrDeactivate, validate_delete;
                 
                         if (row.status == "d") {
@@ -206,14 +212,13 @@ $(document).ready(function () {
                 mssg = 'Are you sure you want to deactivate '+getdata+ '?';
             }
             Toast.fire({
-                title: "Are you sure?",
                 text: mssg,
                 icon: "warning",
                 showConfirmButton : true,
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, deactivate it!"
+                confirmButtonText: "Yes, do it !",
             }).then((result) => {
             if (result.isConfirmed) {
                 //Check if yes is clicked

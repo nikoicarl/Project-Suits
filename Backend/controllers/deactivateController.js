@@ -4,6 +4,7 @@ const md5 = require('md5');
 
 const Role = require('../Models/RoleModel');
 const Session = require('../Models/SessionModel');
+const Privilege = require('../Models/PrivilegeFeaturesModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const Department = require('../Models/DepartmentModel');
 
@@ -16,11 +17,11 @@ module.exports = (socket, Database) => {
         let melody1 = browserblob.melody1;
 
         let session = getSessionIDs(melody1);
-        let userid = session.userid;
+        let userID = session.userID;
         let sessionid = session.sessionid;
 
         try {
-            const PrivilegeModel = new Privilege(Database, userid);
+            const PrivilegeModel = new Privilege(Database, userID);
             let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
 
             let message;
@@ -34,9 +35,9 @@ module.exports = (socket, Database) => {
                 let result;
                 if (param === "deactivate_department") {
                     const DepartmentModel = new Department(Database);
-                    if (privilegeData !== undefined && privilegeData.administration.deactivate_department == "yes") {
+                    if (privilegeData !== undefined && privilegeData.pearson_specter.deactivate_department == "yes") {
                         let dataId = browserblob.dataId;
-                        let checker = browserblob.checker == "deactivate" ? 'deactivated' : 'active';
+                        let checker = browserblob.checker == "deactivate" ? 'd' : 'a';
                         result = await DepartmentModel.updateTable({
                             sql: 'status=? WHERE departmentID=?',
                             columns: [checker, dataId]

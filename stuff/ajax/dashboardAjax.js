@@ -41,7 +41,6 @@ $(document).ready(function () {
             } else {
                 if (data.length > 0) {
                     for (let i = 0; i < data.length; i++) {
-                        console.log(data);
                         let color, icon;
                         const dateTimeParts = data[i].dateTime.split(' ');
                         const time = dateTimeParts[1];
