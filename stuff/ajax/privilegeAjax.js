@@ -188,26 +188,25 @@
     //================================================================================//
     // DROPDOWNS
         //dropdowns
-        departmentDropdown();
-        function departmentDropdown() {
+        roleDropdown();
+        function roleDropdown() {
             socket.off('dropdown');
-            socket.off(melody.melody1+'_department');
+            socket.off(melody.melody1+'_role_dropdown');
 
             socket.emit('dropdown', {
                 melody1: melody.melody1,
                 melody2: melody.melody2,
-                param: 'department'
+                param: 'role_dropdown'
             });
 
-            socket.on(melody.melody1+'_department', (data)=>{
+            socket.on(melody.melody1+'_role_dropdown', (data)=>{
                 if (data.type == 'error') {
                     console.log(data.message);
                 } else {
-                    $('.ps_privilege_department').html('<option value="" selected>Select Department</option>');
+                    $('.ps_privilege_role_dropdown').html('<option value="" selected>Select Role</option>');
                     data.forEach(item => {
-                        $('.ps_privilege_department').append(`<option value="${item.departmentid}"> ${item.name.toUcwords()} </option>`);
+                        $('.ps_privilege_role_dropdown').append(`<option value="${item.roleID}"> ${item.role.toUcwords()} </option>`);
                     });
-                    makeAllSelectLiveSearch('ps_privilege_department', 'Select Department');
                 }
             });
         }

@@ -40,6 +40,21 @@ module.exports = (socket, Database) => {
                         message: 'Oops, something went wrong: Error => ' + result.sqlMessage
                     });
                 }
+            } else if (param === "role_dropdown") {
+                const RoleModel = new Role(Database);
+
+                result = await RoleModel.preparedFetch({
+                    sql: 'status = ?',
+                    columns: ['a']
+                });
+                if (Array.isArray(result)) {
+                    socket.emit(melody1 + '_' + param, result);
+                } else {
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'error',
+                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                    });
+                }
             } 
         } catch (error) {
             socket.emit(melody1 + '_' + param, {

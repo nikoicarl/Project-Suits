@@ -43,7 +43,7 @@ function PrivilegeForm(data) {
                             <div class="col-md-6">
                                 <div class="form-group mb-4">
                                     <label >Role </label>
-                                    <select class="form-control basic ps_privilege_department ps_assign_privilege_department">
+                                    <select class="form-control basic ps_privilege_role_dropdown ">
                                         <!-- <option selected="selected">Select Privilege</option> -->
                                     </select>
                                 </div>
