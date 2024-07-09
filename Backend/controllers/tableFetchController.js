@@ -8,6 +8,8 @@ const Session = require('../Models/SessionModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const Department = require('../Models/DepartmentModel');
 const Privilege = require('../Models/PrivilegeFeaturesModel');
+const Document = require('../Models/DocumentModel');
+const User = require('../Models/UserModel');
 
 const gf = new GeneralFunction();
 
@@ -74,10 +76,42 @@ module.exports = (socket, Database) => {
                 } else {
                     socket.emit(melody1 + '_' + param, []);
                 }
-            }else if (param === "role_table") {
+            } else if (param === "role_table") {
                 const RoleModel = new Role(Database);
 
                 result = await RoleModel.preparedFetch({
+                    sql: 'status =?',
+                    columns: ['a']
+                });
+
+                if (Array.isArray(result)) {
+                    socket.emit(melody1 + '_' + param, result);
+                } else {
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'error',
+                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                    });
+                }
+            } else if (param === "document_table") {
+                const DocumentModel = new Document(Database);
+
+                result = await DocumentModel.preparedFetch({
+                    sql: 'status =?',
+                    columns: ['a']
+                });
+
+                if (Array.isArray(result)) {
+                    socket.emit(melody1 + '_' + param, result);
+                } else {
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'error',
+                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                    });
+                }
+            } else if (param === "user_table") {
+                const UserModel = new User(Database);
+
+                result = await UserModel.preparedFetch({
                     sql: 'status =?',
                     columns: ['a']
                 });
