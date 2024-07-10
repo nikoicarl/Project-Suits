@@ -1,0 +1,111 @@
+
+function Sidebar() {
+    return `
+        <li class="nav-item">
+            <a href="/dashboard" class="nav-link  ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                data-scripts="single::/dashboardAjax">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Dashboard</p>
+            </a>
+        </li>
+
+        <% if (privilege.pearson_specter.add_document == "yes" ||  privilege.pearson_specter.edit_document == "yes" || privilege.pearson_specter.deactivate_document == "yes") { %>
+            <li class="nav-item">
+                <a href="/document" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                    data-scripts="single::/documentAjax">
+                    <i class="nav-icon fas fa-folder"></i>
+                    <p>Manage Documents</p>
+                </a>
+            </li>
+        <% } %>
+
+        <% if (privilege.pearson_specter.add_department == "yes" ||  privilege.pearson_specter.edit_department  == "yes" || privilege.pearson_specter.deactivate_department == "yes") { %>
+            <li class="nav-item">
+                <a href="/department" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                    data-scripts="single::/departmentAjax">
+                    <i class="nav-icon fas fa-chart-bar"></i>
+                    <p>Manage Department</p>
+                </a>
+            </li>
+        <% } %>
+
+        <% if (privilege.pearson_specter.add_privilege == "yes" ||  privilege.pearson_specter.edit_privilege == "yes" || privilege.pearson_specter.deactivate_privilege == "yes") { %>
+            <li class="nav-item">
+                <a href="/privilege" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                    data-scripts="single::/privilegeAjax">
+                    <i class="nav-icon fas fa-user-alt"></i>
+                    <p>Manage Privileges</p>
+                </a>
+            </li>
+        <% } %>
+
+        <% if (privilege.pearson_specter.add_user == "yes" ||  privilege.pearson_specter.edit_user == "yes" || privilege.pearson_specter.deactivate_user == "yes") { %>
+            <li class="nav-item">
+                <a href="/user" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                    data-scripts="single::/userAjax">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>Manage User</p>
+                </a>
+            </li>
+        <% } %>
+
+        <% if (privilege.pearson_specter.add_role == "yes" ||  privilege.pearson_specter.edit_role == "yes" || privilege.pearson_specter.deactivate_role == "yes") { %>
+            <li class="nav-item">
+                <a href="/role" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                    data-scripts="single::/roleAjax">
+                    <i class="nav-icon fas fa-user-alt"></i>
+                    <p>Manage Role</p>
+                </a>
+            </li>
+        <% } %>
+
+        <li class="nav-item">
+            <a href="/contact" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                data-scripts="single::/contactAjax
+            ">
+                <i class="nav-icon fas fa-laptop"></i>
+                <p>Contact IT Department</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-chart-area"></i>
+                <p>
+                    Reports
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="/upload_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/uploadReportAjax"> 
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Document Upload </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/department_state_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/departmentStateReportAjax"> 
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Department State</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/login_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/loginReportAjax"> 
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Login</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/deactivation_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        data-scripts="single::/deactivationReportAjax"> 
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Deactivation</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    `;
+}

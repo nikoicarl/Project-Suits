@@ -356,4 +356,18 @@
                 });
             }
         }
+
+        //Re-arrange sidebar base on privilege settings for a particular user
+        socket.on(melody.melody2+'_get_user_privileges', (data)=>{
+            console.log(data);
+            if (data.type == 'error') {
+                console.log(data.message);
+            } else {
+                if (data.pearson_specter.add_privilege != undefined) {
+                    $('.hidden_privilege_data').val(JSON.stringify(data));
+                    let html = ejs.render(Sidebar(), {privilege: data});
+                    document.getElementById('navbar_overall_parent').innerHTML = html;
+                }
+            }
+        });
 })()
