@@ -20,6 +20,7 @@ try {
     const privilegeController = require("./Backend/controllers/privilegeController.js");
     const specificFetchController = require ("./Backend/controllers/specificFetchController.js");
     const deactivateController = require("./Backend/controllers/deactivateController.js");
+    const fileUploadController = require("./Backend/controllers/fileUploadController.js");
 
     // Routers
     homeRouter = require('./Backend/Routers/homeRouter.js');
@@ -71,6 +72,7 @@ try {
             privilegeController(socket, Database);
             specificFetchController(socket, Database);
             deactivateController(socket, Database);
+            fileUploadController(socket, Database);
 
         } catch (error) {
             console.log(error)
