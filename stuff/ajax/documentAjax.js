@@ -16,7 +16,7 @@ $(document).ready(function () {
             DropZone('ps_dropzone_input', '#dcdcdc', dropZoneIcons, {
                 requestType: 'socket',
                 socketObject: socket,
-                socketEvent: 'ovasyte_general_file_upload'
+                socketEvent: 'ps_general_file_upload'
             }, 'pdf/*', 1)
             $('.ps_dropzone_title').text('Click to upload pdf here');
             $('.ps_dropzone_subtitle').text(``);
