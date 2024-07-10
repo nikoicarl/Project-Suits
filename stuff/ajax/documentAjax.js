@@ -25,9 +25,9 @@ $(document).ready(function () {
         }, 200);
     }
 
-
-     //Document Table Fetch
-     function DocumentTableFetch(){
+    //Document Table Fetch
+    DocumentTableFetch();
+    function DocumentTableFetch(){
         socket.off('table');
         socket.off(melody.melody1+'_document_table'); 
 
