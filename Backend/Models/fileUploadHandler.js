@@ -12,16 +12,16 @@ module.exports = (socket) => {
             let TextFileName = fileData.name.toString().split('.'+ext[ext.length - 1]).join("")
 
             if (FileDataHolder.hasOwnProperty(fileData.name)) {
-                const tempWriteStream = fs.createWriteStream(__dirname+'/../../../stuff/uploads/'+TextFileName+'.txt', { flags: 'a' })
+                const tempWriteStream = fs.createWriteStream(__dirname+'/../../stuff/uploads/'+TextFileName+'.txt', { flags: 'a' })
                 tempWriteStream.write(fileData.data.split("base64,")[1])
                 tempWriteStream.end()
 
             } else {
-                if (!fs.existsSync(__dirname+'/../../../stuff/uploads')) {
-                    fs.mkdirSync(__dirname+'/../../../stuff/uploads')
+                if (!fs.existsSync(__dirname+'/../../stuff/uploads/')) {
+                    fs.mkdirSync(__dirname+'/../../stuff/uploads/')
                 } 
 
-                const tempWriteStream = fs.createWriteStream(__dirname+'/../../../stuff/uploads/'+TextFileName+'.txt', { flags: 'a' })
+                const tempWriteStream = fs.createWriteStream(__dirname+'/../../stuff/uploads//'+TextFileName+'.txt', { flags: 'a' })
                 tempWriteStream.write(fileData.data.split("base64,")[1])
                 tempWriteStream.end()
             }
