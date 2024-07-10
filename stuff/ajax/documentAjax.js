@@ -17,13 +17,60 @@ $(document).ready(function () {
                 requestType: 'socket',
                 socketObject: socket,
                 socketEvent: 'ps_general_file_upload'
-            }, 'pdf/*', 1)
+            }, 'pdf/*', 0)
             $('.ps_dropzone_title').text('Click to upload pdf here');
             $('.ps_dropzone_subtitle').text(``);
-            // $('.ps_cake_drop_zone_label').css('height', '150px');
             $('.ps_dropzone_inner').addClass('mt-4');
         }, 200);
     }
+
+
+    // Document submit form
+    $(document).on('submit', 'form.ps_manage_product_form', function (e) {
+        e.preventDefault();
+
+        //Get form data from html
+        let ps_document_upload_dropzone_rename = $('.ps_document_upload_dropzone_rename', this).val();
+
+        //Setting submit button to loader
+        $('.ps_manage_product_submit_btn').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');
+        //Disable submit button
+        $('.ps_manage_product_submit_btn').attr('disabled', 'disabled');
+
+        socket.off('insertNewOnlineShopProduct');
+        socket.off(melody.melody1+'_insertNewDocument');
+
+        setTimeout(function () {
+            socket.emit('insertNewDocument', {
+                "melody1": melody.melody1,
+                "melody2": melody.melody2,
+                "ps_document_upload_dropzone_rename": ps_document_upload_dropzone_rename,
+                "ps_manage_document_hiddenid": ps_manage_document_hiddenid,
+                "DocumentsForUpdate": FilterFileNames(FileNamesHolder)
+            });
+        }, 500);
+
+        //Get response from submit
+        socket.on(melody.melody1 + '_insertNewDocument', function (data) {
+            if (data.type == 'success') {
+                $('.ps_loginForm').trigger('reset');
+                pageDropZone()
+            }
+
+            swal({
+                title: data.type == 'success' ? 'Success' : (data.type == 'error' ? 'Error' : 'Caution'),
+                text: data.message,
+                type: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),
+                padding: '0.5em'
+            })
+
+            //Set submit button back to its original text
+            $('.ps_document_submit').html('Submit');
+            //Enable submit button
+            $('.ps_document_submit').removeAttr('disabled');
+            socket.off(melody.melody1+'_insertNewDocument')
+        });
+    });
 
     //Document Table Fetch
     DocumentTableFetch();
