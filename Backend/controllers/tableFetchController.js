@@ -77,52 +77,58 @@ module.exports = (socket, Database) => {
                     socket.emit(melody1 + '_' + param, []);
                 }
             } else if (param === "role_table") {
-                const RoleModel = new Role(Database);
-
-                result = await RoleModel.preparedFetch({
-                    sql: 'status =?',
-                    columns: ['a']
-                });
-
-                if (Array.isArray(result)) {
-                    socket.emit(melody1 + '_' + param, result);
-                } else {
-                    socket.emit(melody1 + '_' + param, {
-                        type: 'error',
-                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                if (privilegeData !== undefined && privilegeData.pearson_specter.add_role == "yes" || privilegeData.pearson_specter.edit_role == "yes" || privilegeData.pearson_specter.deactivate_role == "yes") {
+                    const DepartmentModel = new Department(Database);
+                    result = await DepartmentModel.preparedFetch({
+                        sql: 'status != ?  ORDER BY dateTime DESC',
+                        columns: ['i']
                     });
+                    if (Array.isArray(result)) {
+                        socket.emit(melody1 + '_' + param, result);
+                    } else {
+                        socket.emit(melody1 + '_' + param, {
+                            type: 'error',
+                            message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                        });
+                    }
+                } else {
+                    socket.emit(melody1 + '_' + param, []);
                 }
             } else if (param === "document_table") {
-                const DocumentModel = new Document(Database);
-
-                result = await DocumentModel.preparedFetch({
-                    sql: 'status =?',
-                    columns: ['a']
-                });
-
-                if (Array.isArray(result)) {
-                    socket.emit(melody1 + '_' + param, result);
-                } else {
-                    socket.emit(melody1 + '_' + param, {
-                        type: 'error',
-                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                if (privilegeData !== undefined && privilegeData.pearson_specter.add_document == "yes" || privilegeData.pearson_specter.edit_document == "yes" || privilegeData.pearson_specter.deactivate_document == "yes") {
+                    const DocumentModel = new Document(Database);
+                    result = await DocumentModel.preparedFetch({
+                        sql: 'status != ?  ORDER BY dateTime DESC',
+                        columns: ['i']
                     });
+                    if (Array.isArray(result)) {
+                        socket.emit(melody1 + '_' + param, result);
+                    } else {
+                        socket.emit(melody1 + '_' + param, {
+                            type: 'error',
+                            message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                        });
+                    }
+                } else {
+                    socket.emit(melody1 + '_' + param, []);
                 }
             } else if (param === "user_table") {
-                const UserModel = new User(Database);
-
-                result = await UserModel.preparedFetch({
-                    sql: 'status =?',
-                    columns: ['a']
-                });
-
-                if (Array.isArray(result)) {
-                    socket.emit(melody1 + '_' + param, result);
-                } else {
-                    socket.emit(melody1 + '_' + param, {
-                        type: 'error',
-                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                if (privilegeData !== undefined && privilegeData.pearson_specter.add_user == "yes" || privilegeData.pearson_specter.edit_user == "yes" || privilegeData.pearson_specter.deactivate_user == "yes") {
+                    const UserModel = new User(Database);
+                    result = await UserModel.preparedFetch({
+                        sql: 'status != ?  ORDER BY dateTime DESC',
+                        columns: ['i']
                     });
+                    if (Array.isArray(result)) {
+                        socket.emit(melody1 + '_' + param, result);
+                    } else {
+                        socket.emit(melody1 + '_' + param, {
+                            type: 'error',
+                            message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                        });
+                    }
+                } else {
+                    socket.emit(melody1 + '_' + param, []);
                 }
             }
         } catch (error) {
