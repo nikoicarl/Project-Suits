@@ -62,7 +62,7 @@ module.exports = (socket, Database) => {
                 if (privilegeData !== undefined && privilegeData.pearson_specter.add_department == "yes" || privilegeData.pearson_specter.edit_department == "yes" || privilegeData.pearson_specter.deactivate_department == "yes") {
                     const DepartmentModel = new Department(Database);
                     result = await DepartmentModel.preparedFetch({
-                        sql: 'status != ? ORDER BY datetime DESC',
+                        sql: 'status != ?  ORDER BY dateTime DESC',
                         columns: ['i']
                     });
                     if (Array.isArray(result)) {

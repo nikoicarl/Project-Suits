@@ -18,6 +18,7 @@ function Dashboard() {
                         </div>
                         <a href="/document" class="nav-link ps_main_navigation_btn small-box-footer" data-navparent="navbar_overall_parent"
                         data-scripts="single::/documentAjax">More info <i class="fas fa-arrow-circle-right"></i></a>
+
                     </div>
                 </div>
                 <div class="col-md-4">

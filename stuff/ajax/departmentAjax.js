@@ -84,6 +84,7 @@ $(document).ready(function () {
 
         // User Table Emit Response
         socket.on(melody.melody1 + '_department_table', (data) => {
+            console.log(data);
             if (data.type == 'error') {
                 console.log(data.message);
             } else {
