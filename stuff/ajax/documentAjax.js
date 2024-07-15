@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 
     // Document submit form
-    $(document).on('submit', 'form.ps_manage_product_form', function (e) {
+    $(document).on('submit', 'form.ps_document_form', function (e) {
         e.preventDefault();
 
         //Get form data from html
@@ -37,7 +37,7 @@ $(document).ready(function () {
         //Disable submit button
         $('.ps_manage_product_submit_btn').attr('disabled', 'disabled');
 
-        socket.off('insertNewOnlineShopProduct');
+        socket.off('insertNewDocument');
         socket.off(melody.melody1+'_insertNewDocument');
 
         setTimeout(function () {
@@ -57,7 +57,7 @@ $(document).ready(function () {
                 pageDropZone()
             }
 
-            swal({
+            Toast.fire({
                 title: data.type == 'success' ? 'Success' : (data.type == 'error' ? 'Error' : 'Caution'),
                 text: data.message,
                 type: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),

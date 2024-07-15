@@ -11,10 +11,11 @@ const UploadFile = require('../../models/upload/UploadFileModel')
 module.exports = (socket, Database)=>{
     socket.on('insertNewDocument', async (browserblob)=>{
         let ps_manage_document_hiddenid = browserblob.ps_manage_document_hiddenid;
+        
+
         const DocumentsForUpdate = browserblob.DocumentsForUpdate
 
         let melody1 = browserblob.melody1;
-
         let session = getsessionIDs(melody1);
         let userID = session.userID;
         let sessionID = session.sessionID;
