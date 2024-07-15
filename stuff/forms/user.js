@@ -19,6 +19,39 @@ function UserForm() {
             <div class="card-body">
                 <form action="" class="ps_user_form">
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label>First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control ps_user_firstName" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label>Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control ps_user_lastName" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label>Email</label>
+                                <input type="email" class="form-control ps_user_email" placeholder="example@mail.com" >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label>Phone</label>
+                                <input type="text" class="form-control ps_user_phone" placeholder="Phone" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea name="" id="" rows="2" cols="2" class="form-control ps_user_address"  placeholder="address"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group mb-4">
                                 <label>Username <span class="text-danger">*</span></label>
