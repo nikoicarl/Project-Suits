@@ -231,7 +231,7 @@
                 } else {
                     $('select.ps_privilege_user').html('<option value="" selected>Select User</option>');
                     data.forEach(item => {
-                        $('select.ps_privilege_user').append(`<option value="${item.userID}"> ${item.userID}</option>`);
+                        $('select.ps_privilege_user').append(`<option value="${item.userID}"> ${item.username}</option>`);
                     });
                 }
             });
