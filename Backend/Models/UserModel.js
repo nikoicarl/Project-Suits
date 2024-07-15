@@ -55,6 +55,33 @@ class User {
         }
     }
 
+    //Fetch for prepared statement
+    async preparedLeftJoinFetch (object) {
+        try {
+            let sql = `
+                SELECT user.userID AS userID, 
+                user.firstName AS firstName, 
+                user.lastName AS lastName, 
+                user.email AS email, 
+                user.phone AS phone, 
+                user.address AS address, 
+                user.username AS username, 
+                user.password AS password, 
+                user.roleID AS roleID, 
+                user.dateTime AS dateTime, 
+                user.status AS status,
+                role.role AS role  
+                FROM user 
+                LEFT JOIN role ON user.roleID = role.roleID  
+                WHERE ${object.sql}
+            `;
+            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
     //Create table method
     async createTable() {
         const CreateUpdateTable = new CreateUpdateModel(this.Database, {

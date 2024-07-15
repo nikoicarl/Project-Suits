@@ -17,7 +17,8 @@ function UserForm() {
     return `
         <div class="card">
             <div class="card-body">
-                <form action="" class="ps_user_form">
+                <form action="" class="ps_manage_user_form">
+                    <input type="hidden" name="" class="ps_manage_user_hiddenid">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-4">
@@ -33,16 +34,22 @@ function UserForm() {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-4">
                                 <label>Email</label>
                                 <input type="email" class="form-control ps_user_email" placeholder="example@mail.com" >
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group mb-4">
                                 <label>Phone</label>
                                 <input type="text" class="form-control ps_user_phone" placeholder="Phone" >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-4">
+                                <label >Role </label>
+                                <select class="form-control basic ps_user_role_dropdown "></select>
                             </div>
                         </div>
                     </div>
@@ -78,7 +85,7 @@ function UserForm() {
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary ps_user_submit float-right">Submit</button>
+                            <button type="submit" class="btn btn-primary ps_manage_user_submit_btn float-right">Submit</button>
                         </div>
                     </div>
                 </form>

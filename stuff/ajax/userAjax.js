@@ -19,6 +19,7 @@ $(document).ready(function () {
         let ps_user_username = $('.ps_user_username', this).val();
         let ps_user_password = $('.ps_user_password', this).val();
         let ps_user_confirm_password = $('.ps_user_confirm_password', this).val();
+        let ps_user_role_dropdown = $('.ps_user_role_dropdown', this).val();
         
 
         //Setting submit button to loader
@@ -38,6 +39,7 @@ $(document).ready(function () {
                 "ps_user_lastName": ps_user_lastName,
                 "ps_user_email": ps_user_email,
                 "ps_user_phone": ps_user_phone,
+                "ps_user_role_dropdown" : ps_user_role_dropdown,
                 "ps_user_address": ps_user_address,
                 "ps_user_username": ps_user_username,
                 "ps_user_password": ps_user_password,
@@ -119,11 +121,19 @@ $(document).ready(function () {
             },
             columns: [
                 {
-                    field: 'user',
+                    field: 'username',
                     title: "User",
                     type: 'text',
                     template: function (row) {
-                        return (row.username).toUcwords();
+                        return (row.username);
+                    }
+                },
+                {
+                    field: 'role',
+                    title: "Role",
+                    type: 'text',
+                    template: function (row) {
+                        return (row.role).toUcwords();
                     }
                 },
                 {
@@ -131,7 +141,15 @@ $(document).ready(function () {
                     title: "Status",
                     type: 'text',
                     template: function (row) {
-                        return row.status == 'a' ? `<span class="badge badge-success"> Active </span>` : `<span class="badge badge-danger"> ${row.status.toUcwords()} </span>`;
+                        if (row.status == 'a') {
+                            return `<span class="badge badge-success"> Active </span>`;
+                        } else if (row.status == 'd') {
+                            return `<span class="badge badge-danger"> Deactivated </span>`;
+                        } else if (row.status == 'ad') {
+                            return `<span class="badge badge-info"> Sys Admin </span>`;
+                        }else {
+                            return `<span class="badge badge-danger"> ${row.status.toUpperCase()} </span>`;
+                        }
                     }
                 },
                 {
@@ -361,28 +379,24 @@ $(document).ready(function () {
         });
     }
     
-    //User Dropdown
-    userDropdown();
-    function userDropdown() {
+    roleDropdown();
+    function roleDropdown() {
         socket.off('dropdown');
-        socket.off(melody.melody1 + '_user_dropdown');
+        socket.off(melody.melody1+'_role_dropdown');
 
         socket.emit('dropdown', {
             melody1: melody.melody1,
             melody2: melody.melody2,
-            param: "user_dropdown"
+            param: 'role_dropdown'
         });
 
-        //Get dropdown data
-        socket.on(melody.melody1 + '_user_dropdown', function (data) {
-            //Get json content from login code
-            if (data.type == "error") {
+        socket.on(melody.melody1+'_role_dropdown', (data)=>{
+            if (data.type == 'error') {
                 console.log(data.message);
             } else {
-                $('select.ps_manage_user_user').html(`<option value="" ${holdUser !== undefined ? '' : 'selected'}> Select User </option>`);
-                data.forEach(function (item, index) {
-
-                    $('select.ps_manage_user_user').append(`<option value="${item.userID}"> ${item.userID}</option>`);
+                $('.ps_user_role_dropdown').html('<option value="" selected>Select Role</option>');
+                data.forEach(item => {
+                    $('.ps_user_role_dropdown').append(`<option value="${item.roleID}"> ${item.role.toUcwords()} </option>`);
                 });
             }
         });

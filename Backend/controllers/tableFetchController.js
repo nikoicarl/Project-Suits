@@ -115,8 +115,8 @@ module.exports = (socket, Database) => {
             } else if (param === "user_table") {
                 if (privilegeData !== undefined && privilegeData.pearson_specter.add_user == "yes" || privilegeData.pearson_specter.edit_user == "yes" || privilegeData.pearson_specter.deactivate_user == "yes") {
                     const UserModel = new User(Database);
-                    result = await UserModel.preparedFetch({
-                        sql: 'status != ?  ORDER BY dateTime DESC',
+                    result = await UserModel.preparedLeftJoinFetch({
+                        sql: 'user.status != ?  ORDER BY dateTime DESC',
                         columns: ['i']
                     });
                     if (Array.isArray(result)) {
