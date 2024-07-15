@@ -48,7 +48,10 @@ function UserForm() {
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea name="" id="" rows="2" cols="2" class="form-control ps_user_address"  placeholder="address"></textarea>
+                            <div class="form-group mb-4">
+                                <label>Phone</label>
+                                <textarea name="" id="" rows="2" cols="2" class="form-control ps_user_address"  placeholder="Address"></textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -82,58 +85,25 @@ function UserForm() {
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Users</h3>
-        
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-        
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
+        <div class="card component-card_1 mb-5 mt-3">
+            <div class="card-body ps_user_data_table_div">
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <label for="">Search By Username</label>
+                        <div class="form-inline">
+                            <div class="input-group" >
+                                <input class="form-control form-control-sidebar ps_user_general_search"  placeholder="Search"  id ="ps_user_general_search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-sidebar">
+                                        <i class="fas fa-fw fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <table class="ps_user_data_table" style="text-align:left"></table>
             </div>
-            <div class="card-body table-responsive p-0" >
-                <table class="table table-head-fixed text-nowrap table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>User</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1001</td>
-                            <td>
-                                <span class="badge badge-success p-2">Active</span>
-                            </td>
-                            <td>
-                                <a href="" class="p-2"><span class="fa fa-pen mr-1"></span>  Edit</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>1002</td>
-                            <td>
-                                <a href="" class="badge badge-success p-2">Active</a>
-                            </td>
-                            <td>
-                                <a href="" class="p-2"><span class="fa fa-pen mr-1"></span>  Edit</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
     `;
 }
 
