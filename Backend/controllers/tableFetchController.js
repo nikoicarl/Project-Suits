@@ -78,9 +78,9 @@ module.exports = (socket, Database) => {
                 }
             } else if (param === "role_table") {
                 if (privilegeData !== undefined && privilegeData.pearson_specter.add_role == "yes" || privilegeData.pearson_specter.edit_role == "yes" || privilegeData.pearson_specter.deactivate_role == "yes") {
-                    const DepartmentModel = new Department(Database);
-                    result = await DepartmentModel.preparedFetch({
-                        sql: 'status != ?  ORDER BY dateTime DESC',
+                    const RoleModel = new Role(Database);
+                    result = await RoleModel.preparedFetch({
+                        sql: 'status != ?  ORDER BY role DESC',
                         columns: ['i']
                     });
                     if (Array.isArray(result)) {

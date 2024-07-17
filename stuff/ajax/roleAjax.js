@@ -2,8 +2,8 @@
 $(document).ready(function () {
 
     // Global Variable & Functions here
-    let holdUser;
-    RoleTableFetch();
+    
+    ();
     
     // Form Submit
     $(document).on('submit', 'form.ps_manage_role_form', function (e) {
@@ -110,7 +110,7 @@ $(document).ready(function () {
                     title: "Role",
                     type: 'text',
                     template: function (row) {
-                        return (row.role).toUcwords();
+                        return (row.role);
                     }
                 },
                 {
@@ -133,9 +133,9 @@ $(document).ready(function () {
                         let activateOrDeactivate, validate_delete;
                 
                         if (row.status == "d") {
-                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_role_table_edit_btn" data-getid="${row.roleID}" data-getname="deactivate_role" data-getdata="${row.role.toUcwords()}" data-activate="activate"><i class="icon-checkmark3 mr-2"></i> Reactivate</a>`;
+                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_role_table_edit_btn" data-getid="${row.roleID}" data-getname="deactivate_role" data-getdata="${row.role}" data-activate="activate"><i class="icon-checkmark3 mr-2"></i> Reactivate</a>`;
                         } else {
-                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_role_table_edit_btn" data-getid="${row.roleID}" data-getname="deactivate_role" data-getdata="${row.role.toUcwords()}" data-activate="deactivate"><i class="icon-blocked mr-2"></i> Deactivate</a>`;
+                            activateOrDeactivate = `<a href="#" class="dropdown-item ps_role_table_edit_btn" data-getid="${row.roleID}" data-getname="deactivate_role" data-getdata="${row.role}" data-activate="deactivate"><i class="icon-blocked mr-2"></i> Deactivate</a>`;
                         }
                 
                         if ($('.hidden_delete_for_admin').val() == 'admin') {
@@ -349,33 +349,6 @@ $(document).ready(function () {
                     'success'
                 )
                 RoleTableFetch();
-            }
-        });
-    }
-    
-    //User Dropdown
-    userDropdown();
-    function userDropdown() {
-        socket.off('dropdown');
-        socket.off(melody.melody1 + '_user_dropdown');
-
-        socket.emit('dropdown', {
-            melody1: melody.melody1,
-            melody2: melody.melody2,
-            param: "user_dropdown"
-        });
-
-        //Get dropdown data
-        socket.on(melody.melody1 + '_user_dropdown', function (data) {
-            //Get json content from login code
-            if (data.type == "error") {
-                console.log(data.message);
-            } else {
-                $('select.ps_manage_role_user').html(`<option value="" ${holdUser !== undefined ? '' : 'selected'}> Select User </option>`);
-                data.forEach(function (item, index) {
-
-                    $('select.ps_manage_role_user').append(`<option value="${item.userID}"> ${item.userID}</option>`);
-                });
             }
         });
     }
