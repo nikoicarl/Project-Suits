@@ -84,6 +84,7 @@ $(document).ready(function () {
             if (data.type == 'error') {
                 console.log(data.message);
             } else {
+                console.log(data);
                 roleDataTable(data);
             }
         });
