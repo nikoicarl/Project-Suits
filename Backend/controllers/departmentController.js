@@ -38,7 +38,7 @@ module.exports = (socket, Database)=>{
                 if (hiddenid == "" || hiddenid == undefined) {
                     privilege = privilegeData.pearson_specter.add_department;
                 } else {
-                    privilege = privilegeData.pearson_specter.update_department;
+                    privilege = privilegeData.pearson_specter.edit_department;
                 }
                 if (privilege == "yes") {
                     let departmentID = hiddenid == "" || hiddenid == undefined ? 0 : hiddenid;
