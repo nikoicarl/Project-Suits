@@ -1,10 +1,7 @@
 
 $(document).ready(function () {
 
-    // Global Variable & Functions here
-    
-    ();
-    
+    // Global Variable & Functions here    
     // Form Submit
     $(document).on('submit', 'form.ps_manage_role_form', function (e) {
         e.preventDefault();
@@ -139,7 +136,7 @@ $(document).ready(function () {
                         }
                 
                         if ($('.hidden_delete_for_admin').val() == 'admin') {
-                            validate_delete = `<a href="#" class="dropdown-item ps_role_table_edit_btn" data-getid="${row.roleID}" data-getname="delete_role" data-getdata="${row.role.toUcwords()}"><i class="icon-close2 mr-2"></i> Delete</a>`;
+                            validate_delete = `<a href="#" class="dropdown-item ps_role_table_edit_btn" data-getid="${row.roleID}" data-getname="delete_role" data-getdata="${row.role}"><i class="icon-close2 mr-2"></i> Delete</a>`;
                         } else {
                             validate_delete = '';
                         }

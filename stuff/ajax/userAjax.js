@@ -133,7 +133,7 @@ $(document).ready(function () {
                     title: "Role",
                     type: 'text',
                     template: function (row) {
-                        return (row.role).toUcwords();
+                        return (row.role);
                     }
                 },
                 {

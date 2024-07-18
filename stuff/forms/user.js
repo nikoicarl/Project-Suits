@@ -48,15 +48,15 @@ function UserForm() {
                         </div>
                         <div class="col-md-4">
                             <div class="form-group mb-4">
-                                <label >Role </label>
-                                <select class="form-control basic ps_user_role_dropdown "></select>
+                                <label >Role  <span class="text-danger">*</span></label>
+                                <select class="form-control basic ps_user_role_dropdown " required></select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group mb-4">
-                                <label>Phone</label>
+                                <label>Address</label>
                                 <textarea name="" id="" rows="2" cols="2" class="form-control ps_user_address"  placeholder="Address"></textarea>
                             </div>
                         </div>
