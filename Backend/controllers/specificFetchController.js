@@ -13,7 +13,6 @@ const gf = new GeneralFunction();
 
 module.exports = (socket, Database) => {
     socket.on('specific', async (browserblob) => {
-        console.log(browserblob);
         let param = browserblob.param;
         let melody1 = (browserblob.melody1) ? browserblob.melody1 : '';
 

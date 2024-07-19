@@ -265,25 +265,22 @@ $(document).ready(function () {
 
         socket.on(melody.melody1+'_'+getname, (data)=>{
             if (data.type == 'error') {
-                toast.fire(
+                Toast.fire(
                     'Error',
                     data.message,
                     'warning'
                 )
             } else {
                 $('.ps_manage_department_submit_btn').html('Update');
-
                 if (data) {
-                    $('.ps_manage_department_hiddenid').val(data.departmentid);
-                    $('.ps_manage_department_name').val(data.name.toUcwords());
-                    $('.ps_manage_department_description').val(data.description);
-                    $('.ps_manage_department_color').val(data.color);
+                    $('.ps_manage_department_hiddenid').val(data.departmentID);
+                    $('.ps_manage_department_name').val(data.department.toUcwords());
+                    $('.ps_department_description').val(data.description);
                 } else {
                     $('.ps_manage_department_name').val('');
-                    $('.ps_manage_department_description').val('');
+                    $('.ps_department_description').val('');
                     $('.ps_manage_department_hiddenid').val('');
-                    $('.ps_manage_department_color').val('');
-                    toast.fire(
+                    Toast.fire(
                         'Oops!!',
                         'Fetching to edit ended up empty',
                         'warning'
@@ -342,7 +339,7 @@ $(document).ready(function () {
             if (data.type == "error") {
                 console.log(data.message);
             } else if (data.type == "caution") {
-                toast.fire({
+                Toast.fire({
                     text: data.message,
                     type: 'warning',
                     padding: '1em'
