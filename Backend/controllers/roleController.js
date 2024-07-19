@@ -1,5 +1,5 @@
 const Role = require('../Models/RoleModel');
-const Privilege = require('../Models/PrivilegeModel');
+const Privilege = require('../Models/PrivilegeFeaturesModel');
 const Session = require('../Models/SessionModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const getSessionIDs = require('./getSessionIDs');
@@ -8,7 +8,6 @@ const md5 = require('md5');
 
 module.exports = (socket, Database)=>{
     socket.on('insertNewRole', async (browserblob)=>{
-        console.log(browserblob);
         let hiddenid = browserblob.ps_manage_role_hiddenid;
         let name = browserblob.ps_manage_role_name;
         let description = browserblob.ps_role_description;
@@ -16,9 +15,7 @@ module.exports = (socket, Database)=>{
         let melody1 = browserblob.melody1;
 
         let session = getSessionIDs(melody1);
-        let userid = session.userid;
-        let sessionid = session.sessionid;
-
+        let userID = session.userID;
 
         if (browserblob.melody2) {
             //Initiate connection
@@ -66,7 +63,7 @@ module.exports = (socket, Database)=>{
                             if (result.affectedRows !== undefined) {
                                 const SessionModel = new Session(Database);
                                 let activityid = gf.getTimeStamp();
-                                result = await SessionModel.insertTable([activityid, userid, gf.getDateTime(), (hiddenid == "" || hiddenid == undefined) ? 'added a new role' : 'updated a role record']);
+                                result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (hiddenid == "" || hiddenid == undefined) ? 'added a new role' : 'updated a role record']);
                                 let message = hiddenid == "" || hiddenid == undefined ? 'Role has been created successfully' : 'Role has been updated successfully';
                                 if (result.affectedRows) {
                                     socket.emit(melody1+'_insertNewRole', {
