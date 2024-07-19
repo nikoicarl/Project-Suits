@@ -301,8 +301,6 @@ $(document).ready(function () {
                     $('.ps_user_phone').val(data.phone);
                     $('.ps_user_address').val(data.address);
                     $('.ps_user_username').val(data.username);
-                    $('.ps_user_password').val(data.password);
-                    $('.ps_user_confirm_password').val(data.confirm);
                     $('.ps_user_role_dropdown').val(data.roleID).change();
                 } else {
                     $('.ps_manage_user_hiddenid').val('');
