@@ -59,7 +59,7 @@ module.exports = (socket, Database)=>{
                             } else {
                                 result = await DepartmentModel.updateTable({
                                     sql: 'department = ?, description = ? WHERE departmentID = ? AND status = ?',
-                                    columns: [userID, name, description, departmentID, 'a']
+                                    columns: [name, description, departmentID, 'a']
                                 });
                             }
                             if (result.affectedRows !== undefined) {
