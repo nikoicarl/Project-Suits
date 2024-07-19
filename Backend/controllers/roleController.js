@@ -8,6 +8,7 @@ const md5 = require('md5');
 
 module.exports = (socket, Database)=>{
     socket.on('insertNewRole', async (browserblob)=>{
+        console.log(browserblob);
         let hiddenid = browserblob.ps_manage_role_hiddenid;
         let name = browserblob.ps_manage_role_name;
         let description = browserblob.ps_role_description;
@@ -22,7 +23,7 @@ module.exports = (socket, Database)=>{
         if (browserblob.melody2) {
             //Initiate connection
             const RoleModel = new Role(Database);
-            // const PrivilegeModel = new Privilege(Database, userid);
+            const PrivilegeModel = new Privilege(Database, userID);
 
             //Check for empty
             let result = await gf.ifEmpty([name]);
@@ -38,7 +39,7 @@ module.exports = (socket, Database)=>{
                 if (hiddenid == "" || hiddenid == undefined) {
                     privilege = privilegeData.pearson_specter.add_role;
                 } else {
-                    privilege = privilegeData.pearson_specter.update_role;
+                    privilege = privilegeData.pearson_specter.edit_role;
                 }
                 if (privilege == "yes") {
                     let roleID = hiddenid == "" || hiddenid == undefined ? 0 : hiddenid;
@@ -59,7 +60,7 @@ module.exports = (socket, Database)=>{
                             } else {
                                 result = await RoleModel.updateTable({
                                     sql: 'role = ?, description = ? WHERE roleID = ? AND status = ?',
-                                    columns: [userID, name, description, roleID, 'a']
+                                    columns: [name, description, roleID, 'a']
                                 });
                             }
                             if (result.affectedRows !== undefined) {

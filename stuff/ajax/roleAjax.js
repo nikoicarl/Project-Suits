@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
 
+    RoleTableFetch();
     // Global Variable & Functions here    
     // Form Submit
     $(document).on('submit', 'form.ps_manage_role_form', function (e) {
@@ -8,13 +9,13 @@ $(document).ready(function () {
 
         //Get form data from html
         let ps_manage_role_hiddenid = $('.ps_manage_role_hiddenid', this).val();
-        let ps_manage_role_name = $('.ps_manage_role_name', this).val();
+        let ps_manage_role_name = $('.ps_role_name', this).val();
         let ps_role_description = $('.ps_role_description', this).val();
 
         //Setting submit button to loader
-        $('.ps_manage_role_submit_btn').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');
+        $('.ps_role_submit').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');
         //Diable submit button
-        $('.ps_manage_role_submit_btn').attr('disabled', 'disabled');
+        $('.ps_role_submit').attr('disabled', 'disabled');
         
         socket.off('insertNewRole');
         socket.off(melody.melody1+'_insertNewRole'); 
@@ -61,9 +62,9 @@ $(document).ready(function () {
                 })
             }
             //Set submit button back to its original text
-            $('.ps_manage_role_submit_btn').html('Submit');
+            $('.ps_role_submit').html('Submit');
             //Enable submit button
-            $('.ps_manage_role_submit_btn').removeAttr('disabled');
+            $('.ps_role_submit').removeAttr('disabled');
         });
 
     });
@@ -84,7 +85,6 @@ $(document).ready(function () {
             if (data.type == 'error') {
                 console.log(data.message);
             } else {
-                console.log(data);
                 roleDataTable(data);
             }
         });
@@ -257,25 +257,23 @@ $(document).ready(function () {
 
         socket.on(melody.melody1+'_'+getname, (data)=>{
             if (data.type == 'error') {
-                toast.fire(
+                Toast.fire(
                     'Error',
                     data.message,
                     'warning'
                 )
             } else {
-                $('.ps_manage_role_submit_btn').html('Update');
+                $('.ps_role_submit').html('Update');
 
                 if (data) {
-                    $('.ps_manage_role_hiddenid').val(data.roleid);
-                    $('.ps_manage_role_name').val(data.name.toUcwords());
-                    $('.ps_manage_role_description').val(data.description);
-                    $('.ps_manage_role_color').val(data.color);
+                    $('.ps_manage_role_hiddenid').val(data.roleID);
+                    $('.ps_role_name').val(data.role.toUcwords());
+                    $('.ps_role_description').val(data.description);
                 } else {
-                    $('.ps_manage_role_name').val('');
-                    $('.ps_manage_role_description').val('');
+                    $('.ps_role_name').val('');
+                    $('.ps_role_description').val('');
                     $('.ps_manage_role_hiddenid').val('');
-                    $('.ps_manage_role_color').val('');
-                    toast.fire(
+                    Toast.fire(
                         'Oops!!',
                         'Fetching to edit ended up empty',
                         'warning'
@@ -334,7 +332,7 @@ $(document).ready(function () {
             if (data.type == "error") {
                 console.log(data.message);
             } else if (data.type == "caution") {
-                toast.fire({
+                Toast.fire({
                     text: data.message,
                     type: 'warning',
                     padding: '1em'

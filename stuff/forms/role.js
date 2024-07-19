@@ -17,7 +17,8 @@ function RoleForm() {
     return `
         <div class="card">
             <div class="card-body">
-                <form action="" class="ps_role_form">
+                <form action="" class="ps_manage_role_form">
+                    <input type="hidden" name="" class="ps_manage_role_hiddenid">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group mb-4">

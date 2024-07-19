@@ -3,7 +3,9 @@ const getSessionIDs = require('./getSessionIDs');
 const md5 = require('md5');
 
 const Privilege = require('../Models/PrivilegeFeaturesModel');
+const Role = require('../Models/RoleModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
+
 
 
 const gf = new GeneralFunction();
@@ -34,7 +36,22 @@ module.exports = (socket, Database) => {
                 let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
                 socket.emit(md5(Number(user)) + '_' + param, privilegeData);
                 socket.broadcast.emit(md5(Number(user)) + '_' + param, privilegeData);
-            }
+            } else if (param === "specific_role") {
+                const RoleModel = new Role(Database);
+                let dataId = browserblob.dataId;
+                result = await RoleModel.preparedFetch({
+                    sql: 'roleID=?',
+                    columns: [dataId]
+                });
+                if (Array.isArray(result)) {
+                    socket.emit(melody1 + '_' + param, result[0]);
+                } else {
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'error',
+                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                    });
+                }
+            } 
             
         } catch (error) {
             socket.emit(melody1 + '_' + param, {
