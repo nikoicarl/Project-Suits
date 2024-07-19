@@ -6,6 +6,7 @@ const Privilege = require('../Models/PrivilegeFeaturesModel');
 const Role = require('../Models/RoleModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const Department = require('../Models/DepartmentModel');
+const User = require('../Models/UserModel');
 
 
 
@@ -71,7 +72,7 @@ module.exports = (socket, Database) => {
             } else if (param === "specific_user") {
                 const UserModel = new User(Database);
                 let dataId = browserblob.dataId;
-                result = await UserModel.preparedFetch({
+                result = await UserModel.preparedLeftJoinFetch({
                     sql: 'userID=?',
                     columns: [dataId]
                 });

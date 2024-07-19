@@ -285,25 +285,37 @@ $(document).ready(function () {
 
         socket.on(melody.melody1+'_'+getname, (data)=>{
             if (data.type == 'error') {
-                toast.fire(
+                Toast.fire(
                     'Error',
                     data.message,
                     'warning'
                 )
             } else {
                 $('.ps_manage_user_submit_btn').html('Update');
-
+                console.log(data);
                 if (data) {
-                    $('.ps_manage_user_hiddenid').val(data.userid);
-                    $('.ps_manage_user_name').val(data.name.toUcwords());
-                    $('.ps_manage_user_description').val(data.description);
-                    $('.ps_manage_user_color').val(data.color);
+                    $('.ps_manage_user_hiddenid').val(data.userID);
+                    $('.ps_user_firstName').val(data.firstName); 
+                    $('.ps_user_lastName').val(data.lastName);
+                    $('.ps_user_email').val(data.email);
+                    $('.ps_user_phone').val(data.phone);
+                    $('.ps_user_address').val(data.address);
+                    $('.ps_user_username').val(data.username);
+                    $('.ps_user_password').val(data.password);
+                    $('.ps_user_confirm_password').val(data.confirm);
+                    $('.ps_user_role_dropdown').val(data.roleID).change();
                 } else {
-                    $('.ps_manage_user_name').val('');
-                    $('.ps_manage_user_description').val('');
                     $('.ps_manage_user_hiddenid').val('');
-                    $('.ps_manage_user_color').val('');
-                    toast.fire(
+                    $('.ps_user_firstName').val('');
+                    $('.ps_user_lastName').val('');
+                    $('.ps_user_email').val('');
+                    $('.ps_user_phone').val('');
+                    $('.ps_user_address').val('');
+                    $('.ps_user_username').val('');
+                    $('.ps_user_password').val('');
+                    $('.ps_user_confirm_password').val('');
+                    $('.ps_user_role_dropdown').val('').change();
+                    Toast.fire(
                         'Oops!!',
                         'Fetching to edit ended up empty',
                         'warning'
@@ -362,7 +374,7 @@ $(document).ready(function () {
             if (data.type == "error") {
                 console.log(data.message);
             } else if (data.type == "caution") {
-                toast.fire({
+                Toast.fire({
                     text: data.message,
                     type: 'warning',
                     padding: '1em'

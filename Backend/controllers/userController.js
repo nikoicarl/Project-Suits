@@ -9,7 +9,7 @@ const md5 = require('md5');
 
 module.exports = (socket, Database) => {
     socket.on('insertNewUser', async (browserblob) => {
-        let hiddenID = browserblob.ps_manage_hiddenID
+        let hiddenID = browserblob.ps_manage_user_hiddenid
         let firstName = browserblob.ps_user_firstName
         let lastName = browserblob.ps_user_lastName
         let email = browserblob.ps_user_email
@@ -29,7 +29,7 @@ module.exports = (socket, Database) => {
             //Initiate connection
             const UserModel = new User(Database);
             //Check for empty
-            let result = (hiddenID == "" || hiddenID == undefined) ? gf.ifEmpty([, username, password, confirm_password]) : gf.ifEmpty([employeeid, username]);
+            let result = (hiddenID == "" || hiddenID == undefined) ? gf.ifEmpty([, username, password, confirm_password]) : gf.ifEmpty([username]);
             if (result.includes('empty')) {
                 socket.emit(melody1 + '_insertNewUser', {
                     type: 'caution',
@@ -39,7 +39,7 @@ module.exports = (socket, Database) => {
                 const PrivilegeModel = new Privilege(Database, userID);
                 let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
                 
-                let privilege = hiddenID == "" || hiddenID == undefined ? privilegeData.pearson_specter.add_user : privilegeData.pearson_specter.update_user;
+                let privilege = hiddenID == "" || hiddenID == undefined ? privilegeData.pearson_specter.add_user : privilegeData.pearson_specter.edit_user;
                 if (privilege == "yes") {
                     let newuserID = hiddenID == "" || hiddenID == undefined ? 0 : hiddenID;
                     result = await UserModel.preparedFetch({
