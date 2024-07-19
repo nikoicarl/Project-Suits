@@ -238,7 +238,7 @@ $(document).ready(function () {
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, deactivate it!"
+                confirmButtonText: "Yes, do it!"
             }).then((result) => {
             if (result.isConfirmed) {
                 //Check if yes is clicked

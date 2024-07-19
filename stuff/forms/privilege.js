@@ -30,21 +30,13 @@ function PrivilegeForm(data) {
             <div class="card-body">
                 <div class="ps_privilege_div">
                     <form class="ps_manage_privilege_form">
-                        <p class="text-danger">Select the user or role you want to change privileges for</p>
+                        <p class="text-danger">Select the user you want to change privileges for</p>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-4">
                                     <label >User </label>
                                     <select class="form-control basic ps_privilege_user ps_assign_privilege_user">
                                         <!-- <option selected="selected">Select User</option> -->
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-4">
-                                    <label >Role </label>
-                                    <select class="form-control basic ps_privilege_role_dropdown ">
-                                        <!-- <option selected="selected">Select Privilege</option> -->
                                     </select>
                                 </div>
                             </div>

@@ -10,11 +10,6 @@ const PrivilegePearsonSpecter = {
     tableName: 'privilege_pearson_specter',
 
     /** 
-     * @const {string} funcName - The value of funcName is used for accessing functionalities. eg. func_admin opens administration sidebar link
-    */
-    funcName: 'func_pearson_specter',
-
-    /** 
      * @const {string} allCheckBoxName - The value of allCheckBoxName is used to turn on and off of the "all" checkbox
     */
     allCheckBoxName: 'pearson_specter',
@@ -32,9 +27,7 @@ const PrivilegePearsonSpecter = {
         'add_user', 'edit_user', 'deactivate_user', 
         'add_role', 'edit_role', 'deactivate_role',
         'add_department', 'edit_department', 'deactivate_department', 
-        'add_document', 'edit_document', 'deactivate_document',
-        'func_pearson_spector', 
-        'pearson_spector'
+        'add_document', 'edit_document', 'deactivate_document'
     ],
 
     /** 
@@ -55,9 +48,7 @@ const PrivilegePearsonSpecter = {
         deactivate_department varchar(3),
         add_document varchar(3),
         edit_document varchar(3),
-        deactivate_document varchar(3),
-        func_pearson_spector varchar(3), 
-        pearson_spector varchar(3)
+        deactivate_document varchar(3)
     `),
 
     /** 
