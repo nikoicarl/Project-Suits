@@ -147,7 +147,7 @@ $(document).ready(function () {
                             return `<span class="badge badge-danger"> Deactivated </span>`;
                         } else if (row.status == 'ad') {
                             return `<span class="badge badge-info"> Sys Admin </span>`;
-                        }else {
+                        } else {
                             return `<span class="badge badge-danger"> ${row.status.toUpperCase()} </span>`;
                         }
                     }

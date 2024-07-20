@@ -82,6 +82,23 @@ class User {
         }
     }
 
+    async preparedFetchDepartment (object) {
+        try {
+            let sql = `
+                SELECT u.*, r.role, d.department
+                FROM department d
+                JOIN user u ON FIND_IN_SET(u.userID, d.userIDs)
+                LEFT JOIN role r ON u.roleID = r.roleID
+                WHERE ${object.sql}
+            `;
+            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
+            console.log(result);
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
     //Create table method
     async createTable() {
         const CreateUpdateTable = new CreateUpdateModel(this.Database, {

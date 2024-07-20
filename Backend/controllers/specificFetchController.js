@@ -84,8 +84,7 @@ module.exports = (socket, Database) => {
                         message: 'Oops, something went wrong: Error => ' + result.sqlMessage
                     });
                 }
-            } 
-            
+            }
         } catch (error) {
             socket.emit(melody1 + '_' + param, {
                 type: 'error',

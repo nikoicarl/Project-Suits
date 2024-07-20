@@ -36,12 +36,16 @@ module.exports = function (start, Database) {
                     if (userResult.length > 0) {
                         const PrivilegeModel = new Privilege(Database, userID);
                         let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
-
-                        response.render('dashboard', {
-                            pageNavigate: queryStr, 
-                            userData: userResult[0],
-                            privilege: privilegeData,
+                        let userDepartmentData = await UserModel.preparedFetchDepartment({
+                            sql: 'userID = ?',
+                            columns: [userID]
                         });
+                            response.render('dashboard', {
+                                pageNavigate: queryStr, 
+                                userData: userResult[0],
+                                department : userDepartmentData[0].department,
+                                privilege: privilegeData,
+                            });
                     } else {
                         console.log('Invalid user ID 3');
                         response.render('index', {pageNavigate: {error: 'loginError3'}, userResult: {}});

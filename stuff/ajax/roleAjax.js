@@ -121,7 +121,15 @@ $(document).ready(function () {
                     title: "Status",
                     type: 'text',
                     template: function (row) {
-                        return row.status == 'a' ? `<span class="badge badge-success"> Active </span>` : `<span class="badge badge-danger"> ${row.status.toUcwords()} </span>`;
+                        if (row.status == 'a') {
+                            return `<span class="badge badge-success"> Active </span>`;
+                        } else if (row.status == 'd') {
+                            return `<span class="badge badge-danger"> Deactivated </span>`;
+                        } else if (row.status == 'ad') {
+                            return `<span class="badge badge-info"> Sys Admin </span>`;
+                        } else {
+                            return `<span class="badge badge-danger"> ${row.status.toUpperCase()} </span>`;
+                        }
                     }
                 },
                 {
