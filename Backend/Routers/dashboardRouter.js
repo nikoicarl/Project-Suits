@@ -40,10 +40,11 @@ module.exports = function (start, Database) {
                             sql: 'userID = ?',
                             columns: [userID]
                         });
+                        console.log(userDepartmentData.length);
                             response.render('dashboard', {
                                 pageNavigate: queryStr, 
                                 userData: userResult[0],
-                                department : userDepartmentData[0].department,
+                                department : (userDepartmentData.length) > 0 ?  userDepartmentData[0].department : '' ,
                                 privilege: privilegeData,
                             });
                     } else {
