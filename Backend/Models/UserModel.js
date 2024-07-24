@@ -38,7 +38,6 @@ class User {
         try {
             let sql = 'UPDATE user SET '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
-            console.log(sql);
             return result;
         } catch (error) {
             return error;
@@ -93,7 +92,6 @@ class User {
                 WHERE ${object.sql}
             `;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
-            console.log(result);
             return result;
         } catch (error) {
             return error;
