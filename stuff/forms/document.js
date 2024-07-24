@@ -17,6 +17,7 @@ return `
         <div class="card">
             <div class="card-body">
                 <form action="" class="ps_document_form">
+                    <input type="hidden" name="" class="ps_manage_document_hiddenid">
                     <div class="row mb-4">
                         <div class="col-md-12 mt-3 ps_dropzone_action">
                             <label for=""> Upload Document</label>

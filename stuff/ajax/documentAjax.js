@@ -31,6 +31,7 @@ $(document).ready(function () {
 
         //Get form data from html
         let ps_document_upload_dropzone_rename = $('.ps_document_upload_dropzone_rename', this).val();
+        let ps_manage_document_hiddenid = $('.ps_manage_document_hiddenid', this).val();
 
         //Setting submit button to loader
         $('.ps_manage_product_submit_btn').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');

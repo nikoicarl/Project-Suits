@@ -11,8 +11,7 @@ const UploadFile = require('../../models/upload/UploadFileModel')
 module.exports = (socket, Database)=>{
     socket.on('insertNewDocument', async (browserblob)=>{
         let ps_manage_document_hiddenid = browserblob.ps_manage_document_hiddenid;
-        
-
+        let ps_document_upload_dropzone_rename = browserblob.ps_document_upload_dropzone_rename;
         const DocumentsForUpdate = browserblob.DocumentsForUpdate
 
         let melody1 = browserblob.melody1;
@@ -27,11 +26,11 @@ module.exports = (socket, Database)=>{
                 const PrivilegeModel = new Privilege(Database, userID);
     
                 //Check for empty
-                let result = await gf.ifEmpty([logig_manage_product_name]);
+                let result = await gf.ifEmpty([ps_document_upload_dropzone_rename]);
                 if (result.includes('empty')) {
                     socket.emit(melody1+'_insertNewDocument', {
                         type: 'caution',
-                        message: 'Product Name field is required !'
+                        message: 'Document Name is required !'
                     });
                 } else {
                     let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
@@ -40,14 +39,14 @@ module.exports = (socket, Database)=>{
                     if (privilege == "yes") {
                         let documentID = ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined ? 0 : ps_manage_document_hiddenid;
                         result = await DocumentModel.preparedFetch({
-                            sql: 'product_name = ? AND documentID != ? AND status =?',
-                            columns: [logig_manage_product_name, documentID, 'active']
+                            sql: 'fileName = ? AND documentID != ? AND status =?',
+                            columns: [ps_document_upload_dropzone_rename, documentID, 'a']
                         });
                         if (Array.isArray(result)) {
                             if (result.length > 0) {
                                 socket.emit(melody1+'_insertNewDocument', {
                                     type: 'caution',
-                                    message: 'Sorry, product with the same name exist'
+                                    message: 'Sorry, document with the same name exist'
                                 });
                             } else {
                                 const UploadFileHandler = new UploadFile(DocumentsForUpdate, '')
@@ -107,7 +106,7 @@ module.exports = (socket, Database)=>{
                     } else {
                         socket.emit(melody1+'_insertNewDocument', {
                             type: 'caution',
-                            message: 'You have no privilege to add new product'
+                            message: 'You have no privilege to add new document'
                         });
                     }
                 }
