@@ -4,7 +4,7 @@ $(document).ready(function () {
     let userData = JSON.parse($('.hidden_userdata').val());
 
     // Username on topbar
-    $('.ps_topbar_fullname').text((userData.username == 1001 ? 'System Admin' : userData.username) );
+    $('.ps_topbar_fullname').text((userData.username == 1001 ? 'System Admin' : userData.username.toUcwords()) );
 
 
     // Dashboard fetch method
