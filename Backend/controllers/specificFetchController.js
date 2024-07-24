@@ -40,8 +40,6 @@ module.exports = (socket, Database) => {
             } else if (param === "specific_role") {
                 const RoleModel = new Role(Database);
                 let dataId = browserblob.dataId;
-
-                console.log(dataId);
                 result = await RoleModel.preparedFetch({
                     sql: 'roleID=?',
                     columns: [dataId]

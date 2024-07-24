@@ -53,7 +53,7 @@ module.exports = (socket, Database)=>{
                         } else {
                             if (hiddenid == "" || hiddenid == undefined) {
                                 roleID = gf.getTimeStamp();
-                                result = await RoleModel.insertTable([roleID, '0', name, description, gf.getDateTime(), 'a']);
+                                result = await RoleModel.insertTable([roleID, name, description, gf.getDateTime(), 'a']);
                             } else {
                                 result = await RoleModel.updateTable({
                                     sql: 'role = ?, description = ? WHERE roleID = ? AND status = ?',

@@ -46,92 +46,85 @@ module.exports = (socket, Database) => {
                         sql: 'username = ? AND userID != ? AND status = ?',
                         columns: [username, newuserID, 'active']
                     });
-                    if (Array.isArray(result)) {
-                        if (result.length > 0) {
+                    if (Array.isArray(result.length > 0)) {
+                        socket.emit(melody1 + '_insertNewUser', {
+                            type: 'error',
+                            message: 'Sorry, username is being used by another person'
+                        });
+                    } else {
+                        if (password != "" && password !== confirm_password) {
                             socket.emit(melody1 + '_insertNewUser', {
-                                type: 'error',
-                                message: 'Sorry, username is being used by another person'
+                                type: 'caution',
+                                message: 'Passwords do not match'
                             });
                         } else {
-                            if (password != "" && password !== confirm_password) {
-                                socket.emit(melody1 + '_insertNewUser', {
-                                    type: 'caution',
-                                    message: 'Passwords do not match'
-                                });
+                            if (hiddenID == "" || hiddenID == undefined) {
+                                newuserID = gf.getTimeStamp();
+                                result = await UserModel.insertTable([newuserID, firstName, lastName, email, phone, address, username, md5(password), roleID, gf.getDateTime(), 'a']);
                             } else {
+                                result = await UserModel.updateTable({
+                                    sql: 'firstName = ?, lastName = ?, email = ?, phone = ?, address = ?, roleID= ?, username=? ' + ((password == "" || password == undefined) ? '' : ', password=?') + ' WHERE userID=? AND status=?',
+                                    columns: (password == "" || password == undefined) ? [firstName, lastName, email, phone, address, roleID, username, newuserID, 'a'] : [firstName, lastName, email, phone, address, roleID, username, md5(password), newuserID, 'a']
+                                });
+                            }
+                            if (result && result.affectedRows !== undefined) {
+                                const SessionModel = new Session(Database);
+                                let activityid = gf.getTimeStamp();
+                                //Insert or update user employee
                                 if (hiddenID == "" || hiddenID == undefined) {
-                                    newuserID = gf.getTimeStamp();
-                                    result = await UserModel.insertTable([newuserID, firstName, lastName, email, phone, address, username, md5(password), roleID, gf.getDateTime(), 'a']);
-                                } else {
-                                    result = await UserModel.updateTable({
-                                        sql: 'username=? ' + ((password == "" || password == undefined) ? '' : ', password=?') + ' WHERE userID=? AND status=?',
-                                        columns: (password == "" || password == undefined) ? [username, newuserID, 'active'] : [username, md5(password), newuserID, 'a']
-                                    });
-                                }
-                                if (result && result.affectedRows !== undefined) {
-                                    const SessionModel = new Session(Database);
-                                    let activityid = gf.getTimeStamp();
-                                    //Insert or update user employee
-                                    if (hiddenID == "" || hiddenID == undefined) {
+                                    if (result && result.affectedRows !== undefined) {
+                                        let privilegeID = gf.getTimeStamp();
+                                        result = await PrivilegeModel.insertTable(privilegeID, newuserID, 'user');
                                         if (result && result.affectedRows !== undefined) {
-                                            let privilegeID = gf.getTimeStamp();
-                                            result = await PrivilegeModel.insertTable(privilegeID, newuserID, 'user');
-                                            if (result && result.affectedRows !== undefined) {
-                                                result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (hiddenID == "" || hiddenID == undefined) ? 'added a new user account' : 'updated a user account details']);
-                                                let message = hiddenID == "" || hiddenID == undefined ? 'New User account has been created successfully' : 'User account has been updated successfully';
-                                                if (result.affectedRows) {
-                                                    socket.broadcast.emit('userBroadcast', 'success broadcast');
-                                                    socket.emit(melody1 + '_insertNewUser', {
-                                                        type: 'success',
-                                                        message: message
-                                                    });
-                                                } else {
-                                                    socket.emit(melody1 + '_insertNewUser', {
-                                                        type: 'error',
-                                                        message: 'Oops, something went wrong: Error1 => ' + result
-                                                    });
-                                                }
+                                            result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (hiddenID == "" || hiddenID == undefined) ? 'added a new user account' : 'updated a user account details']);
+                                            let message = hiddenID == "" || hiddenID == undefined ? 'New User account has been created successfully' : 'User account has been updated successfully';
+                                            if (result.affectedRows) {
+                                                socket.broadcast.emit('userBroadcast', 'success broadcast');
+                                                socket.emit(melody1 + '_insertNewUser', {
+                                                    type: 'success',
+                                                    message: message
+                                                });
                                             } else {
                                                 socket.emit(melody1 + '_insertNewUser', {
                                                     type: 'error',
-                                                    message: 'Oops, something went wrong: Error2 => ' + result
+                                                    message: 'Oops, something went wrong: Error1 => ' + result
                                                 });
                                             }
                                         } else {
                                             socket.emit(melody1 + '_insertNewUser', {
                                                 type: 'error',
-                                                message: 'Oops, something went wrong: Error3 => ' + result
+                                                message: 'Oops, something went wrong: Error2 => ' + result
                                             });
                                         }
                                     } else {
-                                        result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (hiddenID == "" || hiddenID == undefined) ? 'added a new user account' : 'updated a user account details']);
-                                        let message = hiddenID == "" || hiddenID == undefined ? 'New User account has been created successfully' : 'User account has been updated successfully';
-                                        if (result.affectedRows) {
-                                            socket.broadcast.emit('userBroadcast', 'success broadcast');
-                                            socket.emit(melody1 + '_insertNewUser', {
-                                                type: 'success',
-                                                message: message
-                                            });
-                                        } else {
-                                            socket.emit(melody1 + '_insertNewUser', {
-                                                type: 'error',
-                                                message: 'Oops, something went wrong: Error1 => ' + result
-                                            });
-                                        }
+                                        socket.emit(melody1 + '_insertNewUser', {
+                                            type: 'error',
+                                            message: 'Oops, something went wrong: Error3 => ' + result
+                                        });
                                     }
                                 } else {
-                                    socket.emit(melody1 + '_insertNewUser', {
-                                        type: 'error',
-                                        message: 'Oops, something went wrong: Error4 => ' + result
-                                    });
+                                    result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (hiddenID == "" || hiddenID == undefined) ? 'added a new user account' : 'updated a user account details']);
+                                    let message = hiddenID == "" || hiddenID == undefined ? 'New User account has been created successfully' : 'User account has been updated successfully';
+                                    if (result.affectedRows) {
+                                        socket.broadcast.emit('userBroadcast', 'success broadcast');
+                                        socket.emit(melody1 + '_insertNewUser', {
+                                            type: 'success',
+                                            message: message
+                                        });
+                                    } else {
+                                        socket.emit(melody1 + '_insertNewUser', {
+                                            type: 'error',
+                                            message: 'Oops, something went wrong: Error1 => ' + result
+                                        });
+                                    }
                                 }
+                            } else {
+                                socket.emit(melody1 + '_insertNewUser', {
+                                    type: 'error',
+                                    message: 'Oops, something went wrong: Error4 => ' + result
+                                });
                             }
                         }
-                    } else {
-                        socket.emit(melody1 + '_insertNewUser', {
-                            type: 'error',
-                            message: 'Oops, something went wrong: Error => ' + result
-                        });
                     }
                 } else {
                     socket.emit(melody1 + '_insertNewUser', {
