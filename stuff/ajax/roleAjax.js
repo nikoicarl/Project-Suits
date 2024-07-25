@@ -187,7 +187,7 @@ $(document).ready(function () {
                 text: 'You want to delete '+(getdata)+ '?',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes, do it!'
             }).then(function(result) {
                 //Check if yes is clicked
                 if (result.value) {
@@ -218,7 +218,7 @@ $(document).ready(function () {
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, deactivate it!"
+                confirmButtonText: "Yes, do it!"
             }).then((result) => {
             if (result.isConfirmed) {
                 //Check if yes is clicked
