@@ -292,7 +292,6 @@ $(document).ready(function () {
                 )
             } else {
                 $('.ps_manage_user_submit_btn').html('Update');
-                console.log(data);
                 if (data) {
                     $('.ps_manage_user_hiddenid').val(data.userID);
                     $('.ps_user_firstName').val(data.firstName); 
