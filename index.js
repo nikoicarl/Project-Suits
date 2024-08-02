@@ -24,6 +24,8 @@ try {
     const userController = require("./Backend/controllers/userController.js");
     const roleController =  require("./Backend/controllers/roleController.js");
     const recentActivityReportController = require("./Backend/controllers/recentActivityReportController.js");
+    const documentController = require("./Backend/controllers/documentController.js");
+
     // Routers
     homeRouter = require('./Backend/Routers/homeRouter.js');
     dashboardRouter = require('./Backend/Routers/dashboardRouter.js');
@@ -77,6 +79,7 @@ try {
             fileUploadController(socket, Database);
             userController(socket, Database);
             roleController(socket, Database);
+            documentController(socket, Database);
 
             // REPORT CONTROLLERS HERE 
             recentActivityReportController(socket, Database);

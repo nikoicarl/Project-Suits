@@ -5,11 +5,11 @@ const GeneralFunction = require('../Models/GeneralFunctionModel');
 const getsessionIDs = require('../controllers/getSessionIDs');
 const gf = new GeneralFunction();
 const md5 = require('md5');
-const UploadFile = require('../../models/upload/UploadFileModel')
+const UploadFile = require('../Models/UploadFileModel');
 
 
 module.exports = (socket, Database)=>{
-    socket.on('insertNewDocument', async (browserblob)=>{
+    socket.on('insertNewDocument', async (browserblob, cb)=>{
         let ps_manage_document_hiddenid = browserblob.ps_manage_document_hiddenid;
         let ps_document_upload_dropzone_rename = browserblob.ps_document_upload_dropzone_rename;
         const DocumentsForUpdate = browserblob.DocumentsForUpdate
@@ -26,11 +26,11 @@ module.exports = (socket, Database)=>{
                 const PrivilegeModel = new Privilege(Database, userID);
     
                 //Check for empty
-                let result = await gf.ifEmpty([ps_document_upload_dropzone_rename]);
+                let result = await gf.ifEmpty([ps_document_upload_dropzone_rename, DocumentsForUpdate]);
                 if (result.includes('empty')) {
-                    socket.emit(melody1+'_insertNewDocument', {
+                    cb({
                         type: 'caution',
-                        message: 'Document Name is required !'
+                        message: 'All fields are required!'
                     });
                 } else {
                     let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
@@ -44,25 +44,27 @@ module.exports = (socket, Database)=>{
                         });
                         if (Array.isArray(result)) {
                             if (result.length > 0) {
-                                socket.emit(melody1+'_insertNewDocument', {
+                                cb({
                                     type: 'caution',
                                     message: 'Sorry, document with the same name exist'
                                 });
-                            } else {
-                                const UploadFileHandler = new UploadFile(DocumentsForUpdate, '')
-                                let documentNames = UploadFileHandler._getFileNames().toString()
+                            } else {const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename)
+                                let documentNames = UploadFileHandler._getFileNames().toString();
     
                                 if (ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined) {
-                                    documentID = gf.getTimeStamp();
-                                    result = await DocumentModel.insertTable([documentID, logig_manage_product_name, logig_manage_product_prod_type, logig_manage_product_prod_category, null, logig_manage_product_brand, logig_manage_product_batch_number, logig_manage_product_description, documentNames, 'active', gf.getDateTime(), sessionID]);
+                                    for (let i = 0; i < documentNames.split(',').length; i++) {
+                                        const documents = documentNames.split(',')[i];
+                                        documentID = gf.getTimeStamp();
+                                        result = await DocumentModel.insertTable([documentID, userID, documents, gf.getDateTime(), 'a']);
+                                    }
                                 } else {
                                     let sql = '', columns = []
                                     if (DocumentsForUpdate.length > 0) {
-                                        sql = 'product_name = ?, product_type = ?, product_categoryid = ?, brand = ?, batch_number = ?, description = ?, documents = ? WHERE documentID = ? AND status = ?'
-                                        columns = [logig_manage_product_name, logig_manage_product_prod_type, logig_manage_product_prod_category,  logig_manage_product_brand, logig_manage_product_batch_number, logig_manage_product_description, documentNames, documentID, 'active']
+                                        sql = 'documents = ? WHERE documentID = ? AND status = ?'
+                                        columns = [documentNames, documentID, 'a']
                                     } else {
-                                        sql = 'product_name = ?, product_type = ?, product_categoryid = ?, brand = ?, batch_number = ?, description = ? WHERE documentID = ? AND status = ?'
-                                        columns = [logig_manage_product_name, logig_manage_product_prod_type, logig_manage_product_prod_category,  logig_manage_product_brand, logig_manage_product_batch_number, logig_manage_product_description, documentID, 'active']
+                                        sql = 'documents = ?  WHERE documentID = ? AND status = ?'
+                                        columns = [documentNames, documentID, 'a']
                                     }
                                     result = await DocumentModel.updateTable({
                                         sql: sql,
@@ -77,43 +79,43 @@ module.exports = (socket, Database)=>{
                                     const SessionModel = new Session(Database);
                                     let sessionID = gf.getTimeStamp();
                                     result = await SessionModel.insertTable([sessionID, userID, gf.getDateTime(), (ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined) ? 'added a new document' : 'updated a document record']);
-                                    let message = ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined ? 'Product has been created successfully' : 'Product has been updated successfully';
+                                    let message = ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined ? 'Document has been created successfully' : 'Document has been updated successfully';
                                     if (result.affectedRows) {
-                                        socket.emit(melody1+'_insertNewDocument', {
+                                        cb({
                                             type: 'success',
                                             message: message
                                         });
                                     } else {
-                                        socket.emit(melody1+'_insertNewDocument', {
+                                        cb({
                                             type: 'error',
-                                            message: 'Oops, something went wrong5: Error => '+result
+                                            message: 'Oops, something went wrong4: Error => ' + result
                                         });
                                     }
                                 } else {
                                     console.log('Oops result: ', result)
-                                    socket.emit(melody1+'_insertNewDocument', {
+                                    cb({
                                         type: 'error',
-                                        message: 'Oops, something went wrong4: Error => '+result
+                                        message: 'Oops, something went wrong3: Error => ' + result
                                     });
                                 }
                             }
                         } else {
-                            socket.emit(melody1+'_insertNewDocument', {
+                            cb({
                                 type: 'error',
-                                message: 'Oops, something went wrong2: Error => '+result
+                                message: 'Oops, something went wrong2: Error => ' + result
                             });
                         }
                     } else {
-                        socket.emit(melody1+'_insertNewDocument', {
+                        cb({
                             type: 'caution',
-                            message: 'You have no privilege to add new document'
+                            message: 'You have no privilege to perform this task'
                         });
                     }
                 }
             } else {
-                socket.emit(melody1+'_insertNewDocument', {
+                cb({
                     'type': 'caution',
-                    'message': 'Sorry your session has expired, wait for about 15 seconds and try again...',
+                    'message': 'Sorry your session has expired, wait for about 18 secconds and try again...',
                     'timeout': 'no'
                 });
             }

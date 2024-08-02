@@ -24,53 +24,63 @@ $(document).ready(function () {
         }, 200);
     }
 
-
-    // Document submit form
+    //Submit form
     $(document).on('submit', 'form.ps_document_form', function (e) {
         e.preventDefault();
 
-        //Get form data from html
+        ///Get form data from html
         let ps_document_upload_dropzone_rename = $('.ps_document_upload_dropzone_rename', this).val();
         let ps_manage_document_hiddenid = $('.ps_manage_document_hiddenid', this).val();
 
         //Setting submit button to loader
-        $('.ps_manage_product_submit_btn').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');
+        $('.ps_document_submit').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');
         //Disable submit button
-        $('.ps_manage_product_submit_btn').attr('disabled', 'disabled');
+        $('.ps_document_submit').attr('disabled', 'disabled');
 
         socket.off('insertNewDocument');
         socket.off(melody.melody1+'_insertNewDocument');
 
-        setTimeout(function () {
-            socket.emit('insertNewDocument', {
-                "melody1": melody.melody1,
-                "melody2": melody.melody2,
-                "ps_document_upload_dropzone_rename": ps_document_upload_dropzone_rename,
-                "ps_manage_document_hiddenid": ps_manage_document_hiddenid,
-                "DocumentsForUpdate": FilterFileNames(FileNamesHolder)
-            });
-        }, 500);
-
-        //Get response from submit
-        socket.on(melody.melody1 + '_insertNewDocument', function (data) {
-            if (data.type == 'success') {
-                $('.ps_loginForm').trigger('reset');
-                pageDropZone()
-            }
-
+        if (UploadChecker !== FileNamesHolder.length) {
             Toast.fire({
-                title: data.type == 'success' ? 'Success' : (data.type == 'error' ? 'Error' : 'Caution'),
-                text: data.message,
-                type: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),
+                title: 'Caution',
+                text: 'Please wait for all selected files to finish uploading before you submit',
+                type: 'warning',
                 padding: '0.5em'
-            })
-
-            //Set submit button back to its original text
+            });
+        
+            DocumentTableFetch();
+            
             $('.ps_document_submit').html('Submit');
-            //Enable submit button
             $('.ps_document_submit').removeAttr('disabled');
-            socket.off(melody.melody1+'_insertNewDocument')
-        });
+        } else {
+            setTimeout(function () {
+                socket.emit('insertNewDocument', {
+                    "melody1": melody.melody1,
+                    "melody2": melody.melody2,
+                    "ps_document_upload_dropzone_rename": ps_document_upload_dropzone_rename,
+                    "ps_manage_document_hiddenid": ps_manage_document_hiddenid,
+                    "DocumentsForUpdate": FilterFileNames(FileNamesHolder)
+                }, (data) => {
+                    if (data.type == 'success') {
+                        $('.ps_document_form').trigger('reset');
+                        socket.off(melody.melody1 + '_insertNewDocument');
+                        pageDropZone()
+                    }
+                    Toast.fire({
+                        title: data.type == 'success' ? 'Success' : (data.type == 'error' ? 'Error' : 'Caution'),
+                        text: data.message,
+                        type: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),
+                        padding: '0.5em'
+                    })
+                    DocumentTableFetch();
+        
+                    //Set submit button back to its original text
+                    $('.ps_document_submit').html('Submit');
+                    //Enable submit button
+                    $('.ps_document_submit').removeAttr('disabled');
+                });
+            }, 500);
+        }
     });
 
     //Document Table Fetch
@@ -119,7 +129,10 @@ $(document).ready(function () {
                 {
                     field: 'dateTime',
                     title: "Date Uploaded",
-                    type: 'text'
+                    type: 'text',
+                template: function (row) {
+                    return (row.dateTime).fullDate();
+                }
                 },
                 {
                     field: 'status',
@@ -144,13 +157,13 @@ $(document).ready(function () {
                     let activateOrDeactivate, validate_delete;
             
                     if (row.status == "d") {
-                        activateOrDeactivate = `<a href="#" class="dropdown-item ps_document_table_edit_btn" data-getid="${row.documentID}" data-getname="deactivate_document" data-getdata="${row.document.toUcwords()}" data-activate="activate"><i class="icon-checkmark3 mr-2"></i> Reactivate</a>`;
+                        activateOrDeactivate = `<a href="#" class="dropdown-item ps_document_table_edit_btn" data-getid="${row.documentID}" data-getname="deactivate_document" data-getdata="${row.fileName.toUcwords()}" data-activate="activate"><i class="icon-checkmark3 mr-2"></i> Reactivate</a>`;
                     } else {
-                        activateOrDeactivate = `<a href="#" class="dropdown-item ps_document_table_edit_btn" data-getid="${row.documentID}" data-getname="deactivate_document" data-getdata="${row.document.toUcwords()}" data-activate="deactivate"><i class="icon-blocked mr-2"></i> Deactivate</a>`;
+                        activateOrDeactivate = `<a href="#" class="dropdown-item ps_document_table_edit_btn" data-getid="${row.documentID}" data-getname="deactivate_document" data-getdata="${row.fileName.toUcwords()}" data-activate="deactivate"><i class="icon-blocked mr-2"></i> Deactivate</a>`;
                     }
             
                     if ($('.hidden_delete_for_admin').val() == 'admin') {
-                        validate_delete = `<a href="#" class="dropdown-item ps_document_table_edit_btn" data-getid="${row.documentID}" data-getname="delete_document" data-getdata="${row.document.toUcwords()}"><i class="icon-close2 mr-2"></i> Delete</a>`;
+                        validate_delete = `<a href="#" class="dropdown-item ps_document_table_edit_btn" data-getid="${row.documentID}" data-getname="delete_document" data-getdata="${row.fileName.toUcwords()}"><i class="icon-close2 mr-2"></i> Delete</a>`;
                     } else {
                         validate_delete = '';
                     }
@@ -160,7 +173,7 @@ $(document).ready(function () {
                                 <i class="icon-menu7" style="font-size:20px"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-getname="specific_document"><i class="icon-add mr-2"></i></i>Assign User</a> 
+                                <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-getname="assign_user"><i class="icon-add mr-2"></i></i>Assign User</a> 
                                 <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-getname="specific_document"><i class="icon-pencil mr-2"></i></i>Edit Details</a> 
                                 ${activateOrDeactivate}
                                 ${validate_delete}

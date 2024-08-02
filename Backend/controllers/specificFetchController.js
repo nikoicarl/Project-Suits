@@ -7,6 +7,7 @@ const Role = require('../Models/RoleModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const Department = require('../Models/DepartmentModel');
 const User = require('../Models/UserModel');
+const Document = require('../Models/DocumentModel');
 
 
 
@@ -72,6 +73,21 @@ module.exports = (socket, Database) => {
                 let dataId = browserblob.dataId;
                 result = await UserModel.preparedLeftJoinFetch({
                     sql: 'userID=?',
+                    columns: [dataId]
+                });
+                if (Array.isArray(result)) {
+                    socket.emit(melody1 + '_' + param, result[0]);
+                } else {
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'error',
+                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                    });
+                }
+            } else if (param === "specific_document") {
+                const DocumentModel = new Document(Database);
+                let dataId = browserblob.dataId;
+                result = await DocumentModel.preparedFetch({
+                    sql: 'documentID=?',
                     columns: [dataId]
                 });
                 if (Array.isArray(result)) {

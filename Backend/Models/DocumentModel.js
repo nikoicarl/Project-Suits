@@ -12,7 +12,7 @@ class Document {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['documentID', 'fileName', 'fileSize', 'description', 'status'];
+        this.columnsList = ['documentID', 'userID', 'fileName', 'dateTime', 'status'];
 
         //Call to create table if not exist
         this.createTable();
