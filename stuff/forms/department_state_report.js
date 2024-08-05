@@ -18,13 +18,7 @@ function Report() {
                 <div class="card-body">
                     <form action="" class="ps_department_state_report_form">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group mb-4">
-                                    <label>Name <span class="text-danger">*</span></label>
-                                    <select class="form-control select_search ps_department_state_report_user"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Pick Date in Range </label>
                                     <div class="form-control ps_department_state_report_date_range">
@@ -71,7 +65,7 @@ function Report() {
                 htmlTable += `
                     <tr> 
                         <td> ${item.department.toUcwords()}</td>
-                        <td> ${item.status}</td>
+                        <td> ${(item.status == 'a' ? 'Active' : 'Deactivated')} </td>
                     </tr>
                 `;
             }

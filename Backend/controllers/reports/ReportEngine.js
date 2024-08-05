@@ -173,6 +173,35 @@ module.exports = (socket, Database) => {
                         message: 'You have no privilege to run this report!'
                     });
                 }
+            } else if (param === "document_state_report") {
+                if (privilegeData !== undefined && privilegeData.pearson_specter.department_state_report == "yes") {
+                    let date_range = browserblob.date_range.split("**");
+
+                    if (date_range.length < 1 || date_range.length == 0) {
+                        socket.emit(melody1 + '_' + param, {
+                            type: 'caution',
+                            message: 'Pick a date range to run report'
+                        });
+                    } else {
+                        let start_date = date_range[0], end_date = date_range[1];
+                        sql = 'dateTime BETWEEN ? AND ?  ORDER BY dateTime ASC';
+                        columns = [start_date, end_date]
+                        
+                        let result = await PearsonSpectorRptApiModel.getDepartmentRecords(Database, {
+                            sql: sql,
+                            columns: columns
+                        });
+
+                        socket.emit(melody1 + '_' + param, {
+                            data: result
+                        });
+                    }
+                } else {
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'caution',
+                        message: 'You have no privilege to run this report!'
+                    });
+                }
             }
         } catch (error) {
             socket.emit(melody1 + '_' + param, {
