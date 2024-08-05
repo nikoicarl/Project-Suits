@@ -282,29 +282,27 @@ $(document).ready(function () {
 
         socket.on(melody.melody1+'_'+getname, (data)=>{
             if (data.type == 'error') {
-                toast.fire(
+                Toast.fire(
                     'Error',
                     data.message,
                     'warning'
                 )
             } else {
                 $('.ps_manage_document_submit_btn').html('Update');
-
                 if (data) {
-                    $('.ps_manage_document_hiddenid').val(data.documentid);
-                    $('.ps_manage_document_name').val(data.name.toUcwords());
-                    $('.ps_manage_document_description').val(data.description);
-                    $('.ps_manage_document_color').val(data.color);
+                    FileNamesHolder = [];
+                    FileNamesHolder.push(data.fileName+'*^*^any_div');
+                    console.log(FileNamesHolder);
+                    pageDropZone();
+                    $('input.ps_manage_document_hiddenid').val(data.documentID);
+                    $('input.ps_document_upload_dropzone_rename').val(data.fileName);
                 } else {
-                    $('.ps_manage_document_name').val('');
-                    $('.ps_manage_document_description').val('');
-                    $('.ps_manage_document_hiddenid').val('');
-                    $('.ps_manage_document_color').val('');
-                    toast.fire(
-                        'Oops!!',
-                        'Fetching to edit ended up empty',
-                        'warning'
-                    )
+                    // $('.ps_document_upload_dropzone_rename').val('');
+                    // Toast.fire(
+                    //     'Oops!!',
+                    //     'Fetching to edit ended up empty',
+                    //     'warning'
+                    // )
                 }
             }
         });

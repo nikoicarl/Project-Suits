@@ -21,7 +21,7 @@ module.exports = (socket) => {
                     fs.mkdirSync(__dirname+'/../../stuff/uploads/')
                 } 
 
-                const tempWriteStream = fs.createWriteStream(__dirname+'/../../stuff/uploads//'+TextFileName+'.txt', { flags: 'a' })
+                const tempWriteStream = fs.createWriteStream(__dirname+'/../../stuff/uploads/'+TextFileName+'.txt', { flags: 'a' })
                 tempWriteStream.write(fileData.data.split("base64,")[1])
                 tempWriteStream.end()
             }
