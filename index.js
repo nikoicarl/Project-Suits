@@ -26,6 +26,9 @@ try {
     const recentActivityReportController = require("./Backend/controllers/recentActivityReportController.js");
     const documentController = require("./Backend/controllers/documentController.js");
 
+    // Reporting
+    const reportEngine = require("./Backend/controllers/reports/ReportEngine.js");
+
     // Routers
     homeRouter = require('./Backend/Routers/homeRouter.js');
     dashboardRouter = require('./Backend/Routers/dashboardRouter.js');
@@ -83,6 +86,7 @@ try {
 
             // REPORT CONTROLLERS HERE 
             recentActivityReportController(socket, Database);
+            reportEngine(socket, Database);
 
         } catch (error) {
             console.log(error)

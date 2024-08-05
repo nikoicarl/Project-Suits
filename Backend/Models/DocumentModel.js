@@ -57,6 +57,28 @@ class Document {
             return error;
         }
     }
+
+     //Fetch for prepared statement left join user
+    async preparedLeftJoinFetch (object) {
+        try {
+            let sql = `
+                SELECT document.documentID AS documentID, 
+                document.userID AS userID, 
+                document.fileName AS fileName, 
+                document.dateTime AS dateTime,
+                document.status AS status,  
+                user.firstName AS firstName,
+                user.lastName AS lastName
+                FROM document 
+                LEFT JOIN user ON user.userID = document.userID  
+                WHERE ${object.sql}
+            `;
+            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
     
     //Create table method
     async createTable() {

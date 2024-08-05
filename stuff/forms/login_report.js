@@ -13,81 +13,199 @@ function Report() {
     
     
     function LoginReportForm() {
-    return `
-        <div class="card">
-            <div class="card-body">
-                <form action="" class="ps_login_report_form">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group mb-4">
-                                <label>Date Range </label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar-alt"></i>
-                                        </span>
+        return `
+            <div class="card">
+                <div class="card-body">
+                    <form action="" class="ps_login_report_form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label>Name <span class="text-danger">*</span></label>
+                                    <select class="form-control select_search ps_login_report_user"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Pick Date in Range </label>
+                                    <div class="form-control ps_login_report_date_range">
+                                        <i class="icon-calendar2"></i>&nbsp;
+                                        <span></span> <i class="icon-caret-down"></i>
+                                        <input class="ps_login_report_date" type="hidden">
                                     </div>
-                                    <input type="text" class="form-control float-right" id="ps_login_report_date_range">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary ps_login_report_submit float-right"><i class="icon-stats-dots mr-2"></i> Run Report</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mt-4 ps_login_report_display_page"></div>
+            </div>
+        
+        `;
+    }
+
+    function LoginReportPage(data) {
+        let logo = `<img src="assets/img/logo.png" style="max-width: 100%; height: auto;"/>`
+    
+        let htmlTable = `
+        <table class="table table-striped" width="100%">
+            <thead>
+                <tr class="bg-primary">
+                    <th style="font-size:12px;" class="text-white">User ID</th>
+                    <th style="font-size:12px;" class="text-white">Activity</th>
+                    <th style="font-size:12px;" class="text-white">Login Date</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    
+        if (data.data.length > 0) {
+            for (let i = 0; i < data.data.length; i++) {
+                const item = data.data[i];
+                htmlTable += `
+                    <tr> 
+                        <td> ${item.userID}</td>
+                        <td> ${item.activity.toUcwords()}</td>
+                        <td> ${item.DateTime.fullDate()}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            htmlTable += `<tr> <td colspan="3"> No data found. </td></tr>`;
+        }
+        htmlTable += `
+                </tbody>
+            </table>
+        `;
+    
+        return `
+            <div class="card">
+                <div class="card-body mb-3" id="ps_report_print_div">
+                    <div class="row ">
+                        <div class="col-sm-12 col-md-6"><h4 style="font-size: 32px; font-weight: 700; color: #0e1726;">LOGIN REPORT</h4></div>
+                        <div class="col-sm-12 col-md-6 align-self-right text-right text-sm-right">
+                            <div class="company-info float-right">
+                                <div class="" style="width: 120px;">
+                                    ${logo}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary ps_login_report_submit float-right">Submit</button>
+                        <div class="col-md-6">
+                            <p class="d-block text-primary" style="font-size: 14px;font-weight: 600;">REPORT DETAILS</p>
+                            <p class="d-block text-muted" style="font-size: 15px;"><b>From:</b> ${data.dateRange[0].fullDate()}</p>
+                            <p class="d-block text-muted" style="font-size: 15px;"><b>To:</b> ${data.dateRange[1].fullDate()}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-3 text-right">
+                                <p class="d-block text-primary" style="font-size: 14px;font-weight: 600;"> Pearson Specter </p>
+                                <p class="d-block text-muted" style="font-size: 15px;"> email@pearsonspector.com</p>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title" >Login Report</h3>
-        
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <div class="float-right"><a href="#" class="fa fa-print float-right mt-1 mr-3 text-muted" style="font-size: 1.3rem;"></a></div>
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-    
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
+                    <div class="row mt-4">
+                        <div class="col-md-12 table-responsive">
+                            ${htmlTable}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="btn ps-bg-primary-opacity ps-primary mr-2 ps_report_close_btn"><i class="icon-close2"></i> Close </button>
+                            <button type="button" class="btn ps-bg-primary mr-2" onclick="printContent('ps_report_print_div', '');"><i class="icon-printer"></i> Print</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body table-responsive p-0" >
-                <table class="table table-head-fixed text-nowrap table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>User </th>
-                            <th>Activity </th>
-                            <th>Login Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>System Administrator</td>
-                            <td>Logged in successfully</td>
-                            <td>4th March , 2024</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jessica Pearson</td>
-                            <td>Logged in successfully</td>
-                            <td>7th June , 2024</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
+        `;
+    }
+
+    function LoginReportPageUser(data) {
+        let logo = `<img src="assets/img/logo.png" style="max-width: 100%; height: auto;"/>`
     
+        let htmlTable = `
+        <table class="table table-striped" width="100%">
+            <thead>
+                <tr class="bg-primary">
+                    <th style="font-size:12px;" class="text-white">User ID</th>
+                    <th style="font-size:12px;" class="text-white">Activity</th>
+                    <th style="font-size:12px;" class="text-white">Login Date</th>
+                </tr>
+            </thead>
+            <tbody>
     `;
+    
+        if (data.data.length > 0) {
+            for (let i = 0; i < data.data.length; i++) {
+                const item = data.data[i];
+                htmlTable += `
+                    <tr> 
+                        <td> ${item.userID}</td>
+                        <td> ${item.activity.toUcwords()}</td>
+                        <td> ${item.DateTime.fullDate()}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            htmlTable += `<tr> <td colspan="3"> No data found. </td></tr>`;
+        }
+        htmlTable += `
+                </tbody>
+            </table>
+        `;
+    
+        return `
+            <div class="card">
+                <div class="card-body mb-3" id="ps_report_print_div">
+                    <div class="row ">
+                        <div class="col-sm-12 col-md-6"><h4 style="font-size: 32px; font-weight: 700; color: #0e1726;">LOGIN REPORT</h4></div>
+                        <div class="col-sm-12 col-md-6 align-self-right text-right text-sm-right">
+                            <div class="company-info float-right">
+                                <div class="" style="width: 120px;">
+                                    ${logo}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="d-block text-primary" style="font-size: 14px;font-weight: 600;">REPORT DETAILS</p>
+                            <p class="d-block text-muted" style="font-size: 15px;"><b>User:</b> ${data.user}</p>
+                            <p class="d-block text-muted" style="font-size: 15px;"><b>From:</b> ${data.dateRange[0].fullDate()}</p>
+                            <p class="d-block text-muted" style="font-size: 15px;"><b>To:</b> ${data.dateRange[1].fullDate()}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-3 text-right">
+                                <p class="d-block text-primary" style="font-size: 14px;font-weight: 600;"> Pearson Specter </p>
+                                <p class="d-block text-muted" style="font-size: 15px;"> email@pearsonspector.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12 table-responsive">
+                            ${htmlTable}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="btn ps-bg-primary-opacity ps-primary mr-2 ps_report_close_btn"><i class="icon-close2"></i> Close </button>
+                            <button type="button" class="btn ps-bg-primary mr-2" onclick="printContent('ps_report_print_div', '');"><i class="icon-printer"></i> Print</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
     }
     
     (()=>{

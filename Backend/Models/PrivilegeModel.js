@@ -27,7 +27,8 @@ const PrivilegePearsonSpecter = {
         'add_user', 'edit_user', 'deactivate_user', 
         'add_role', 'edit_role', 'deactivate_role',
         'add_department', 'edit_department', 'deactivate_department', 
-        'add_document', 'edit_document', 'deactivate_document'
+        'add_document', 'edit_document', 'deactivate_document',
+        'login_report', 'document_upload_report', 'deactivation_report','recent_activity_report', 'department_state_report'
     ],
 
     /** 
@@ -48,13 +49,18 @@ const PrivilegePearsonSpecter = {
         deactivate_department varchar(3),
         add_document varchar(3),
         edit_document varchar(3),
-        deactivate_document varchar(3)
+        deactivate_document varchar(3),
+        login_report varchar(3),
+        document_upload_report varchar(3),
+        deactivation_report varchar(3),
+        recent_activity_report varchar(3),
+        department_state_report varchar(3)
     `),
 
     /** 
      * @const {string} alterTableStatement - Alter table sql statement as an array. EXAMPLE: ['name-varchar(5)', 'gender-varchar(5)']
     */
-    alterTableStatement: [],
+    alterTableStatement: ['login_report-varchar(3)','document_upload_report-varchar(3)','deactivation_report-varchar(3)','recent_activity_report-varchar(3)','department_state_report-varchar(3)']
 }
 
 module.exports = PrivilegePearsonSpecter;

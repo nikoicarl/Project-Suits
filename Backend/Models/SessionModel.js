@@ -54,6 +54,27 @@ class Session {
         }
     }
 
+     //Fetch for prepared statement left join user
+    async preparedLeftJoinFetch (object) {
+        try {
+            let sql = `
+                SELECT session.sessionID AS sessionID, 
+                session.userID AS userID, 
+                session.dateTime AS dateTime, 
+                session.activity AS activity, 
+                user.firstName AS firstName,
+                user.lastName AS lastName
+                FROM session 
+                LEFT JOIN user ON session.userID = user.userID  
+                WHERE ${object.sql}
+            `;
+            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
     //Create table method
     async createTable() {
         const CreateUpdateTable = new CreateUpdateModel(this.Database, {

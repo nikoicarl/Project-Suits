@@ -13,8 +13,6 @@ module.exports = (socket, Database)=>{
         let ps_manage_document_hiddenid = browserblob.ps_manage_document_hiddenid;
         let ps_document_upload_dropzone_rename = browserblob.ps_document_upload_dropzone_rename;
         const DocumentsForUpdate = browserblob.DocumentsForUpdate
-
-        console.log(browserblob);
         let melody1 = browserblob.melody1;
         let session = getsessionIDs(melody1);
         let userID = session.userID;

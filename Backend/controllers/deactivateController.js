@@ -43,6 +43,11 @@ module.exports = (socket, Database) => {
                             sql: 'status=? WHERE departmentID=?',
                             columns: [checker, dataId]
                         });
+                        if (result.affectedRows !== undefined) {
+                            const SessionModel = new Session(Database);
+                            let activityid = gf.getTimeStamp();
+                            result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (checker == "d") ? 'deactivated a department record' : 'reactivated a department record']);
+                        } 
                     } else {
                         message = 'You have no privilege to perform this task!';
                     }
@@ -55,6 +60,11 @@ module.exports = (socket, Database) => {
                             sql: 'status=? WHERE roleID=?',
                             columns: [checker, dataId]
                         });
+                        if (result.affectedRows !== undefined) {
+                            const SessionModel = new Session(Database);
+                            let activityid = gf.getTimeStamp();
+                            result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (checker == "d") ? 'deactivated a role record' : 'reactivated a role record']);
+                        } 
                     } else {
                         message = 'You have no privilege to perform this task!';
                     }
@@ -67,6 +77,11 @@ module.exports = (socket, Database) => {
                             sql: 'status=? WHERE userID=?',
                             columns: [checker, dataId]
                         });
+                        if (result.affectedRows !== undefined) {
+                            const SessionModel = new Session(Database);
+                            let activityid = gf.getTimeStamp();
+                            result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (checker == "d") ? 'deactivated a user record' : 'reactivated a user record']);
+                        } 
                     } else {
                         message = 'You have no privilege to perform this task!';
                     }
@@ -79,6 +94,11 @@ module.exports = (socket, Database) => {
                             sql: 'status=? WHERE documentID=?',
                             columns: [checker, dataId]
                         });
+                        if (result.affectedRows !== undefined) {
+                            const SessionModel = new Session(Database);
+                            let activityid = gf.getTimeStamp();
+                            result = await SessionModel.insertTable([activityid, userID, gf.getDateTime(), (checker == "d") ? 'deactivated a document record' : 'reactivated a document record']);
+                        } 
                     } else {
                         message = 'You have no privilege to perform this task!';
                     }
