@@ -92,7 +92,7 @@ function Report() {
                         <div class="col-sm-12 col-md-6"><h4 style="font-size: 32px; font-weight: 700; color: #0e1726;">DOCUMENT UPLOAD REPORT</h4></div>
                         <div class="col-sm-12 col-md-6 align-self-right text-right text-sm-right">
                             <div class="company-info float-right">
-                                <div class="" style="width: 120px;">
+                                <div class="" style="width: 100px;">
                                     ${logo}
                                 </div>
                             </div>
@@ -170,7 +170,7 @@ function Report() {
                         <div class="col-sm-12 col-md-6"><h4 style="font-size: 32px; font-weight: 700; color: #0e1726;">DOCUMENT UPLOAD REPORT</h4></div>
                         <div class="col-sm-12 col-md-6 align-self-right text-right text-sm-right">
                             <div class="company-info float-right">
-                                <div class="" style="width: 120px;">
+                                <div class="" style="width: 100px;">
                                     ${logo}
                                 </div>
                             </div>
