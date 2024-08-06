@@ -40,7 +40,6 @@ module.exports = function (start, Database) {
                             sql: 'userID = ?',
                             columns: [userID]
                         });
-                        console.log(userDepartmentData.length);
                             response.render('dashboard', {
                                 pageNavigate: queryStr, 
                                 userData: userResult[0],

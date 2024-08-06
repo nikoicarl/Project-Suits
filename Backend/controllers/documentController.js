@@ -3,7 +3,6 @@ const Session = require('../Models/SessionModel');
 const Privilege = require('../Models/PrivilegeFeaturesModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const getsessionIDs = require('./getSessionIDs');
-console.log(getsessionIDs);
 const gf = new GeneralFunction();
 const md5 = require('md5');
 const UploadFile = require('../Models/UploadFileModel');
