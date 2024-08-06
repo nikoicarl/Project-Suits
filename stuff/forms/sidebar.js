@@ -68,64 +68,66 @@ function Sidebar() {
             </a>
         </li>
 
-        <li class="nav-item">
-            <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-chart-area"></i>
-                <p>
-                    Reports
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview">
-                <% if (privilege.pearson_specter.document_upload_report == "yes") { %>
-                    <li class="nav-item">
-                        <a href="/upload_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
-                            data-scripts="single::/uploadReportAjax"> 
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Document Upload </p>
-                        </a>
-                    </li>
-                <% } %>
-                <% if (privilege.pearson_specter.department_state_report == "yes") { %>
-                    <li class="nav-item">
-                        <a href="/department_state_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
-                            data-scripts="single::/departmentStateReportAjax"> 
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Department State</p>
-                        </a>
-                    </li>
-                <% } %>
+        <% if (privilege.pearson_specter.document_upload_report == "yes" || privilege.pearson_specter.department_state_report == "yes" || privilege.pearson_specter.login_report == "yes"|| privilege.pearson_specter.deactivation_report == "yes"|| privilege.pearson_specter.recent_activity_report == "yes") { %>
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="nav-icon fas fa-chart-area"></i>
+                    <p>
+                        Reports
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <% if (privilege.pearson_specter.document_upload_report == "yes") { %>
+                        <li class="nav-item">
+                            <a href="/upload_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/uploadReportAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Document Upload </p>
+                            </a>
+                        </li>
+                    <% } %>
+                    <% if (privilege.pearson_specter.department_state_report == "yes") { %>
+                        <li class="nav-item">
+                            <a href="/department_state_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/departmentStateReportAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Department State</p>
+                            </a>
+                        </li>
+                    <% } %>
 
-                <% if (privilege.pearson_specter.login_report == "yes") { %>
-                    <li class="nav-item">
-                        <a href="/login_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
-                            data-scripts="single::/loginReportAjax"> 
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Login</p>
-                        </a>
-                    </li>
-                <% } %>
+                    <% if (privilege.pearson_specter.login_report == "yes") { %>
+                        <li class="nav-item">
+                            <a href="/login_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/loginReportAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Login</p>
+                            </a>
+                        </li>
+                    <% } %>
 
-                <% if (privilege.pearson_specter.deactivation_report == "yes") { %>
-                    <li class="nav-item">
-                        <a href="/deactivation_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
-                            data-scripts="single::/deactivationReportAjax"> 
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Deactivation</p>
-                        </a>
-                    </li>
-                <% } %>
+                    <% if (privilege.pearson_specter.deactivation_report == "yes") { %>
+                        <li class="nav-item">
+                            <a href="/deactivation_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/deactivationReportAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Deactivation</p>
+                            </a>
+                        </li>
+                    <% } %>
 
-                <% if (privilege.pearson_specter.recent_activity_report == "yes") { %>
-                    <li class="nav-item">
-                        <a href="/recent_activity" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
-                            data-scripts="single::/recentActivityAjax"> 
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Recent Activity  </p>
-                        </a>
-                    </li>
-                <% } %>
-            </ul>
-        </li>
+                    <% if (privilege.pearson_specter.recent_activity_report == "yes") { %>
+                        <li class="nav-item">
+                            <a href="/recent_activity" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                data-scripts="single::/recentActivityAjax"> 
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Recent Activity  </p>
+                            </a>
+                        </li>
+                    <% } %>
+                </ul>
+            </li>
+        <% } %>
     `;
 }

@@ -124,10 +124,10 @@ $(document).ready(function () {
                 type: 'text',
                 template: function (row){
                     let docsHtml = `<div class="col-md-6"> 
-                                        <a class="mb-2" href="uploads/${row.fileName}" download="${row.fileName}"> 
+                                        <a  href="uploads/${row.fileName}" download="${row.fileName}"> 
                                             <span class="icon-file-pdf icon-2x">
                                             </span>
-                                            <br>${row.fileName.toUcwords()}
+                                            <br> <p class="mt-1">${row.fileName.toUcwords() }<p>
                                         </a> 
                                     </div>`;
                     return docsHtml;

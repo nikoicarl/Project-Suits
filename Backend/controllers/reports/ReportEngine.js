@@ -1,4 +1,4 @@
-const getsessionIDs = require('../getsessionIDs');
+const getsessionIDs = require('../getSessionIDs');
 const md5 = require('md5');
 
 const Privilege = require('../../Models/PrivilegeFeaturesModel');
