@@ -47,7 +47,8 @@ module.exports = (socket, Database)=>{
                                     type: 'caution',
                                     message: 'Sorry, document with the same name exist'
                                 });
-                            } else {const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename)
+                            } else {
+                                const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename)
                                 let documentNames = UploadFileHandler._getFileNames().toString();
     
                                 if (ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined) {

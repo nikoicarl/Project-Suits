@@ -122,8 +122,15 @@ $(document).ready(function () {
                 field: 'fileName',
                 title: "Document",
                 type: 'text',
-                template: function (row) {
-                    return (row.fileName).toUcwords();
+                template: function (row){
+                    let docsHtml = `<div class="col-md-6"> 
+                                        <a class="mb-2" href="uploads/${row.fileName}" download="${row.fileName}"> 
+                                            <span class="icon-file-pdf icon-2x">
+                                            </span>
+                                            <br>${row.fileName.toUcwords()}
+                                        </a> 
+                                    </div>`;
+                    return docsHtml;
                 }
                 },
                 {
@@ -372,6 +379,12 @@ $(document).ready(function () {
                 DocumentTableFetch();
             }
         });
+    }
+
+
+    // view function
+    function viewDocument(getname, dataId, getdata){
+
     }
     
 

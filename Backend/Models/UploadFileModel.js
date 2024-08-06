@@ -5,7 +5,7 @@ class UploadFile {
     constructor(fileNames, namesForRename) {
         this.fileNames = fileNames
         this.namesForRename = namesForRename
-        this.filePath = __dirname+'/../../../stuff/uploads/'
+        this.filePath = __dirname+'/../../stuff/uploads/'
     }
 
     _uploadFiles() {
