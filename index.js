@@ -1,4 +1,3 @@
-const specificFetchController = require("./Backend/controllers/specificFetchController.js");
 
 try {
     // Dependencies
@@ -25,6 +24,7 @@ try {
     const roleController =  require("./Backend/controllers/roleController.js");
     const recentActivityReportController = require("./Backend/controllers/recentActivityReportController.js");
     const documentController = require("./Backend/controllers/documentController.js");
+    const contactController = require("./Backend/controllers/contactController.js");
 
     // Reporting
     const reportEngine = require("./Backend/controllers/reports/ReportEngine.js");
@@ -83,6 +83,7 @@ try {
             userController(socket, Database);
             roleController(socket, Database);
             documentController(socket, Database);
+            contactController(socket, Database);
 
             // REPORT CONTROLLERS HERE 
             recentActivityReportController(socket, Database);
