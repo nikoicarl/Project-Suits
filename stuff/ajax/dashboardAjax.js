@@ -53,8 +53,8 @@ $(document).ready(function () {
                         const time = dateTimeParts[1];
 
                         if (data[i].activity.toLocaleLowerCase().indexOf("deactivated") != -1) {
-                            color = "bg-warning";
-                            icon = "icon-close";
+                            color = "bg-danger";
+                            icon = "fa fa-ban";
                         } else if (data[i].activity.toLocaleLowerCase().indexOf("logged out") != -1) {
                             color = "bg-danger";
                             icon = "fa fa-ban";

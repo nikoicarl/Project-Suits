@@ -152,8 +152,8 @@ module.exports = (socket, Database) => {
                             sql = 'document.dateTime BETWEEN ? AND ? ORDER BY document.dateTime ASC';
                             columns = [start_date, end_date]
                         } else {
-                            sql = 'document.dateTime BETWEEN ? AND ?  ORDER BY document.dateTime ASC';
-                            columns = [start_date, end_date]
+                            sql = 'document.userID =? AND document.dateTime BETWEEN ? AND ?  ORDER BY document.dateTime ASC';
+                            columns = [user, start_date, end_date]
                         }
                         
 
