@@ -10,22 +10,6 @@ $(document).ready(function () {
 
     let holdUser;
 
-    pageDropZone();
-    function pageDropZone() {
-        setTimeout(function () {
-            FileNamesHolder = []
-            UploadChecker = 0
-            DropZone('ps_dropzone_input', '#dcdcdc', dropZoneIcons, {
-                requestType: 'socket',
-                socketObject: socket,
-                socketEvent: 'ps_general_file_upload'
-            }, 'application/pdf', 0)
-            $('.ps_dropzone_title').text('Click to upload pdf here');
-            $('.ps_dropzone_subtitle').text(``);
-            $('.ps_dropzone_inner').addClass('mt-4');
-        }, 200);
-    }
-
     //Submit form
     $(document).on('submit', 'form.ps_document_form', function (e) {
         e.preventDefault();
@@ -40,45 +24,37 @@ $(document).ready(function () {
     
         socket.off('insertNewDocument');
         socket.off(melody.melody1 + '_insertNewDocument');
-    
-        if (UploadChecker !== FileNamesHolder.length) {
-            Toast.fire({
-                title: 'Caution',
-                text: 'Please wait for all selected files to finish uploading before you submit',
-                icon: 'warning',
-                padding: '0.5em'
-            });
-            DocumentTableFetch();
-            $('.ps_document_submit').html('Submit');
-            $('.ps_document_submit').removeAttr('disabled');
-        } else {
-            setTimeout(function () {
-                socket.emit('insertNewDocument', {
-                    "melody1": melody.melody1,
-                    "melody2": melody.melody2,
-                    "ps_document_upload_dropzone_rename": ps_document_upload_dropzone_rename,
-                    "ps_manage_document_hiddenid": ps_manage_document_hiddenid,
-                    "DocumentsForUpdate": FilterFileNames(FileNamesHolder)
-                }, (data) => {
-                    if (data.type == 'success') {
-                        $('.ps_document_form').trigger('reset');
-                        socket.off(melody.melody1 + '_insertNewDocument');
-                        pageDropZone();
-                    }
-                    Toast.fire({
-                        title: data.type == 'success' ? 'Success' : (data.type == 'error' ? 'Error' : 'Caution'),
-                        text: data.message,
-                        icon: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),
-                        padding: '0.5em'
-                    });
-                    DocumentTableFetch();
-                    // Set submit button back to its original text
-                    $('.ps_document_submit').html('Submit');
-                    // Enable submit button
-                    $('.ps_document_submit').removeAttr('disabled');
-                });
-            }, 500);
+
+        if (ps_manage_document_hiddenid != undefined || ps_manage_document_hiddenid != null) {
+            FileNamesHolder.push.ps_document_upload_dropzone_rename;
         }
+    
+        setTimeout(function () {
+            socket.emit('insertNewDocument', {
+                "melody1": melody.melody1,
+                "melody2": melody.melody2,
+                "ps_document_upload_dropzone_rename": ps_document_upload_dropzone_rename,
+                "ps_manage_document_hiddenid": ps_manage_document_hiddenid,
+                "DocumentsForUpdate": FilterFileNames(FileNamesHolder)
+            }, (data) => {
+                if (data.type == 'success') {
+                    $('.ps_document_form').trigger('reset');
+                    socket.off(melody.melody1 + '_insertNewDocument');
+                    pageDropZone();
+                }
+                Toast.fire({
+                    title: data.type == 'success' ? 'Success' : (data.type == 'error' ? 'Error' : 'Caution'),
+                    text: data.message,
+                    icon: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),
+                    padding: '0.5em'
+                });
+                DocumentTableFetch();
+                // Set submit button back to its original text
+                $('.ps_document_submit').html('Submit');
+                // Enable submit button
+                $('.ps_document_submit').removeAttr('disabled');
+            });
+        }, 500);
     });
 
     // Form submit for assign user
@@ -243,7 +219,7 @@ $(document).ready(function () {
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-maindata='${maindata}' data-getname="assign_user"><i class="icon-add mr-2"></i></i>Assign User</a> 
-                                <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-getname="specific_document"><i class="icon-pencil mr-2"></i></i>Edit Details</a> 
+                                <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-getname="specific_document" data-maindata='${maindata}'><i class="icon-pencil mr-2"></i></i>Edit Details</a> 
                                 ${activateOrDeactivate}
                                 ${validate_delete}
                             </div>
@@ -338,50 +314,32 @@ $(document).ready(function () {
             assignUser(maindata);
 
         } else {
+            let maindata = JSON.stringify(thisElement.data("maindata")).replace(/:::/g, "'");
+            maindata = JSON.parse(maindata);
             //Update data method
-            updateDocument(getname, dataId);
+            updateDocument(maindata);
         }
     });
 
-    //Update function
-    function updateDocument(getname, dataId) {
-        socket.off('table');
-        socket.off(melody.melody1 + '_' + getname);
-    
-        socket.emit('specific', {
-            "melody1": melody.melody1,
-            "melody2": melody.melody2,
-            "melody3": melody.melody3,
-            "param": getname,
-            "dataId": dataId
-        });
-    
-        socket.on(melody.melody1 + '_' + getname, (data) => {
-            if (data.type == 'error') {
-                Toast.fire({
-                    text: data.message,
-                    icon: 'warning',
-                    padding: '1em'
-                });
-            } else {
-                $('.ps_manage_document_submit_btn').html('Update');
-                if (data) {
-                    FileNamesHolder = [];
-                    FileNamesHolder.push(data.fileName + '*^*^any_div');
-                    console.log(FileNamesHolder);
-                    pageDropZone();
-                    $('input.ps_manage_document_hiddenid').val(data.documentID);
-                    $('input.ps_document_upload_dropzone_rename').val(data.fileName);
-                } else {
-                    Toast.fire({
-                        title: 'Oops!!',
-                        text: 'Fetching to edit ended up empty',
-                        icon: 'warning',
-                        padding: '1em'
-                    });
+    function updateDocument(maindata) {
+        pageDropZone();
+        if (maindata) {
+            if (maindata.fileName) {
+                let list = [maindata.fileName];
+                console.log(list, 'list');
+                for (let i = 0; i < list.length; i++) {
+                    FileNamesHolder.push(list[i]+'*^*^any_div');
                 }
+
+                console.log(FileNamesHolder, 'FileNamesHolder');
             }
-        });
+            $('.ps_manage_document_hiddenid').val(maindata.documentID);
+            $('.ps_document_upload_dropzone_rename').val(maindata.fileName);
+        } else {
+            $('.ps_manage_document_hiddenid').val('');
+            $('.ps_document_upload_dropzone_rename').val('');
+        }
+        $('html, body').animate({scrollTop: 0}, "slow");
     }
 
     // Deactivate function
@@ -450,6 +408,24 @@ $(document).ready(function () {
                 });
             }
         });
+    }
+
+    // DropZone Function
+    pageDropZone();
+    function pageDropZone() {
+        setTimeout(function () {
+            FileNamesHolder = [];
+            UploadChecker = 0;
+            DropZone('ps_dropzone_input', '#dcdcdc', dropZoneIcons, {
+                requestType: 'socket',
+                socketObject: socket,
+                socketEvent: 'ps_general_file_upload'
+            }, 'application/pdf', 0);
+
+            $('.ps_dropzone_title').text('Click to upload pdf here');
+            $('.ps_dropzone_subtitle').text(``);
+            $('.ps_dropzone_inner').addClass('mt-4');
+        }, 200);
     }
     
 

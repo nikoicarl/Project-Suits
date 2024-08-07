@@ -12,6 +12,7 @@ module.exports = (socket, Database) => {
         const { ps_manage_document_hiddenid, ps_document_upload_dropzone_rename, DocumentsForUpdate, melody1, melody2 } = browserblob;
         const session = getsessionIDs(melody1);
         const { userID } = session;
+        console.log(browserblob);
 
         try {
             if (md5(userID) !== melody2) {
@@ -29,7 +30,7 @@ module.exports = (socket, Database) => {
             }
 
             const privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
-            const privilege = ps_manage_document_hiddenid ? privilegeData.pearson_specter.update_document : privilegeData.pearson_specter.add_document;
+            const privilege = ps_manage_document_hiddenid ? privilegeData.pearson_specter.edit_document : privilegeData.pearson_specter.add_document;
 
             if (privilege !== "yes") {
                 return cb({ type: 'caution', message: 'You have no privilege to perform this task' });
@@ -67,7 +68,7 @@ module.exports = (socket, Database) => {
                     result = await DocumentModel.insertTable([newDocumentID, userID, document, gf.getDateTime(), 'a']);
                 }
             } else {
-                const sql = 'documents = ? WHERE documentID = ? AND status = ?';
+                const sql = 'fileName = ? WHERE documentID = ? AND status = ?';
                 const columns = [documentNames, documentID, 'a'];
                 result = await DocumentModel.updateTable({ sql, columns });
             }
