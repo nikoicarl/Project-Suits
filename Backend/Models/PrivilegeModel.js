@@ -28,7 +28,8 @@ const PrivilegePearsonSpecter = {
         'add_role', 'edit_role', 'deactivate_role',
         'add_department', 'edit_department', 'deactivate_department', 
         'add_document', 'edit_document', 'deactivate_document',
-        'login_report', 'document_upload_report', 'deactivation_report','recent_activity_report', 'department_state_report'
+        'login_report', 'document_upload_report', 'deactivation_report','recent_activity_report', 'department_state_report',
+        'assign_department','assign_user'
     ],
 
     /** 
@@ -54,13 +55,15 @@ const PrivilegePearsonSpecter = {
         document_upload_report varchar(3),
         deactivation_report varchar(3),
         recent_activity_report varchar(3),
-        department_state_report varchar(3)
+        department_state_report varchar(3),
+        assign_department varchar(3),
+        assign_user varchar(3)
     `),
 
     /** 
      * @const {string} alterTableStatement - Alter table sql statement as an array. EXAMPLE: ['name-varchar(5)', 'gender-varchar(5)']
     */
-    alterTableStatement: ['login_report-varchar(3)','document_upload_report-varchar(3)','deactivation_report-varchar(3)','recent_activity_report-varchar(3)','department_state_report-varchar(3)']
+    alterTableStatement: ['login_report-varchar(3)','document_upload_report-varchar(3)','deactivation_report-varchar(3)','recent_activity_report-varchar(3)','department_state_report-varchar(3)','recent_activity_report-varchar(3)','department_state_report-varchar(3)','assign_department-varchar(3)','assign_user-varchar(3)']
 }
 
 module.exports = PrivilegePearsonSpecter;

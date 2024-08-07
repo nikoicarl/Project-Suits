@@ -5,7 +5,7 @@ $(document).ready(function () {
     let holdUser;
     UserTableFetch();
     
-    // Form Submit
+    // Form Submit for user form
     $(document).on('submit', 'form.ps_manage_user_form', function (e) {
         e.preventDefault();
 
@@ -85,6 +85,72 @@ $(document).ready(function () {
         });
 
     });
+
+    // Form submit for assign department
+
+    $(document).on('submit', 'form.ps_user_assign_department_form', function (e) {
+
+        e.preventDefault();
+        let ps_user_assign_department_hiddenid = $('.ps_user_assign_department_hiddenid', this).val();
+        let ps_user_assign_department_dropdown = $('.ps_user_assign_department_dropdown', this).val();
+
+        //Setting submit button to loader
+        $('.ps_user_assign_department_submit_btn').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');
+        //Diable submit button
+        $('.ps_user_assign_department_submit_btn').attr('disabled', 'disabled');
+
+        socket.off('specific'); 
+        socket.off(melody.melody1+'_specific'); 
+
+        socket.emit('specific', {
+            "melody1": melody.melody1,
+            "melody2": melody.melody2,
+            "melody3": melody.melody3,
+            "param": 'assign_department',
+            "hiddenID": ps_user_assign_department_hiddenid,
+            "departmentID": ps_user_assign_department_dropdown
+        });
+
+        socket.on(melody.melody1 + '_assign_department', function (data) {   
+            if (data.type == "success") {
+                //trigger alert using the alert function down there
+                Toast.fire({
+                    title: 'Success',
+                    text: data.message,
+                    icon: 'success',
+                    padding: '1em'
+                })
+
+                //Empty the form 
+                $('.ps_user_assign_department_form').trigger('reset');
+                socket.off(melody.melody1+'_assign_department'); 
+                UserTableFetch();
+            } else if (data.type == "caution") {
+                Toast.fire({
+                    text: data.message,
+                    type: 'warning',
+                    padding: '1em'
+                })
+            } else {
+                //trigger alert using the alert function down there
+                Toast.fire({
+                    title: 'Error',
+                    text: data.message,
+                    type: 'error',
+                    padding: '1em'
+                })
+            }
+            //Set submit button back to its original text
+            $('.ps_user_assign_department_submit_btn').html('Submit');
+            //Enable submit button
+            $('.ps_user_assign_department_submit_btn').removeAttr('disabled');
+        }
+        );
+
+    }
+    );
+
+
 
     //User Table Fetch
     function UserTableFetch(){
@@ -370,6 +436,7 @@ $(document).ready(function () {
             $('.ps_user_assign_department_hiddenid').val('');
         }
         $('.ps_user_assign_department_modal_btn').trigger('click');
+        departmentDropdown();
     }
 
     //Delete function

@@ -118,16 +118,17 @@ function assignDepartmentModal() {
     return `
         <button type="button" class="ps_user_assign_department_modal_btn hide" data-toggle="modal" data-target="#assignDepartmentModal"></button>
         <div class="modal fade" id="assignDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="assignDepartmentModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
                         <h5 class="modal-title text-white" id="exampleModalLabel">Assign User to Department</h5>
                     </div>
                     <div class="modal-body">
-                        <form class="ps_user_assign_department_form_modal" action="" method="POST">
+                        <form class="ps_user_assign_department_form" action="" method="POST">
                             <input type="hidden" class="ps_user_assign_department_hiddenid">
                             <div class="row">
                                 <div class="col-md-12 mt-2">
+                                    <label for="">Department <span class="text-danger">*</span></label>
                                     <select class="form-control ps_user_assign_department_dropdown">
                                         <option value="" selected> Select Department </option>
                                     </select>

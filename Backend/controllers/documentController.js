@@ -7,120 +7,79 @@ const gf = new GeneralFunction();
 const md5 = require('md5');
 const UploadFile = require('../Models/UploadFileModel');
 
-
-module.exports = (socket, Database)=>{
-    socket.on('insertNewDocument', async (browserblob, cb)=>{
-        let ps_manage_document_hiddenid = browserblob.ps_manage_document_hiddenid;
-        let ps_document_upload_dropzone_rename = browserblob.ps_document_upload_dropzone_rename;
-        const DocumentsForUpdate = browserblob.DocumentsForUpdate
-        let melody1 = browserblob.melody1;
-        let session = getsessionIDs(melody1);
-        let userID = session.userID;
-        let sessionID = session.sessionID;
+module.exports = (socket, Database) => {
+    socket.on('insertNewDocument', async (browserblob, cb) => {
+        const { ps_manage_document_hiddenid, ps_document_upload_dropzone_rename, DocumentsForUpdate, melody1, melody2 } = browserblob;
+        const session = getsessionIDs(melody1);
+        const { userID } = session;
 
         try {
-            if (md5(userID) == browserblob.melody2) {
-                //Initiate connection
+            if (md5(userID) === melody2) {
                 const DocumentModel = new Document(Database);
                 const PrivilegeModel = new Privilege(Database, userID);
-    
-                //Check for empty
-                let result = await gf.ifEmpty([ps_document_upload_dropzone_rename, DocumentsForUpdate]);
-                if (result.includes('empty')) {
-                    cb({
-                        type: 'caution',
-                        message: 'All fields are required!'
-                    });
-                } else {
-                    let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
-    
-                    let privilege = (ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined) ? privilegeData.pearson_specter.add_document : privilegeData.pearson_specter.update_document;
-                    if (privilege == "yes") {
-                        let documentID = ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined ? 0 : ps_manage_document_hiddenid;
-                        result = await DocumentModel.preparedFetch({
-                            sql: 'fileName = ? AND documentID != ? AND status =?',
-                            columns: [ps_document_upload_dropzone_rename, documentID, 'a']
-                        });
-                        if (Array.isArray(result)) {
-                            if (result.length > 0) {
-                                cb({
-                                    type: 'caution',
-                                    message: 'Sorry, document with the same name exist'
-                                });
-                            } else {
-                                const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename)
-                                let documentNames = UploadFileHandler._getFileNames().toString();
-    
-                                if (ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined) {
-                                    for (let i = 0; i < documentNames.split(',').length; i++) {
-                                        const documents = documentNames.split(',')[i];
-                                        documentID = gf.getTimeStamp();
-                                        result = await DocumentModel.insertTable([documentID, userID, documents, gf.getDateTime(), 'a']);
-                                    }
-                                } else {
-                                    let sql = '', columns = []
-                                    if (DocumentsForUpdate.length > 0) {
-                                        sql = 'documents = ? WHERE documentID = ? AND status = ?'
-                                        columns = [documentNames, documentID, 'a']
-                                    } else {
-                                        sql = 'documents = ?  WHERE documentID = ? AND status = ?'
-                                        columns = [documentNames, documentID, 'a']
-                                    }
-                                    result = await DocumentModel.updateTable({
-                                        sql: sql,
-                                        columns: columns
-                                    })
-                                }
-                                if (result && result.affectedRows !== undefined) {
-                                    if (Array.isArray(DocumentsForUpdate) && DocumentsForUpdate.length > 0) {
-                                        UploadFileHandler._uploadFiles()
-                                    }
-    
-                                    const SessionModel = new Session(Database);
-                                    let sessionID = gf.getTimeStamp();
-                                    result = await SessionModel.insertTable([sessionID, userID, gf.getDateTime(), (ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined) ? 'added a new document' : 'updated a document record']);
-                                    let message = ps_manage_document_hiddenid == "" || ps_manage_document_hiddenid == undefined ? 'Document has been created successfully' : 'Document has been updated successfully';
-                                    if (result.affectedRows) {
-                                        cb({
-                                            type: 'success',
-                                            message: message
-                                        });
-                                    } else {
-                                        cb({
-                                            type: 'error',
-                                            message: 'Oops, something went wrong4: Error => ' + result
-                                        });
-                                    }
-                                } else {
-                                    console.log('Oops result: ', result)
-                                    cb({
-                                        type: 'error',
-                                        message: 'Oops, something went wrong3: Error => ' + result
-                                    });
-                                }
-                            }
-                        } else {
-                            cb({
-                                type: 'error',
-                                message: 'Oops, something went wrong2: Error => ' + result
-                            });
-                        }
-                    } else {
-                        cb({
-                            type: 'caution',
-                            message: 'You have no privilege to perform this task'
-                        });
+
+                // Check for empty fields
+                const emptyCheckResult = await gf.ifEmpty([ps_document_upload_dropzone_rename, DocumentsForUpdate]);
+                if (emptyCheckResult.includes('empty')) {
+                    return cb({ type: 'caution', message: 'All fields are required!' });
+                }
+
+                const privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
+                const privilege = ps_manage_document_hiddenid ? privilegeData.pearson_specter.update_document : privilegeData.pearson_specter.add_document;
+
+                if (privilege !== "yes") {
+                    return cb({ type: 'caution', message: 'You have no privilege to perform this task' });
+                }
+
+                const documentID = ps_manage_document_hiddenid || 0;
+                const existingDocuments = await DocumentModel.preparedFetch({
+                    sql: 'fileName = ? AND documentID != ? AND status = ?',
+                    columns: [ps_document_upload_dropzone_rename, documentID, 'a']
+                });
+
+                if (Array.isArray(existingDocuments) && existingDocuments.length > 0) {
+                    return cb({ type: 'caution', message: 'Sorry, document with the same name exists' });
+                }
+
+                const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
+                const documentNames = UploadFileHandler._getFileNames().toString();
+
+                let result;
+                if (!ps_manage_document_hiddenid) {
+                    for (const document of documentNames.split(',')) {
+                        const newDocumentID = gf.getTimeStamp();
+                        result = await DocumentModel.insertTable([newDocumentID, userID, document, gf.getDateTime(), 'a']);
                     }
+                } else {
+                    const sql = 'documents = ? WHERE documentID = ? AND status = ?';
+                    const columns = [documentNames, documentID, 'a'];
+                    result = await DocumentModel.updateTable({ sql, columns });
+                }
+
+                if (result && result.affectedRows !== undefined) {
+                    if (Array.isArray(DocumentsForUpdate) && DocumentsForUpdate.length > 0) {
+                        UploadFileHandler._uploadFiles();
+                    }
+
+                    const SessionModel = new Session(Database);
+                    const newSessionID = gf.getTimeStamp();
+                    const sessionResult = await SessionModel.insertTable([newSessionID, userID, gf.getDateTime(), ps_manage_document_hiddenid ? 'updated a document record' : 'added a new document']);
+
+                    const message = ps_manage_document_hiddenid ? 'Document has been updated successfully' : 'Document has been created successfully';
+                    if (sessionResult.affectedRows) {
+                        return cb({ type: 'success', message });
+                    } else {
+                        return cb({ type: 'error', message: 'Oops, something went wrong: Error => ' + sessionResult });
+                    }
+                } else {
+                    return cb({ type: 'error', message: 'Oops, something went wrong: Error => ' + result });
                 }
             } else {
-                cb({
-                    'type': 'caution',
-                    'message': 'Sorry your session has expired, wait for about 18 secconds and try again...',
-                    'timeout': 'no'
-                });
+                return cb({ type: 'caution', message: 'Sorry your session has expired, wait for about 18 seconds and try again...', timeout: 'no' });
             }
         } catch (error) {
-            console.log('Error: ', error)
+            console.error('Error:', error);
+            return cb({ type: 'error', message: 'An unexpected error occurred' });
         }
     });
-}
+};

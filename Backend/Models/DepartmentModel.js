@@ -46,6 +46,40 @@ class Department {
             return error;
         }
     }
+        
+    // Append userID method
+    async appendUserIDs(departmentID, newUserIDs) {
+        try {
+            // Fetch existing userIDs
+            let fetchSql = 'SELECT userIDs FROM department WHERE departmentID = ?';
+            let fetchResult = await this.Database.setupConnection({sql: fetchSql, columns: [departmentID]}, 'object');
+
+            if (fetchResult.length === 0) {
+                throw new Error('Department not found');
+            }
+
+            let existingUserIDs = fetchResult[0].userIDs ? fetchResult[0].userIDs.split(',') : [];
+            let newUserIDsArray = newUserIDs.split(',');
+
+            // Filter out IDs that already exist
+            let uniqueNewUserIDs = newUserIDsArray.filter(id => !existingUserIDs.includes(id));
+
+            if (uniqueNewUserIDs.length === 0) {
+                return { affectedRows: 0, message: 'No new user IDs to add' };
+            }
+
+            // Combine and update userIDs
+            let updatedUserIDs = [...existingUserIDs, ...uniqueNewUserIDs].join(',');
+
+            // Update the userIDs column
+            let updateSql = 'UPDATE department SET userIDs = ? WHERE departmentID = ?';
+            let updateResult = await this.Database.setupConnection({sql: updateSql, columns: [updatedUserIDs, departmentID]}, 'object');
+
+            return updateResult;
+        } catch (error) {
+            return error;
+        }
+    }
 
     //Fetch for prepared statement
     async preparedFetch (object) {

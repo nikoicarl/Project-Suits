@@ -5,6 +5,7 @@ const md5 = require('md5');
 
 const Role = require('../Models/RoleModel');
 const User = require('../Models/UserModel');
+const Department = require('../Models/DepartmentModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 
 const gf = new GeneralFunction();
@@ -44,6 +45,21 @@ module.exports = (socket, Database) => {
                 const RoleModel = new Role(Database);
 
                 result = await RoleModel.preparedFetch({
+                    sql: 'status = ?',
+                    columns: ['a']
+                });
+                if (Array.isArray(result)) {
+                    socket.emit(melody1 + '_' + param, result);
+                } else {
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'error',
+                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                    });
+                }
+            } else if (param === "department_dropdown") {
+                const DepartmentModel = new Department(Database);
+
+                result = await DepartmentModel.preparedFetch({
                     sql: 'status = ?',
                     columns: ['a']
                 });

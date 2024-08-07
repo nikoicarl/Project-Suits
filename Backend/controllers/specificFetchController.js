@@ -98,6 +98,48 @@ module.exports = (socket, Database) => {
                         message: 'Oops, something went wrong: Error => ' + result.sqlMessage
                     });
                 }
+            } else if (param === "assign_department") {
+                let departmentID = browserblob.departmentID;
+                let newUserIDs = browserblob.hiddenID;
+            
+                // Check for empty
+                let result = await gf.ifEmpty([departmentID]);
+                if (result.includes('empty')) {
+                    socket.emit(melody1 + '_assign_department', {
+                        type: 'caution',
+                        message: 'Select Department to continue!'
+                    });
+                } else {
+                    const PrivilegeModel = new Privilege(Database, userID);
+                    let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
+            
+                    if (privilegeData && privilegeData.pearson_specter && privilegeData.pearson_specter.assign_department == 'yes') {
+                        const department = new Department(Database);
+                        let updateResult = await department.appendUserIDs(departmentID, newUserIDs);
+            
+                        if (updateResult.affectedRows > 0) {
+                            socket.emit(melody1 + '_' + param, {
+                                type: 'success',
+                                message: 'User assigned to department successfully'
+                            });
+                        } else if (updateResult.message === 'No new user IDs to add') {
+                            socket.emit(melody1 + '_' + param, {
+                                type: 'info',
+                                message: 'User already exist in the department'
+                            });
+                        } else {
+                            socket.emit(melody1 + '_' + param, {
+                                type: 'error',
+                                message: 'Failed to assign User ID to department'
+                            });
+                        }
+                    } else {
+                        socket.emit(melody1 + '_' + param, {
+                            type: 'error',
+                            message: 'You have no privilege to perform this task'
+                        });
+                    }
+                }
             }
         } catch (error) {
             socket.emit(melody1 + '_' + param, {
