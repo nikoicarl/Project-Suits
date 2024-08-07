@@ -52,7 +52,7 @@ module.exports = (socket, Database) => {
             let documentNames;
             let UploadFileHandler
             if (documentID !== 0) {
-
+                console.log(documentID);
                 UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
                 documentNames = UploadFileHandler._getFileNames().toString();
             } else {

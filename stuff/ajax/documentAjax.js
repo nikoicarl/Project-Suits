@@ -330,12 +330,9 @@ $(document).ready(function () {
         if (maindata) {
             if (maindata.fileName) {
                 let list = [maindata.fileName];
-                console.log(list, 'list');
                 for (let i = 0; i < list.length; i++) {
                     FileNamesHolder.push(list[i]+'*^*^any_div');
                 }
-
-                console.log(FileNamesHolder, 'FileNamesHolder');
             }
             $('.ps_manage_document_hiddenid').val(maindata.documentID);
             $('.ps_document_upload_dropzone_rename').val(maindata.fileName);
