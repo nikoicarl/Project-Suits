@@ -95,11 +95,11 @@ module.exports = (socket, Database) => {
                     socket.emit(melody1 + '_' + param, []);
                 }
             } else if (param === "document_table") {
-                if (privilegeData !== undefined && privilegeData.pearson_specter.add_document == "yes" || privilegeData.pearson_specter.edit_document == "yes" || privilegeData.pearson_specter.deactivate_document == "yes") {
+                if (privilegeData !== undefined && (privilegeData.pearson_specter.add_document == "yes" || privilegeData.pearson_specter.edit_document == "yes" || privilegeData.pearson_specter.deactivate_document == "yes")) {
                     const DocumentModel = new Document(Database);
                     result = await DocumentModel.preparedFetch({
-                        sql: 'status != ?  ORDER BY dateTime DESC',
-                        columns: ['i']
+                        sql: 'status != ? AND FIND_IN_SET(?, userIDs) ORDER BY dateTime DESC',
+                        columns: ['i', userID]
                     });
                     if (Array.isArray(result)) {
                         socket.emit(melody1 + '_' + param, result);
@@ -112,7 +112,7 @@ module.exports = (socket, Database) => {
                 } else {
                     socket.emit(melody1 + '_' + param, []);
                 }
-            } else if (param === "user_table") {
+            }else if (param === "user_table") {
                 if (privilegeData !== undefined && privilegeData.pearson_specter.add_user == "yes" || privilegeData.pearson_specter.edit_user == "yes" || privilegeData.pearson_specter.deactivate_user == "yes") {
                     const UserModel = new User(Database);
                     result = await UserModel.preparedLeftJoinFetch({

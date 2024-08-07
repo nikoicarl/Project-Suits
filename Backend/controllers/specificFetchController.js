@@ -124,7 +124,7 @@ module.exports = (socket, Database) => {
                             });
                         } else if (updateResult.message === 'No new user IDs to add') {
                             socket.emit(melody1 + '_' + param, {
-                                type: 'info',
+                                type: 'caution',
                                 message: 'User already exist in the department'
                             });
                         } else {
@@ -166,7 +166,7 @@ module.exports = (socket, Database) => {
                             });
                         } else if (updateResult.message === 'No new user IDs to add') {
                             socket.emit(melody1 + '_' + param, {
-                                type: 'info',
+                                type: 'caution',
                                 message: 'User already assigned to the document'
                             });
                         } else {

@@ -29,19 +29,18 @@ $(document).ready(function () {
     //Submit form
     $(document).on('submit', 'form.ps_document_form', function (e) {
         e.preventDefault();
-
-        ///Get form data from html
+    
         let ps_document_upload_dropzone_rename = $('.ps_document_upload_dropzone_rename', this).val();
         let ps_manage_document_hiddenid = $('.ps_manage_document_hiddenid', this).val();
-
+    
         //Setting submit button to loader
         $('.ps_document_submit').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');
         //Disable submit button
         $('.ps_document_submit').attr('disabled', 'disabled');
-
+    
         socket.off('insertNewDocument');
-        socket.off(melody.melody1+'_insertNewDocument');
-
+        socket.off(melody.melody1 + '_insertNewDocument');
+    
         if (UploadChecker !== FileNamesHolder.length) {
             Toast.fire({
                 title: 'Caution',
@@ -49,9 +48,7 @@ $(document).ready(function () {
                 icon: 'warning',
                 padding: '0.5em'
             });
-        
             DocumentTableFetch();
-            
             $('.ps_document_submit').html('Submit');
             $('.ps_document_submit').removeAttr('disabled');
         } else {
@@ -66,26 +63,25 @@ $(document).ready(function () {
                     if (data.type == 'success') {
                         $('.ps_document_form').trigger('reset');
                         socket.off(melody.melody1 + '_insertNewDocument');
-                        pageDropZone()
+                        pageDropZone();
                     }
                     Toast.fire({
                         title: data.type == 'success' ? 'Success' : (data.type == 'error' ? 'Error' : 'Caution'),
                         text: data.message,
                         icon: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),
                         padding: '0.5em'
-                    })
+                    });
                     DocumentTableFetch();
-        
-                    //Set submit button back to its original text
+                    // Set submit button back to its original text
                     $('.ps_document_submit').html('Submit');
-                    //Enable submit button
+                    // Enable submit button
                     $('.ps_document_submit').removeAttr('disabled');
                 });
             }, 500);
         }
     });
 
-     // Form submit for assign user
+    // Form submit for assign user
     $(document).on('submit', 'form.ps_document_assign_user_form', function (e) {
 
         e.preventDefault();
@@ -110,6 +106,7 @@ $(document).ready(function () {
         });
 
         socket.on(melody.melody1 + '_assign_user', function (data) {   
+            console.log(data);
             if (data.type == "success") {
                 //trigger alert using the alert function down there
                 Toast.fire({
@@ -350,8 +347,8 @@ $(document).ready(function () {
     //Update function
     function updateDocument(getname, dataId) {
         socket.off('table');
-        socket.off(melody.melody1+'_'+getname); 
-
+        socket.off(melody.melody1 + '_' + getname);
+    
         socket.emit('specific', {
             "melody1": melody.melody1,
             "melody2": melody.melody2,
@@ -359,30 +356,30 @@ $(document).ready(function () {
             "param": getname,
             "dataId": dataId
         });
-
-        socket.on(melody.melody1+'_'+getname, (data)=>{
+    
+        socket.on(melody.melody1 + '_' + getname, (data) => {
             if (data.type == 'error') {
                 Toast.fire({
                     text: data.message,
                     icon: 'warning',
                     padding: '1em'
-                })
+                });
             } else {
                 $('.ps_manage_document_submit_btn').html('Update');
                 if (data) {
                     FileNamesHolder = [];
-                    FileNamesHolder.push(data.fileName+'*^*^any_div');
+                    FileNamesHolder.push(data.fileName + '*^*^any_div');
                     console.log(FileNamesHolder);
                     pageDropZone();
                     $('input.ps_manage_document_hiddenid').val(data.documentID);
                     $('input.ps_document_upload_dropzone_rename').val(data.fileName);
                 } else {
-                    // $('.ps_document_upload_dropzone_rename').val('');
-                    // Toast.fire(
-                    //     'Oops!!',
-                    //     'Fetching to edit ended up empty',
-                    //     'warning'
-                    // )
+                    Toast.fire({
+                        title: 'Oops!!',
+                        text: 'Fetching to edit ended up empty',
+                        icon: 'warning',
+                        padding: '1em'
+                    });
                 }
             }
         });
@@ -419,7 +416,6 @@ $(document).ready(function () {
             } 
         });
     }
-
 
     // Assign User function
     function assignUser(maindata) {
