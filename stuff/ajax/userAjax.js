@@ -87,7 +87,6 @@ $(document).ready(function () {
     });
 
     // Form submit for assign department
-
     $(document).on('submit', 'form.ps_user_assign_department_form', function (e) {
 
         e.preventDefault();
@@ -127,8 +126,9 @@ $(document).ready(function () {
                 UserTableFetch();
             } else if (data.type == "caution") {
                 Toast.fire({
+                    title: 'Caution',
                     text: data.message,
-                    type: 'warning',
+                    icon: 'warning',
                     padding: '1em'
                 })
             } else {
@@ -137,6 +137,7 @@ $(document).ready(function () {
                     title: 'Error',
                     text: data.message,
                     type: 'error',
+                    icon: 'error',
                     padding: '1em'
                 })
             }
@@ -149,7 +150,6 @@ $(document).ready(function () {
 
     }
     );
-
 
 
     //User Table Fetch

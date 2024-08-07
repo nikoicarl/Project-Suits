@@ -135,7 +135,7 @@ module.exports = (socket, Database) => {
                         }
                     } else {
                         socket.emit(melody1 + '_' + param, {
-                            type: 'error',
+                            type: 'caution',
                             message: 'You have no privilege to perform this task'
                         });
                     }
