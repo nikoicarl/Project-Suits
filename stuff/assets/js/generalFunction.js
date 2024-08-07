@@ -161,6 +161,44 @@ function currencyToCoins(currency) {
     }
 }
 
+function printContent(printDivIdName, footerMessage){
+    let docHead = document.head.innerHTML;
+    let printArea = document.getElementById(printDivIdName).innerHTML;
+    let newWindow = window.open('', '', 'height=768, width=1024');
+    newWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+    `);
+    newWindow.document.write(docHead);
+    newWindow.document.write(`
+        </head>
+        <body class="bg-white p-5 m-0">
+    `);
+    newWindow.document.write(printArea);
+    newWindow.document.write(`<p class="text-center text-muted mt-5 mb-5"> ${footerMessage} </p>`);
+    newWindow.document.write(`
+        <script>
+            (()=>{
+                setTimeout(()=>{
+                    window.print();
+                }, 1000);
+
+                window.onafterprint = function closeWindow() {
+                    window.close();
+                }
+            })();
+        </script>
+    `);
+    newWindow.document.write(` </body> `);
+    newWindow.focus();
+    newWindow.document.close();
+    // newWindow.onfocus = ()=>{
+    //     newWindow.close(); 
+    //     newWindow = '';
+    // }
+}
+
 //Convert double to currency value
 function formatNumber(num) {
     return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');

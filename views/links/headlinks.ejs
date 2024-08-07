@@ -62,6 +62,52 @@
     <link id="ps_external_stylesheet7" href="" rel="stylesheet" type="text/css" />
     <link id="ps_external_stylesheet8" href="" rel="stylesheet" type="text/css" />
     <link id="ps_external_stylesheet9" href="" rel="stylesheet" type="text/css" />
+
+    <style>
+        .hide {
+            display: none;
+        }
+
+        div#load_screen .loader {
+            display: flex;
+            justify-content: center;
+            height: 100vh; 
+        }
+
+        div#load_screen .loader-content {
+            right: 0;
+            align-self: center; 
+        }
+    </style>
+
+<style type="text/css" media="print">
+    .table thead tr th {
+        color: #000;
+    }
+
+    .gra-table tr th, .gra-table tr td {
+        border: 1px solid #000;
+    }
+
+    text.apexcharts-datalabel-value {
+        font-size: 12px !important;
+        font-weight: 300;
+    }
+
+    @media print { 
+        .gra-table thead tr, .gra-table thead tr th { 
+            background-color: #fff !important; color: #000; 
+        }
+
+        .gra-table tr.gra-main-header, .gra-table tr.gra-main-header th {
+            background-color: #FCDF32 !important;
+        }
+
+        .gra-table tr.gra-tier-header, .gra-table tr.gra-tier-header th {
+            background-color: #FCDF32 !important; 
+        }
+    }
+</style>
 </head>
 
 <body id="ps_main_body"></body>

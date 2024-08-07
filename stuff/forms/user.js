@@ -114,12 +114,48 @@ function UserForm() {
     `;
 }
 
+function assignDepartmentModal() {
+    return `
+        <button type="button" class="ps_user_assign_department_modal_btn hide" data-toggle="modal" data-target="#assignDepartmentModal"></button>
+        <div class="modal fade" id="assignDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="assignDepartmentModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Assign User to Department</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form class="ps_user_assign_department_form_modal" action="" method="POST">
+                            <input type="hidden" class="ps_user_assign_department_hiddenid">
+                            <div class="row">
+                                <div class="col-md-12 mt-2">
+                                    <select class="form-control ps_user_assign_department_dropdown">
+                                        <option value="" selected> Select Department </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-3 text-right">
+                                    <button class="btn mr-2" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                    <button class="btn bg-primary ps_user_assign_department_submit_btn" type="submit"> Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 (()=>{
     let html = ejs.render(User(), {});
     $('#ps_main_content_display').html(html);
 
     html = ejs.render(UserForm(), {});
     $('#ps_user_page_form_display').html(html);
+
+    html = ejs.render(assignDepartmentModal(), {});
+    $('#ps_main_content_display').append(html);
 
     addPageScript('userAjax');
 })();

@@ -157,7 +157,8 @@ $(document).ready(function () {
                     title: 'Action',
                     template: function (row) {
                         let activateOrDeactivate, validate_delete;
-                
+                        const maindata = JSON.stringify(row).replace(/'/g, ":::");
+        
                         if (row.status == "d") {
                             activateOrDeactivate = `<a href="#" class="dropdown-item ps_user_table_edit_btn" data-getid="${row.userID}" data-getname="deactivate_user" data-getdata="${row.username.toUcwords()}" data-activate="activate"><i class="icon-checkmark3 mr-2"></i> Reactivate</a>`;
                         } else {
@@ -176,7 +177,7 @@ $(document).ready(function () {
                                     <i class="icon-menu7" style="font-size:20px"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="ps_user_table_edit_btn dropdown-item" href="#" data-getid="`+ row.userID + `" data-getname="specific_department"><i class="icon-add mr-2"></i></i>Assign Department</a> 
+                                    <a class="ps_user_table_edit_btn dropdown-item" href="#" data-getid="`+ row.userID + `" data-maindata='${maindata}' data-getname="specific_department"><i class="icon-add mr-2"></i></i>Assign Department</a> 
                                     <a class="ps_user_table_edit_btn dropdown-item" href="#" data-getid="`+ row.userID + `" data-getname="specific_user"><i class="icon-pencil mr-2"></i></i>Edit Details</a> 
                                     ${activateOrDeactivate}
                                     ${validate_delete}
@@ -265,6 +266,12 @@ $(document).ready(function () {
             }
             });
             
+        } else if(getname == 'specific_department') {
+            let maindata = JSON.stringify(thisElement.data("maindata")).replace(/:::/g, "'");
+            maindata = JSON.parse(maindata);
+            //assign department method
+            assignDepartment(maindata);
+
         } else {
             //Update data method
             updateUser(getname, dataId);
@@ -355,6 +362,16 @@ $(document).ready(function () {
         });
     }
 
+    // Assign Department function
+    function assignDepartment(maindata) {
+        if (maindata) {
+            $('.ps_user_assign_department_hiddenid').val(maindata.userID);
+        } else {
+            $('.ps_user_assign_department_hiddenid').val('');
+        }
+        $('.ps_user_assign_department_modal_btn').trigger('click');
+    }
+
     //Delete function
     function deleteUser(getname, dataId, getdata) {
         socket.off('delete');
@@ -407,6 +424,29 @@ $(document).ready(function () {
                 $('.ps_user_role_dropdown').html('<option value="" selected>Select Role</option>');
                 data.forEach(item => {
                     $('.ps_user_role_dropdown').append(`<option value="${item.roleID}"> ${item.role.toUcwords()} </option>`);
+                });
+            }
+        });
+    }
+
+
+    function departmentDropdown() {
+        socket.off('dropdown');
+        socket.off(melody.melody1+'_department_dropdown');
+
+        socket.emit('dropdown', {
+            melody1: melody.melody1,
+            melody2: melody.melody2,
+            param: 'department_dropdown'
+        });
+
+        socket.on(melody.melody1+'_department_dropdown', (data)=>{
+            if (data.type == 'error') {
+                console.log(data.message);
+            } else {
+                $('.ps_user_assign_department_dropdown').html('<option value="" selected>Select Department</option>');
+                data.forEach(item => {
+                    $('.ps_user_assign_department_dropdown').append(`<option value="${item.departmentID}"> ${item.department.toUcwords()} </option>`);
                 });
             }
         });
