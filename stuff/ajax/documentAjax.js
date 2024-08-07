@@ -106,7 +106,6 @@ $(document).ready(function () {
         });
 
         socket.on(melody.melody1 + '_assign_user', function (data) {   
-            console.log(data);
             if (data.type == "success") {
                 //trigger alert using the alert function down there
                 Toast.fire({

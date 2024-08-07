@@ -129,7 +129,7 @@ function DropZone(DivIdName, color, icons, streamOptions, accept, numberOfFiles)
                             <img id="${imageIdName}" class="" style="width=auto; height:80px"/> 
                             <span class="text-dark d-block mb-1" style="cursor:text;"> ${files[i].name} </span>
                             <div class="progress br-30">
-                                <div class="progress-bar ovasyte-bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                             </div>
                         </div>
                     `)
@@ -141,7 +141,7 @@ function DropZone(DivIdName, color, icons, streamOptions, accept, numberOfFiles)
                             ${icons.pdf} 
                             <span class="text-dark d-block mb-1" style="cursor:text; font-size:12px;"> ${files[i].name} </span> 
                             <div class="progress br-30">
-                                <div class="progress-bar ovasyte-bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                             </div>
                         </div>
                     `)
@@ -152,7 +152,7 @@ function DropZone(DivIdName, color, icons, streamOptions, accept, numberOfFiles)
                             ${icons.doc} 
                             <span class="text-dark d-block mb-1" style="cursor:text; font-size:12px;"> ${files[i].name} </span> 
                             <div class="progress br-30">
-                                <div class="progress-bar ovasyte-bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                             </div>
                         </div>
                     `)
@@ -163,7 +163,7 @@ function DropZone(DivIdName, color, icons, streamOptions, accept, numberOfFiles)
                             ${icons.spreadsheet} 
                             <span class="text-dark d-block mb-1" style="cursor:text; font-size:12px;"> ${files[i].name} </span> 
                             <div class="progress br-30">
-                                <div class="progress-bar ovasyte-bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                             </div>
                         </div>
                     `)
@@ -174,7 +174,7 @@ function DropZone(DivIdName, color, icons, streamOptions, accept, numberOfFiles)
                             ${icons.other}
                             <span class="text-dark d-block mb-1" style="cursor:text; font-size:12px;"> ${files[i].name} </span> 
                             <div class="progress br-30">
-                                <div class="progress-bar ovasyte-bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" id="${imageProgressName}" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                             </div>
                         </div>
                     `)
@@ -247,7 +247,7 @@ function DropZone(DivIdName, color, icons, streamOptions, accept, numberOfFiles)
                 progressBar.setAttribute("style", "width: 100%")
                 progressBar.setAttribute("aria-valuenow", 100)
                 progressBar.innerHTML = "100%"
-                progressBar.classList = 'progress-bar ovasyte-bg-primary'
+                progressBar.classList = 'progress-bar bg-primary'
 
                 FileNamesHolder.push(response.name+'*^*^'+response.divname)
 
