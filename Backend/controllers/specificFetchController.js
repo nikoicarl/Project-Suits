@@ -140,6 +140,48 @@ module.exports = (socket, Database) => {
                         });
                     }
                 }
+            } else if (param === "assign_user") {
+                let documentID = browserblob.hiddenID;
+                let newUserIDs = browserblob.userID;
+            
+                // Check for empty
+                let result = await gf.ifEmpty([newUserIDs]);
+                if (result.includes('empty')) {
+                    socket.emit(melody1 + '_assign_user', {
+                        type: 'caution',
+                        message: 'Select User to continue!'
+                    });
+                } else {
+                    const PrivilegeModel = new Privilege(Database, userID);
+                    let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
+            
+                    if (privilegeData && privilegeData.pearson_specter && privilegeData.pearson_specter.assign_user == 'yes') {
+                        const document = new Document(Database);
+                        let updateResult = await document.appendUserIDs(documentID, newUserIDs);
+            
+                        if (updateResult.affectedRows > 0) {
+                            socket.emit(melody1 + '_' + param, {
+                                type: 'success',
+                                message: 'User assigned to document successfully'
+                            });
+                        } else if (updateResult.message === 'No new user IDs to add') {
+                            socket.emit(melody1 + '_' + param, {
+                                type: 'info',
+                                message: 'User already assigned to the document'
+                            });
+                        } else {
+                            socket.emit(melody1 + '_' + param, {
+                                type: 'error',
+                                message: 'Failed to assign User to document'
+                            });
+                        }
+                    } else {
+                        socket.emit(melody1 + '_' + param, {
+                            type: 'caution',
+                            message: 'You have no privilege to perform this task'
+                        });
+                    }
+                }
             }
         } catch (error) {
             socket.emit(melody1 + '_' + param, {

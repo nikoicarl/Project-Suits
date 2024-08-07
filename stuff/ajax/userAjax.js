@@ -151,7 +151,6 @@ $(document).ready(function () {
     }
     );
 
-
     //User Table Fetch
     function UserTableFetch(){
         socket.off('table');
@@ -495,7 +494,6 @@ $(document).ready(function () {
             }
         });
     }
-
 
     function departmentDropdown() {
         socket.off('dropdown');

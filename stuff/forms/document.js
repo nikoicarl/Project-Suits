@@ -64,12 +64,49 @@ return `
     `;
 }
 
+function assignUserModal() {
+    return `
+        <button type="button" class="ps_document_assign_user_modal_btn hide" data-toggle="modal" data-target="#assignUserModal"></button>
+        <div class="modal fade" id="assignUserModal" tabindex="-1" role="dialog" aria-labelledby="assignUserModal" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Assign Document to User</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form class="ps_document_assign_user_form" action="" method="POST">
+                            <input type="hidden" class="ps_document_assign_user_hiddenid">
+                            <div class="row">
+                                <div class="col-md-12 mt-2">
+                                    <label for="">User <span class="text-danger">*</span></label>
+                                    <select class="form-control ps_document_assign_user_dropdown">
+                                        <option value="" selected> Select User </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-3 text-right">
+                                    <button class="btn mr-2" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                    <button class="btn bg-primary ps_document_assign_user_submit_btn" type="submit"> Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 (()=>{
 let html = ejs.render(Document(), {});
 $('#ps_main_content_display').html(html);
 
 html = ejs.render(DocumentForm(), {});
 $('#ps_document_page_form_display').html(html);
+
+html = ejs.render(assignUserModal(), {});
+$('#ps_main_content_display').append(html);
 
 
 addExternalScript('assets/js/DropZone.js');

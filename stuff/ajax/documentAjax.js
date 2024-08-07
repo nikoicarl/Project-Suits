@@ -8,6 +8,8 @@ $(document).ready(function () {
         other: '<div class="fa fa-file-archive fa-5x text-danger-400 d-block w-100 h-70"></div> '
     }
 
+    let holdUser;
+
     pageDropZone();
     function pageDropZone() {
         setTimeout(function () {
@@ -17,7 +19,7 @@ $(document).ready(function () {
                 requestType: 'socket',
                 socketObject: socket,
                 socketEvent: 'ps_general_file_upload'
-            }, 'pdf/*', 0)
+            }, 'application/pdf', 0)
             $('.ps_dropzone_title').text('Click to upload pdf here');
             $('.ps_dropzone_subtitle').text(``);
             $('.ps_dropzone_inner').addClass('mt-4');
@@ -44,7 +46,7 @@ $(document).ready(function () {
             Toast.fire({
                 title: 'Caution',
                 text: 'Please wait for all selected files to finish uploading before you submit',
-                type: 'warning',
+                icon: 'warning',
                 padding: '0.5em'
             });
         
@@ -69,7 +71,7 @@ $(document).ready(function () {
                     Toast.fire({
                         title: data.type == 'success' ? 'Success' : (data.type == 'error' ? 'Error' : 'Caution'),
                         text: data.message,
-                        type: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),
+                        icon: data.type == 'success' ? 'success' : (data.type == 'error' ? 'error' : 'warning'),
                         padding: '0.5em'
                     })
                     DocumentTableFetch();
@@ -82,6 +84,69 @@ $(document).ready(function () {
             }, 500);
         }
     });
+
+     // Form submit for assign user
+    $(document).on('submit', 'form.ps_document_assign_user_form', function (e) {
+
+        e.preventDefault();
+        let ps_document_assign_user_hiddenid = $('.ps_document_assign_user_hiddenid', this).val();
+        let ps_document_assign_user_dropdown = $('.ps_document_assign_user_dropdown', this).val();
+
+        //Setting submit button to loader
+        $('.ps_document_assign_user_submit_btn').html('<div class="mr-2 spinner-border align-self-center loader-sm"></div>');
+        //Diable submit button
+        $('.ps_document_assign_user_submit_btn').attr('disabled', 'disabled');
+
+        socket.off('specific'); 
+        socket.off(melody.melody1+'_specific'); 
+
+        socket.emit('specific', {
+            "melody1": melody.melody1,
+            "melody2": melody.melody2,
+            "melody3": melody.melody3,
+            "param": 'assign_user',
+            "hiddenID": ps_document_assign_user_hiddenid,
+            "userID": ps_document_assign_user_dropdown
+        });
+
+        socket.on(melody.melody1 + '_assign_user', function (data) {   
+            if (data.type == "success") {
+                //trigger alert using the alert function down there
+                Toast.fire({
+                    title: 'Success',
+                    text: data.message,
+                    icon: 'success',
+                    padding: '1em'
+                })
+
+                //Empty the form 
+                $('.ps_document_assign_user_form').trigger('reset');
+                socket.off(melody.melody1+'_assign_user'); 
+                DocumentTableFetch();
+            } else if (data.type == "caution") {
+                Toast.fire({
+                    title: 'Caution',
+                    text: data.message,
+                    icon: 'warning',
+                    padding: '1em'
+                })
+            } else {
+                //trigger alert 
+                Toast.fire({
+                    title: 'Error',
+                    text: data.message,
+                    icon: 'error',
+                    padding: '1em'
+                })
+            }
+            //Set submit button back to its original text
+            $('.ps_document_assign_user_submit_btn').html('Submit');
+            //Enable submit button
+            $('.ps_document_assign_user_submit_btn').removeAttr('disabled');
+        }
+        );
+    }
+    );
 
     //Document Table Fetch
     DocumentTableFetch();
@@ -162,6 +227,7 @@ $(document).ready(function () {
                     title: 'Action',
                     template: function (row) {
                     let activateOrDeactivate, validate_delete;
+                    const maindata = JSON.stringify(row).replace(/'/g, ":::");
             
                     if (row.status == "d") {
                         activateOrDeactivate = `<a href="#" class="dropdown-item ps_document_table_edit_btn" data-getid="${row.documentID}" data-getname="deactivate_document" data-getdata="${row.fileName.toUcwords()}" data-activate="activate"><i class="icon-checkmark3 mr-2"></i> Reactivate</a>`;
@@ -180,7 +246,7 @@ $(document).ready(function () {
                                 <i class="icon-menu7" style="font-size:20px"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-getname="assign_user"><i class="icon-add mr-2"></i></i>Assign User</a> 
+                                <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-maindata='${maindata}' data-getname="assign_user"><i class="icon-add mr-2"></i></i>Assign User</a> 
                                 <a class="ps_document_table_edit_btn dropdown-item" href="#" data-getid="`+ row.documentID + `" data-getname="specific_document"><i class="icon-pencil mr-2"></i></i>Edit Details</a> 
                                 ${activateOrDeactivate}
                                 ${validate_delete}
@@ -210,7 +276,7 @@ $(document).ready(function () {
             Toast.fire({
                 title: 'Are you sure?',
                 text: 'You want to delete '+(getdata)+ '?',
-                type: 'warning',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yes, delete it!'
             }).then(function(result) {
@@ -261,13 +327,20 @@ $(document).ready(function () {
                         Toast.fire(
                             title,
                             getdata + ' ' + mssg,
-                            'success'
+                            'success',
                         )
+                        
                     }
                 }
             }
             });
             
+        } else if(getname == 'assign_user') {
+            let maindata = JSON.stringify(thisElement.data("maindata")).replace(/:::/g, "'");
+            maindata = JSON.parse(maindata);
+            //assign user method
+            assignUser(maindata);
+
         } else {
             //Update data method
             updateDocument(getname, dataId);
@@ -289,11 +362,11 @@ $(document).ready(function () {
 
         socket.on(melody.melody1+'_'+getname, (data)=>{
             if (data.type == 'error') {
-                Toast.fire(
-                    'Error',
-                    data.message,
-                    'warning'
-                )
+                Toast.fire({
+                    text: data.message,
+                    icon: 'warning',
+                    padding: '1em'
+                })
             } else {
                 $('.ps_manage_document_submit_btn').html('Update');
                 if (data) {
@@ -336,7 +409,7 @@ $(document).ready(function () {
             } else if (data.type == "caution") {
                 Toast.fire({
                     text: data.message,
-                    type: 'warning',
+                    icon: 'warning',
                     padding: '1em'
                 })
                 return false;
@@ -347,44 +420,41 @@ $(document).ready(function () {
         });
     }
 
-    //Delete function
-    function deleteDocument(getname, dataId, getdata) {
-        socket.off('delete');
-        socket.off(melody.melody1+'_'+getname); 
 
-        socket.emit('delete', {
-            "melody1": melody.melody1,
-            "melody2": melody.melody2,
-            "param": getname,
-            "dataId": dataId
-        });
-
-        //Response from delete
-        socket.on(melody.melody1+'_'+getname, function(data){
-            if (data.type == "error") {
-                console.log(data.message);
-            } else if (data.type == "caution") {
-                toast.fire({
-                    text: data.message,
-                    type: 'warning',
-                    padding: '1em'
-                })
-                return false;
-            } else{
-                Toast.fire(
-                    'Deletion successful',
-                    getdata.toUcwords() + ' has been deleted',
-                    'success'
-                )
-                DocumentTableFetch();
-            }
-        });
+    // Assign User function
+    function assignUser(maindata) {
+        if (maindata) {
+            $('.ps_document_assign_user_hiddenid').val(maindata.documentID);
+        } else {
+            $('.ps_document_assign_user_hiddenid').val('');
+        }
+        $('.ps_document_assign_user_modal_btn').trigger('click');
+        userDropdown();
     }
 
+    //User Dropdown
+    function userDropdown() {
+        socket.off('dropdown');
+        socket.off(melody.melody1 + '_user_dropdown');
 
-    // view function
-    function viewDocument(getname, dataId, getdata){
+        socket.emit('dropdown', {
+            melody1: melody.melody1,
+            melody2: melody.melody2,
+            param: "user_dropdown"
+        });
 
+        //Get dropdown data
+        socket.on(melody.melody1 + '_user_dropdown', function (data) {
+            //Get json content from deactivation code
+            if (data.type == "error") {
+                console.log(data.message);
+            } else {
+                $('select.ps_document_assign_user_dropdown').html(`<option value="" ${holdUser !== undefined ? '' : 'selected'}> Select User </option>`);
+                data.forEach(function (item, index) {
+                    $('select.ps_document_assign_user_dropdown').append(`<option value="${item.userID}"> ${item.userID}</option>`);
+                });
+            }
+        });
     }
     
 

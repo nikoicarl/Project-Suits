@@ -12,7 +12,7 @@ class Document {
         this.Database = Database;
 
         //Table columns
-        this.columnsList = ['documentID', 'userID', 'fileName', 'dateTime', 'status'];
+        this.columnsList = ['documentID', 'userIDs', 'fileName', 'dateTime', 'status'];
 
         //Call to create table if not exist
         this.createTable();
@@ -42,6 +42,40 @@ class Document {
             let sql = 'UPDATE document SET '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
             return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    // Append IDS Method
+    async appendUserIDs(documentID, newUserIDs) {
+        try {
+            // Fetch existing userIDs
+            let fetchSql = 'SELECT userIDs FROM document WHERE documentID = ?';
+            let fetchResult = await this.Database.setupConnection({sql: fetchSql, columns: [documentID]}, 'object');
+
+            if (fetchResult.length === 0) {
+                throw new Error('Document not found');
+            }
+
+            let existingUserIDs = fetchResult[0].userIDs ? fetchResult[0].userIDs.split(',') : [];
+            let newUserIDsArray = newUserIDs.split(',');
+
+            // Filter out IDs that already exist
+            let uniqueNewUserIDs = newUserIDsArray.filter(id => !existingUserIDs.includes(id));
+
+            if (uniqueNewUserIDs.length === 0) {
+                return { affectedRows: 0, message: 'No new user IDs to add' };
+            }
+
+            // Combine and update userIDs
+            let updatedUserIDs = [...existingUserIDs, ...uniqueNewUserIDs].join(',');
+
+            // Update the userIDs column
+            let updateSql = 'UPDATE document SET userIDs = ? WHERE documentID = ?';
+            let updateResult = await this.Database.setupConnection({sql: updateSql, columns: [updatedUserIDs, documentID]}, 'object');
+
+            return updateResult;
         } catch (error) {
             return error;
         }
@@ -87,7 +121,7 @@ class Document {
 
             createTableStatement: (`
                 documentID BIGINT(100) PRIMARY KEY,
-                userID BIGINT(100),
+                userIDs text,
                 fileName varchar(255),
                 dateTime text,
                 status varchar(1)
@@ -95,7 +129,7 @@ class Document {
 
             foreignKeyStatement: (``),
 
-            alterTableStatement: []
+            alterTableStatement: ['userIDs-text']
         });
         let result = await CreateUpdateTable.checkTableExistence();
         return result;
