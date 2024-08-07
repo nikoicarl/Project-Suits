@@ -24,7 +24,7 @@ class Department {
         try {
             if (result) {
                 let sql = `
-                    INSERT INTO department (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
+                    INSERT IGNORE INTO department (${this.columnsList.toString()}) VALUES (?,?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;
@@ -46,7 +46,18 @@ class Department {
             return error;
         }
     }
-        
+
+    //Fetch for prepared statement
+    async preparedFetch (object) {
+        try {
+            let sql = 'SELECT DISTINCT department,departmentID,userIDs,description,dateTime FROM department WHERE '+object.sql;
+            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
+            return result;
+        } catch (error) {
+            return error;
+        }
+    }
+
     // Append userID method
     async appendUserIDs(departmentID, newUserIDs) {
         try {
@@ -76,17 +87,6 @@ class Department {
             let updateResult = await this.Database.setupConnection({sql: updateSql, columns: [updatedUserIDs, departmentID]}, 'object');
 
             return updateResult;
-        } catch (error) {
-            return error;
-        }
-    }
-
-    //Fetch for prepared statement
-    async preparedFetch (object) {
-        try {
-            let sql = 'SELECT * FROM department WHERE '+object.sql;
-            let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
-            return result;
         } catch (error) {
             return error;
         }

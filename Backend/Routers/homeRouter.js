@@ -2,13 +2,14 @@
 const User = require('../Models/UserModel');
 const Session = require('../Models/SessionModel');
 const Role = require('../Models/RoleModel');
+const Apps = require('../Models/AppsModel');
 const path = require('path')
 const dotenv = require('dotenv')
 dotenv.config({path: path.join(__dirname, `../../system.env`)})
 
 module.exports = function (start, Database) {
 
-    start.get('/', function (request, response) {
+    start.get('/', async function (request, response) {
         
         queryStr = request.query;
         const confiq = process.env
@@ -18,7 +19,30 @@ module.exports = function (start, Database) {
             new User(Database);
             new Session(Database);
             new Role(Database);
-            response.render('index', { pageNavigate: queryStr });
+            new Apps(Database);
+
+            const AppsModel = new Apps(Database);
+            let appsResult = await AppsModel.preparedFetch({
+                sql: 'appsID = ? AND app = ?',
+                columns: ['1', 'pearson_specter']
+            });
+
+            if (Array.isArray(appsResult) && appsResult.length > 0) {
+                console.log('No Apps Result');
+                response.render('index', { pageNavigate: queryStr });
+            } else {
+                const UserModel = new User(Database);
+                const AppsModel = new Apps(Database);
+
+                let result = await AppsModel.insertTable(['1', 'pearson_specter','yes']);
+
+                if (Array.isArray(result)) {
+                    response.render('index', { pageNavigate: queryStr });
+                } else {
+                    console.log('Invalid user ID 1');
+                    response.render('index', {pageNavigate: {error: 'loginError2'}});
+                }
+            }
         } else {
             console.log('First error run');
         }

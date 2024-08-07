@@ -24,7 +24,7 @@ class Document {
         try {
             if (result) {
                 let sql = `
-                    INSERT INTO document (${this.columnsList.toString()}) VALUES (?,?,?,?,?);
+                    INSERT IGNORE INTO document (${this.columnsList.toString()}) VALUES (?,?,?,?,?);
                 `;
                 result = await this.Database.setupConnection({sql: sql, columns: columns}, 'object');
                 return result;

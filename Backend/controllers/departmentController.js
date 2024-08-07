@@ -101,7 +101,7 @@ module.exports = (socket, Database)=>{
         } else {
             socket.emit(melody1+'_insertNewDepartment', {
                 'type': 'caution',
-                'message': 'Sorry your session has expired, wait for about 18 secconds and try again...',
+                'message': 'Sorry your session has expired, wait for about 18 seconds and try again...',
                 'timeout': 'no'
             });
         }

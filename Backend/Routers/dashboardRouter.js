@@ -3,6 +3,7 @@ const User = require('../Models/UserModel');
 const Session = require('../Models/SessionModel');
 const Role = require('../Models/RoleModel');
 const Privilege = require('../Models/PrivilegeFeaturesModel');
+const Department = require('../Models/DepartmentModel');
 let getSessionIDs = require('../controllers/getSessionIDs');
 const path = require('path')
 const md5 = require('md5');
@@ -24,6 +25,7 @@ module.exports = function (start, Database) {
             new User(Database);
             new Session(Database);
             new Role(Database);
+            new Department(Database);
             
             if (md5(userID) == queryStr.pub) {
                 const UserModel = new User(Database);
