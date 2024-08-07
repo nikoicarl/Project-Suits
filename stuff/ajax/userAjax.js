@@ -176,6 +176,7 @@ $(document).ready(function () {
                                     <i class="icon-menu7" style="font-size:20px"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="ps_user_table_edit_btn dropdown-item" href="#" data-getid="`+ row.userID + `" data-getname="specific_department"><i class="icon-add mr-2"></i></i>Assign Department</a> 
                                     <a class="ps_user_table_edit_btn dropdown-item" href="#" data-getid="`+ row.userID + `" data-getname="specific_user"><i class="icon-pencil mr-2"></i></i>Edit Details</a> 
                                     ${activateOrDeactivate}
                                     ${validate_delete}
