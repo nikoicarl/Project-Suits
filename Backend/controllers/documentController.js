@@ -50,14 +50,17 @@ module.exports = (socket, Database) => {
             }
 
             let documentNames;
+            let UploadFileHandler
             if (documentID !== 0) {
-                const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
+
+                UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
                 documentNames = UploadFileHandler._getFileNames().toString();
             } else {
-                const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
+                UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
                 documentNames = UploadFileHandler._getFileNames().toString();
             }
 
+            console.log(UploadFileHandler);
             let result;
             if (!ps_manage_document_hiddenid) {
                 for (const document of documentNames.split(',')) {
