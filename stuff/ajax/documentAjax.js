@@ -51,6 +51,10 @@ $(document).ready(function () {
                 DocumentTableFetch();
                 // Set submit button back to its original text
                 $('.ps_document_submit').html('Submit');
+                //Empty the form 
+                $('.ps_document_form').trigger('reset');
+                $('.ps_manage_document_hiddenid').val('');
+                FileNamesHolder = [];
                 // Enable submit button
                 $('.ps_document_submit').removeAttr('disabled');
             });
@@ -322,7 +326,7 @@ $(document).ready(function () {
     });
 
     function updateDocument(maindata) {
-        pageDropZone();
+        // pageDropZone();
         if (maindata) {
             if (maindata.fileName) {
                 let list = [maindata.fileName];

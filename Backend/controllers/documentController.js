@@ -38,9 +38,10 @@ module.exports = (socket, Database) => {
 
             const documentID = ps_manage_document_hiddenid || 0;
 
+            
             // Check if a document with the same name already exists
             const existingDocuments = await DocumentModel.preparedFetch({
-                sql: 'fileName = ? AND documentID != ? AND status = ?',
+                sql: 'fileName = ? AND documentID = ? AND status = ?',
                 columns: [ps_document_upload_dropzone_rename, documentID, 'a']
             });
 
@@ -48,8 +49,14 @@ module.exports = (socket, Database) => {
                 return cb({ type: 'caution', message: 'Sorry, document with the same name exists' });
             }
 
-            const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
-            const documentNames = UploadFileHandler._getFileNames().toString();
+            let documentNames;
+            if (documentID !== 0) {
+                const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
+                documentNames = UploadFileHandler._getFileNames().toString();
+            } else {
+                const UploadFileHandler = new UploadFile(DocumentsForUpdate, ps_document_upload_dropzone_rename);
+                documentNames = UploadFileHandler._getFileNames().toString();
+            }
 
             let result;
             if (!ps_manage_document_hiddenid) {
