@@ -50,7 +50,7 @@ class Department {
     //Fetch for prepared statement
     async preparedFetch (object) {
         try {
-            let sql = 'SELECT DISTINCT department,departmentID,userIDs,description,dateTime FROM department WHERE '+object.sql;
+            let sql = 'SELECT * FROM department WHERE '+object.sql;
             let result = await this.Database.setupConnection({sql: sql, columns: object.columns}, 'object');
             return result;
         } catch (error) {

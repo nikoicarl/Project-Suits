@@ -130,7 +130,7 @@ $(document).ready(function () {
                                             } else if (row.status == 'ad') {
                                                 return `<span class="badge badge-info"> Sys Admin </span>`;
                                             } else {
-                                                return `<span class="badge badge-danger"> ${row.status.toUpperCase()} </span>`;
+                                                return `<span class="badge badge-danger"> ${row.status.toUcwords()} </span>`;
                                             }
                                         }
                                     },
