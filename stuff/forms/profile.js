@@ -23,37 +23,38 @@ function ProfileForm() {
                     <div class="row mt-2">
                         <div class="form-group col-md-6">
                             <label>First Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" placeholder="First Name" required>
+                            <input type="hidden" class="form-control ps_profile_hiddenid">
+                            <input type="text" class="form-control ps_profile_first_name" placeholder="First Name" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Last Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" placeholder="Last Name" required>
+                            <input type="text" class="form-control ps_profile_last_name" placeholder="Last Name" required>
                         </div>
                     </div>
                     <div class="row ">
                         <div class="form-group col-md-6 mt-2">
                             <label>Phone </label>
-                            <input type="tel" class="form-control" placeholder="Phone" required>
+                            <input type="tel" class="form-control ps_profile_phon" placeholder="Phone" required>
                         </div>
                         <div class="form-group col-md-6 mt-2">
                             <label>Email Address</label>
-                            <input type="email" class="form-control" placeholder="example@mail.com">
+                            <input type="email" class="form-control ps_profile_email" placeholder="example@mail.com">
                         </div>
                     </div>
                     <div class="row ">
                         <div class="form-group col-md-12 mt-2">
                             <label>Address</label>
-                            <textarea name=""  placeholder="Address" class="form-control ps_department_description" rows="2"></textarea>
+                            <textarea name=""  placeholder="Address" class="form-control ps_profile_address" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="row ">
                         <div class="form-group col-md-6 mt-2">
                             <label>New Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" placeholder="New Password" required>
+                            <input type="password" class="form-control ps_profile_password" placeholder="New Password" required>
                         </div>
                         <div class="form-group col-md-6 mt-2">
                             <label>Confirm Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" placeholder="Confirm Password" required>
+                            <input type="password" class="form-control ps_profile_confirm_password" placeholder="Confirm Password" required>
                         </div>
                     </div>
                     <div class="row mt-2">

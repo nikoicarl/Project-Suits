@@ -166,7 +166,7 @@ module.exports = (socket, Database) => {
                             });
                         } else if (updateResult.message === 'No new user IDs to add') {
                             socket.emit(melody1 + '_' + param, {
-                                type: 'caution',
+                                type: 'info',
                                 message: 'User already assigned to the document'
                             });
                         } else {
@@ -182,6 +182,44 @@ module.exports = (socket, Database) => {
                         });
                     }
                 }
+            } else if (param === "updateProfile") {
+                const UserModel = new User(Database);
+
+                let ps_profile_hiddenid = browserblob.ps_profile_hiddenid;
+                let ps_profile_first_name = browserblob.ps_profile_first_name;
+                let ps_profile_last_name = browserblob.ps_profile_last_name;
+                let ps_profile_phon = browserblob.ps_profile_phon;
+                let ps_profile_email = browserblob.ps_profile_email;
+                let ps_profile_address = browserblob.ps_profile_address;
+                let ps_profile_password = browserblob.ps_profile_password;
+                let ps_profile_confirm_password = browserblob.ps_profile_confirm_password;
+
+
+                if (ps_profile_password != "" && ps_profile_password !== ps_profile_confirm_password) {
+                    socket.emit(melody1 + '_updateProfile', {
+                        type: 'caution',
+                        message: 'Passwords do not match'
+                    });
+                }
+            
+                let result = await UserModel.updateTable({
+                    sql: 'firstName = ?, lastName = ?, email = ?, phone = ?, address = ?, password = ? WHERE userID = ? AND status != ?',
+                    columns: [ps_profile_first_name, ps_profile_last_name, ps_profile_email, ps_profile_phon, ps_profile_address, md5(ps_profile_password) ,ps_profile_hiddenid, 'i']
+                });
+
+                if (result && result.affectedRows !== undefined) {
+                    socket.emit(melody1 + '_updateProfile', {
+                        type: 'success',
+                        message: 'User Profile Updated successfully'
+                    });
+                } else {
+                    socket.emit(melody1 + '_updateProfile', {
+                        type: 'error',
+                        message: 'Failed to update profile'
+                    });
+                }
+
+                console.log(result);
             }
         } catch (error) {
             socket.emit(melody1 + '_' + param, {
