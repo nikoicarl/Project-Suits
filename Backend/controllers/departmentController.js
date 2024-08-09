@@ -55,7 +55,7 @@ module.exports = (socket, Database)=>{
                         } else {
                             if (hiddenid == "" || hiddenid == undefined) {
                                 departmentID = gf.getTimeStamp();
-                                result = await DepartmentModel.insertTable([departmentID, '0', name, description, gf.getDateTime(), 'a']);
+                                result = await DepartmentModel.insertTable([departmentID, null, name, description, gf.getDateTime(), 'a']);
                             } else {
                                 result = await DepartmentModel.updateTable({
                                     sql: 'department = ?, description = ? WHERE departmentID = ? AND status = ?',
