@@ -2,7 +2,7 @@ const Document = require('../Models/DocumentModel');
 const Session = require('../Models/SessionModel');
 const Privilege = require('../Models/PrivilegeFeaturesModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
-const getsessionIDs = require('./getSessionIDs');
+const getSessionIDs = require('../controllers/getSessionIDs');
 const gf = new GeneralFunction();
 const md5 = require('md5');
 const UploadFile = require('../Models/UploadFileModel');
@@ -10,7 +10,7 @@ const UploadFile = require('../Models/UploadFileModel');
 module.exports = (socket, Database) => {
     socket.on('insertNewDocument', async (browserblob, cb) => {
         const { ps_manage_document_hiddenid, ps_document_upload_dropzone_rename, DocumentsForUpdate, melody1, melody2 } = browserblob;
-        const session = getsessionIDs(melody1);
+        const session = getSessionIDs(melody1);
         const { userID } = session;
         console.log(browserblob);
 

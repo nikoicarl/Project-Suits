@@ -1,5 +1,5 @@
 const GeneralFunction = require('../Models/GeneralFunctionModel');
-const getSessionIDs = require('./getSessionIDs');
+const getSessionIDs = require('../controllers/getSessionIDs');
 const gf = new GeneralFunction();
 const md5 = require('md5');
 const nodemailer = require('nodemailer');

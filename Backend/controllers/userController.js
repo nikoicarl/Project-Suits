@@ -3,7 +3,7 @@ const Role = require('../Models/RoleModel');
 const Privilege = require('../Models/PrivilegeFeaturesModel');
 const Session = require('../Models/SessionModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
-const getsessionIDs = require('./getsessionIDs');
+const getSessionIDs = require('../controllers/getSessionIDs');
 const gf = new GeneralFunction();
 const md5 = require('md5');
 
@@ -21,7 +21,7 @@ module.exports = (socket, Database) => {
         let roleID = browserblob.ps_user_role_dropdown
         let melody1 = browserblob.melody1;
 
-        let session = getsessionIDs(melody1);
+        let session = getSessionIDs(melody1);
         let userID = session.userID;
         let sessionID = session.sessionID;
 

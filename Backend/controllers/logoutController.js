@@ -1,4 +1,4 @@
-let getSessionIDs = require('./getSessionIDs');
+const getSessionIDs = require('../controllers/getSessionIDs');
 const Session = require('../Models/SessionModel');
 const GeneralFunction = require('../Models/GeneralFunctionModel');
 const gf = new GeneralFunction();

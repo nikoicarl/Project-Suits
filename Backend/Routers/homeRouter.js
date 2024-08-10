@@ -7,6 +7,7 @@ const path = require('path')
 const dotenv = require('dotenv')
 dotenv.config({path: path.join(__dirname, `../../system.env`)})
 
+
 module.exports = function (start, Database) {
 
     start.get('/', async function (request, response) {

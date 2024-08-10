@@ -3,7 +3,7 @@ const GeneralFunction = require('../Models/GeneralFunctionModel');
 const User = require('../Models/UserModel');
 const Department = require('../Models/DepartmentModel');
 const Document = require('../Models/DocumentModel');
-const getSessionIDs = require('./getSessionIDs');
+const getSessionIDs = require('../controllers/getSessionIDs');
 const gf = new GeneralFunction();
 
 
