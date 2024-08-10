@@ -78,7 +78,6 @@ $(document).ready(function () {
         });
     });
 
-
     // User Dropdown
     let holdUser;
     userDropdown();
