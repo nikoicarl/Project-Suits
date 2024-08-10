@@ -40,7 +40,7 @@ function DropZone(DivIdName, color, icons, streamOptions, accept, numberOfFiles)
                 Click to upload files here.
             </span> <br>
             <span class="${DivIdName}_subtitle">
-                Or, drag and drop image here.
+                Or, drag and drop pdf here.
             </span>
         `)
     }

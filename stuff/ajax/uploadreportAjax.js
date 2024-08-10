@@ -37,6 +37,7 @@ $(document).ready(function () {
 
         //Get response from submit
         socket.on(melody.melody1 + '_document_upload_report', function (data) {
+            console.log(data);
             if (data.type == "error") {
                 Toast.fire({
                     text: data.message,

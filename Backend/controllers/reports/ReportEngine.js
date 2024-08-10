@@ -137,6 +137,7 @@ module.exports = (socket, Database) => {
                     });
                 }
             } else if (param === "document_upload_report") {
+                console.log(browserblob);
                 if (privilegeData !== undefined && privilegeData.pearson_specter.document_upload_report == "yes") {
                     let user = browserblob.user;
                     let date_range = browserblob.date_range.split("**");
@@ -152,8 +153,8 @@ module.exports = (socket, Database) => {
                             sql = 'document.dateTime BETWEEN ? AND ? ORDER BY document.dateTime ASC';
                             columns = [start_date, end_date]
                         } else {
-                            sql = 'document.userID =? AND document.dateTime BETWEEN ? AND ?  ORDER BY document.dateTime ASC';
-                            columns = [user, start_date, end_date]
+                            sql = 'document.dateTime BETWEEN ? AND ? AND FIND_IN_SET(?, document.userIDs) ORDER BY document.dateTime ASC';
+                            columns = [start_date, end_date, user];
                         }
                         
 
@@ -161,6 +162,7 @@ module.exports = (socket, Database) => {
                             sql: sql,
                             columns: columns
                         });
+                        console.log(result);
 
                         socket.emit(melody1 + '_' + param, {
                             data: result,
