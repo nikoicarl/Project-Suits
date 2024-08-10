@@ -13,10 +13,10 @@ return `
 
 function DepartmentForm() {
 return `
-    <div class="card component-card_1 mb-5 mt-3">
+    <div class="card">
         <div class="card-body">
-            <div class="ps_department_div">
-                <form class="ps_manage_department_form" action="" method="POST">
+            <div class="">
+                <form class="ps_manage_department_form">
                     <div class="row">
                         <input type="hidden" class="ps_manage_department_hiddenid">
                         <div class="col-md-12 mt-2">
@@ -73,13 +73,13 @@ return `
 
 
 (()=>{
-let html = ejs.render(Department(), {});
-$('#ps_main_content_display').html(html);
+    let html = ejs.render(Department(), {});
+    $('#ps_main_content_display').html(html);
 
-html = ejs.render(DepartmentForm(), {});
-$('#ps_department_page_form_display').html(html);
+    html = ejs.render(DepartmentForm(), {});
+    $('#ps_department_page_form_display').html(html);
 
 
-//Add page ajax file(s)
-addPageScript('departmentAjax');
+    //Add page ajax file(s)
+    addPageScript('departmentAjax');
 })();

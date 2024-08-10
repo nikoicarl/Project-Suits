@@ -74,7 +74,7 @@ function assignUserModal() {
                         <h5 class="modal-title text-white" id="exampleModalLabel">Assign Document to User</h5>
                     </div>
                     <div class="modal-body">
-                        <form class="ps_document_assign_user_form" action="" method="POST">
+                        <form class="ps_document_assign_user_form" action="" >
                             <input type="hidden" class="ps_document_assign_user_hiddenid">
                             <div class="row">
                                 <div class="col-md-12 mt-2">

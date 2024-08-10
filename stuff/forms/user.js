@@ -124,7 +124,7 @@ function assignDepartmentModal() {
                         <h5 class="modal-title text-white" id="exampleModalLabel">Assign User to Department</h5>
                     </div>
                     <div class="modal-body">
-                        <form class="ps_user_assign_department_form" action="" method="POST">
+                        <form class="ps_user_assign_department_form" action="">
                             <input type="hidden" class="ps_user_assign_department_hiddenid">
                             <div class="row">
                                 <div class="col-md-12 mt-2">

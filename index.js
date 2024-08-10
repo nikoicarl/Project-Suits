@@ -3,8 +3,8 @@ try {
     // Dependencies
     const express = require("express");
     const cors = require("cors");
-    const start = express()
-    const socketIo = require('socket.io')
+    const start = express();
+    const socketIo = require('socket.io');
 
     // Connections
     const DatabaseModel = require('./Backend/Models/DatabaseModel.js');
@@ -15,14 +15,13 @@ try {
     const tableFetchController = require("./Backend/controllers/tableFetchController");
     const dashboardController = require("./Backend/controllers/dashboardController");
     const dropdownController = require("./Backend/controllers/dropdownController");
-    const departmentController = require("./Backend/controllers/departmentController");
+    const departmentController = require("./Backend/controllers/departmentController.js");
     const privilegeController = require("./Backend/controllers/privilegeController.js");
     const specificFetchController = require ("./Backend/controllers/specificFetchController.js");
     const deactivateController = require("./Backend/controllers/deactivateController.js");
     const fileUploadController = require("./Backend/controllers/fileUploadController.js");
     const userController = require("./Backend/controllers/userController.js");
     const roleController =  require("./Backend/controllers/roleController.js");
-    const recentActivityReportController = require("./Backend/controllers/recentActivityReportController.js");
     const documentController = require("./Backend/controllers/documentController.js");
     const contactController = require("./Backend/controllers/contactController.js");
 
@@ -85,8 +84,7 @@ try {
             documentController(socket, Database);
             contactController(socket, Database);
 
-            // REPORT CONTROLLERS HERE 
-            recentActivityReportController(socket, Database);
+            // REPORT CONTROLLERS HERE
             reportEngine(socket, Database);
 
         } catch (error) {
