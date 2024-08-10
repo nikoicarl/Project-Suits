@@ -29,6 +29,7 @@ class DbConnect {
                     this.dbcon.connect(function(error) {
                         if (error) {
                             console.log('MySql Database is not connected. An error occurred');
+                            console.log(error, "error");
                             setTimeout(() => {
                                 thisClass.createConnection();
                             }, 30000);
