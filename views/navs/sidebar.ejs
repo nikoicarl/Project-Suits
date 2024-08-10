@@ -10,7 +10,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="/dashboard" class="nav-link  ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                    <a href="/dashboard" class="nav-link  ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="dashboard"
                         data-scripts="single::/dashboardAjax">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
@@ -19,7 +19,7 @@
 
                 <% if (privilege.pearson_specter.add_document == "yes" ||  privilege.pearson_specter.edit_document == "yes" || privilege.pearson_specter.deactivate_document == "yes") { %>
                     <li class="nav-item">
-                        <a href="/document" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        <a href="/document" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                             data-scripts="single::/documentAjax">
                             <i class="nav-icon fas fa-folder"></i>
                             <p>Manage Documents</p>
@@ -29,7 +29,7 @@
 
                 <% if (privilege.pearson_specter.add_department == "yes" ||  privilege.pearson_specter.edit_department  == "yes" || privilege.pearson_specter.deactivate_department == "yes") { %>
                     <li class="nav-item">
-                        <a href="/department" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        <a href="/department" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                             data-scripts="single::/departmentAjax">
                             <i class="nav-icon fas fa-chart-bar"></i>
                             <p>Manage Department</p>
@@ -39,7 +39,7 @@
 
                 <% if (privilege.pearson_specter.add_privilege == "yes" ||  privilege.pearson_specter.edit_privilege == "yes" || privilege.pearson_specter.deactivate_privilege == "yes") { %>
                     <li class="nav-item">
-                        <a href="/privilege" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        <a href="/privilege" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                             data-scripts="single::/privilegeAjax">
                             <i class="nav-icon fas fa-user-alt"></i>
                             <p>Manage Privileges</p>
@@ -49,7 +49,7 @@
 
                 <% if (privilege.pearson_specter.add_user == "yes" ||  privilege.pearson_specter.edit_user == "yes" || privilege.pearson_specter.deactivate_user == "yes") { %>
                     <li class="nav-item">
-                        <a href="/user" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        <a href="/user" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                             data-scripts="single::/userAjax">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Manage User</p>
@@ -59,7 +59,7 @@
 
                 <% if (privilege.pearson_specter.add_role == "yes" ||  privilege.pearson_specter.edit_role == "yes" || privilege.pearson_specter.deactivate_role == "yes") { %>
                     <li class="nav-item">
-                        <a href="/role" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                        <a href="/role" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                             data-scripts="single::/roleAjax">
                             <i class="nav-icon fas fa-user-alt"></i>
                             <p>Manage Role</p>
@@ -68,7 +68,7 @@
                 <% } %>
 
                 <li class="nav-item">
-                    <a href="/contact" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                    <a href="/contact" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                         data-scripts="single::/contactAjax
                     ">
                         <i class="nav-icon fas fa-laptop"></i>
@@ -77,7 +77,7 @@
                 </li>
                 <% if (privilege.pearson_specter.document_upload_report == "yes" || privilege.pearson_specter.department_state_report == "yes" || privilege.pearson_specter.login_report == "yes"|| privilege.pearson_specter.deactivation_report == "yes"|| privilege.pearson_specter.recent_activity_report == "yes") { %>
                     <li class="nav-item">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-chart-area"></i>
                             <p>
                                 Reports
@@ -87,7 +87,7 @@
                         <ul class="nav nav-treeview">
                             <% if (privilege.pearson_specter.document_upload_report == "yes") { %>
                                 <li class="nav-item">
-                                    <a href="/upload_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                    <a href="/upload_report" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                                         data-scripts="single::/uploadReportAjax"> 
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Document Upload </p>
@@ -96,7 +96,7 @@
                             <% } %>
                             <% if (privilege.pearson_specter.department_state_report == "yes") { %>
                                 <li class="nav-item">
-                                    <a href="/department_state_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                    <a href="/department_state_report" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                                         data-scripts="single::/departmentStateReportAjax"> 
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Department State</p>
@@ -106,7 +106,7 @@
 
                             <% if (privilege.pearson_specter.login_report == "yes") { %>
                                 <li class="nav-item">
-                                    <a href="/login_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                    <a href="/login_report" class="nav-link ps_main_navigation_btn"  data-appname="pearson_specter" data-navparent="pearson_specter"
                                         data-scripts="single::/loginReportAjax"> 
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Login</p>
@@ -116,7 +116,7 @@
 
                             <% if (privilege.pearson_specter.deactivation_report == "yes") { %>
                                 <li class="nav-item">
-                                    <a href="/deactivation_report" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                    <a href="/deactivation_report" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                                         data-scripts="single::/deactivationReportAjax"> 
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Deactivation</p>
@@ -126,7 +126,7 @@
 
                             <% if (privilege.pearson_specter.recent_activity_report == "yes") { %>
                                 <li class="nav-item">
-                                    <a href="/recent_activity" class="nav-link ps_main_navigation_btn" data-navparent="navbar_overall_parent"
+                                    <a href="/recent_activity" class="nav-link ps_main_navigation_btn" data-appname="pearson_specter" data-navparent="pearson_specter"
                                         data-scripts="single::/recentActivityAjax"> 
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Recent Activity  </p>

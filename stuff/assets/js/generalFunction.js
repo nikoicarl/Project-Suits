@@ -423,7 +423,7 @@ async function readFileToUpload(file) {
 let navigationInterval;
 
 //Pagination
-function mainPagination(pageFileName, pageScripts, navparent) {
+function mainPagination(pageFileName, appname, pageScripts, navparent) {
     let previous_scripts = [];
 
     $(document).off('click.keyupevents');
@@ -439,12 +439,13 @@ function mainPagination(pageFileName, pageScripts, navparent) {
 
 
     //Render ejs page 
-    openPage(pageFileName);
+    openPage(pageFileName, appname);
     previous_scripts.push(pageFileName+'*forms/');
+    previous_scripts.push(pageFileName+'*forms/'+appname);
 
     //Iterate active links
-    $('ul.menu-categories li.menu a.dropdown-toggle').removeAttr('data-active');
-    $('li.ps_sidebar_nav_parent_'+navparent+' a.dropdown-toggle').attr('data-active', 'true');
+    $('ul.nav-sidebar li.nav-item a.nav-link').removeAttr('data-active');
+    $('li.ps_sidebar_nav_parent_'+navparent+' a.nav-link').attr('data-active', 'true');
 
     //Remove previous script
     let scriptsToRemove = JSON.parse(window.localStorage.getItem('previous_scripts'));
@@ -474,6 +475,7 @@ function mainPagination(pageFileName, pageScripts, navparent) {
 
     const pagination = {
         pageFileName: pageFileName,
+        appname: appname,
         scripts: pageScripts,
         navparent: navparent
     }
@@ -485,13 +487,13 @@ function mainPagination(pageFileName, pageScripts, navparent) {
 }
 
 //A method to open page
-function openPage(pageFileName){
+function openPage(pageFileName, appname){
     // $('#ps_main_content_display').remove();
 
     let pageScript = document.createElement("script");
 
     //Add script src to script tag
-    pageScript.setAttribute("src", "forms/"+pageFileName+".js");
+    pageScript.setAttribute("src", "forms/"+appname+"/"+pageFileName+".js");
     pageScript.setAttribute("id", pageFileName+"_script");
 
     

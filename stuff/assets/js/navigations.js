@@ -6,6 +6,7 @@
             e.preventDefault();
             let thisElement = (this);
             let pageFileName = $(this).attr('href');
+            let appname = $(this).data('appname');
             let pageScripts = $(this).data("scripts");
             let navparent = $(this).data("navparent");
             pageFileName = pageFileName.split("/")[1];
@@ -13,7 +14,7 @@
             ClearCssLinks();
             $('.flatpickr-calendar').remove();
             setTimeout(() => {
-                mainPagination(pageFileName, pageScripts, navparent);
+                mainPagination(pageFileName, appname, pageScripts, navparent);
             }, 100);
         });
 
@@ -41,10 +42,10 @@
         //Checking if such data exist
         if (pagination) {
             //Pagination data exist, so we're opening the page
-            openPage(pagination.pageFileName);
+            openPage(pagination.pageFileName, pagination.appname);
 
-            $('ul.menu-categories li.menu a.dropdown-toggle').removeAttr('data-active');
-            $('li.ps_sidebar_nav_parent_'+pagination.navparent+' a.dropdown-toggle').attr('data-active', 'true');
+            $('ul.nav-sidebar li.nav-item a.nav-link').removeAttr('data-active');
+            $('li.ps_sidebar_nav_parent_'+pagination.navparent+' a.nav-link').attr('data-active', 'true');
 
     
             //Clearing the value to free memory
@@ -52,7 +53,7 @@
 
         } else {
             //Open dashboard if there is no data in current pagination
-            openPage('dashboard');
+            openPage('dashboard', 'pearson_specter');
 
             //Clearing the values to free memory
             pagination = '';
