@@ -430,6 +430,7 @@ $(document).ready(function () {
     }
 
 
+    
     //Dropzone filenames holder
     let FileNamesHolder = []
 
