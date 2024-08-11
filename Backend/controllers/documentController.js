@@ -12,7 +12,6 @@ module.exports = (socket, Database) => {
         const { ps_manage_document_hiddenid, ps_document_upload_dropzone_rename, DocumentsForUpdate, melody1, melody2 } = browserblob;
         const session = getSessionIDs(melody1);
         const { userID } = session;
-        console.log(browserblob);
 
         try {
             if (md5(userID) !== melody2) {
@@ -59,7 +58,6 @@ module.exports = (socket, Database) => {
                 documentNames = UploadFileHandler._getFileNames().toString();
             }
 
-            console.log(UploadFileHandler);
             let result;
             if (!ps_manage_document_hiddenid) {
                 for (const document of documentNames.split(',')) {
