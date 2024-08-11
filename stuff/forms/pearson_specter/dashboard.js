@@ -16,7 +16,7 @@ function Dashboard() {
                         <div class="icon">
                             <i class="ion ion-folder"></i>
                         </div>
-                        <a href="/document" class="nav-link ps_main_navigation_btn small-box-footer" data-navparent="navbar_overall_parent"
+                        <a href="/document" class="nav-link ps_main_navigation_btn small-box-footer" data-appname="pearson_specter" data-navparent="dashboard"
                         data-scripts="single::/documentAjax">More info <i class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
@@ -30,7 +30,7 @@ function Dashboard() {
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="/department" class="nav-link ps_main_navigation_btn small-box-footer" data-navparent="navbar_overall_parent"
+                        <a href="/department" class="nav-link ps_main_navigation_btn small-box-footer" data-appname="pearson_specter" data-navparent="dashboard"
                         data-scripts="single::/departmentAjax">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -43,7 +43,7 @@ function Dashboard() {
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="/user" class="nav-link ps_main_navigation_btn small-box-footer" data-navparent="navbar_overall_parent"
+                        <a href="/user" class="nav-link ps_main_navigation_btn small-box-footer" data-appname="pearson_specter" data-navparent="dashboard"
                         data-scripts="single::/userAjax ">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
