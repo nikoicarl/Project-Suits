@@ -137,7 +137,6 @@ module.exports = (socket, Database) => {
                     });
                 }
             } else if (param === "document_upload_report") {
-                console.log(browserblob);
                 if (privilegeData !== undefined && privilegeData.pearson_specter.document_upload_report == "yes") {
                     let user = browserblob.user;
                     let date_range = browserblob.date_range.split("**");
@@ -186,8 +185,8 @@ module.exports = (socket, Database) => {
                         });
                     } else {
                         let start_date = date_range[0], end_date = date_range[1];
-                        sql = 'dateTime BETWEEN ? AND ?  ORDER BY dateTime ASC';
-                        columns = [start_date, end_date]
+                        sql = 'dateTime BETWEEN ? AND ? AND status != ? ORDER BY dateTime ASC';
+                        columns = [start_date, end_date, 'ad']
                         
                         let result = await PearsonSpectorRptApiModel.getDepartmentRecords(Database, {
                             sql: sql,
