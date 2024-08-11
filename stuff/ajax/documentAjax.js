@@ -164,7 +164,7 @@ $(document).ready(function () {
                 title: "Document",
                 type: 'text',
                 template: function (row){
-                    let docsHtml = `<div class="col-md-6"> 
+                    let docsHtml = `<div class=" w-100"> 
                                         <a  href="uploads/${row.fileName}" download="${row.fileName}"> 
                                             <span class="icon-file-pdf icon-2x">
                                             </span>
