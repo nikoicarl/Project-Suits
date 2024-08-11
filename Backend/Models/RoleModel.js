@@ -69,13 +69,14 @@ class Role {
                 role varchar(255),
                 description text,
                 dateTime text,
-                status varchar(1)
+                status varchar(2)
             `),
 
             foreignKeyStatement: (``),
 
             alterTableStatement: [
-                'dateTime text'
+                'dateTime-text',
+                'status-varchar(2)',
             ],
         });
         let result = await CreateUpdateTable.checkTableExistence();

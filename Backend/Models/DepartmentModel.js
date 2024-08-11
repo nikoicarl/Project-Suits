@@ -103,13 +103,13 @@ class Department {
                 department varchar(255),
                 description text,
                 dateTime text,
-                status varchar(1)
+                status varchar(2)
             `),
 
             foreignKeyStatement: (``),
 
             alterTableStatement: [
-                'dateTime text, userIDs text'
+                'dateTime-text, userIDs-text', 'status-varchar(2)'
             ],
         });
         let result = await CreateUpdateTable.checkTableExistence();

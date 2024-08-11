@@ -63,7 +63,7 @@ module.exports = (socket, Database) => {
                     const DepartmentModel = new Department(Database);
                     result = await DepartmentModel.preparedFetch({
                         sql: 'status != ?  ORDER BY dateTime DESC',
-                        columns: ['i']
+                        columns: ['ad']
                     });
                     if (Array.isArray(result)) {
                         socket.emit(melody1 + '_' + param, result);
@@ -81,7 +81,7 @@ module.exports = (socket, Database) => {
                     const RoleModel = new Role(Database);
                     result = await RoleModel.preparedFetch({
                         sql: 'status != ?  ORDER BY role DESC',
-                        columns: ['i']
+                        columns: ['ad']
                     });
                     if (Array.isArray(result)) {
                         socket.emit(melody1 + '_' + param, result);
@@ -117,7 +117,7 @@ module.exports = (socket, Database) => {
                     const UserModel = new User(Database);
                     result = await UserModel.preparedLeftJoinFetch({
                         sql: 'user.status != ?  ORDER BY dateTime DESC',
-                        columns: ['i']
+                        columns: ['ad']
                     });
                     if (Array.isArray(result)) {
                         socket.emit(melody1 + '_' + param, result);
