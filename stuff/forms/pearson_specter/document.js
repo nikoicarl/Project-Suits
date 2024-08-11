@@ -111,5 +111,6 @@ $('#ps_main_content_display').append(html);
 
 addExternalScript('assets/js/DropZone.js');
 
+
 addPageScript('documentAjax');
 })();
