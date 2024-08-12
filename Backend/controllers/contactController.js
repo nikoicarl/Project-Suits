@@ -39,7 +39,7 @@ module.exports = (socket, Database) => {
                 // Email options
                 const mailOptions = {
                     from: `Pearson Specter IT Department ${process.env.EMAIL_USER}`,
-                    to: 'cnikoi70@gmail.com',
+                    to: 'ksophia242@gmail.com',
                     subject: 'Email from Contact IT Department form',
                     text: `Name: ${ps_contact_name}\nEmail: ${ps_contact_email}\nUserID: ${userID}\nDepartment: ${ps_contact_department}\nIssue: ${ps_contact_issue}`
                 };
