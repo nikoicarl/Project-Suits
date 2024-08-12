@@ -73,7 +73,7 @@ function Report() {
                     <tr> 
                         <td> ${item.userID}</td>
                         <td> ${item.activity.toUcwords()}</td>
-                        <td> ${item.DateTime.fullDate()}</td>
+                        <td> ${item.DateTime.fullDateTime()}</td>
                     </tr>
                 `;
             }
