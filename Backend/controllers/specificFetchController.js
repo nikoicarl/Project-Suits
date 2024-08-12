@@ -218,9 +218,22 @@ module.exports = (socket, Database) => {
                         message: 'Failed to update profile'
                     });
                 }
-
-                console.log(result);
-            }
+            } else if (param === "user_profile") {
+                const UserModel = new User(Database);
+                let dataID = browserblob.dataID;
+                result = await UserModel.preparedFetch({
+                    sql: 'userID = ?',
+                    columns: [dataID]
+                });
+                if (Array.isArray(result)) {
+                    socket.emit(melody1 + '_' + param, result[0]);
+                } else {
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'error',
+                        message: 'Oops, something went wrong: Error => ' + result.sqlMessage
+                    });
+                }
+            } 
         } catch (error) {
             socket.emit(melody1 + '_' + param, {
                 type: 'error',

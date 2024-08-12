@@ -64,6 +64,8 @@ $(document).ready(function () {
                 //Empty the form 
                 $('.ps_profile_form').trigger('reset');
                 socket.off(melody.melody1+'_updateProfile'); 
+
+                fetchProfile();
             } else if (data.type == "caution") {
                 Toast.fire({
                     text: data.message,
@@ -86,6 +88,32 @@ $(document).ready(function () {
         });
 
     });
+
+    function fetchProfile(){
+        socket.off('specific');
+        socket.off(melody.melody1+'_user_profile'); 
+
+        socket.emit('specific', {
+            melody1: melody.melody1,
+            melody2: melody.melody2,
+            dataID: userData.userID,
+            param: 'user_profile'
+        });
+
+        // User Table Emit Response
+        socket.on(melody.melody1 + '_user_profile', (data) => {
+            if (data.type == 'error') {
+                console.log(data.message);
+            } else {
+                $('.ps_profile_first_name').val(data.firstName);
+                $('.ps_profile_last_name').val(data.lastName);
+                $('.ps_profile_phon').val(data.phone);
+                $('.ps_profile_email').val(data.email);
+                $('.ps_profile_address').val(data.address);
+                $('.ps_profile_hiddenid').val(data.userID);
+            }
+        });
+    }
 
 });
 
