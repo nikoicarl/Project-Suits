@@ -161,7 +161,6 @@ module.exports = (socket, Database) => {
                             sql: sql,
                             columns: columns
                         });
-                        console.log(result);
 
                         socket.emit(melody1 + '_' + param, {
                             data: result,
