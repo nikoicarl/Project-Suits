@@ -36,8 +36,11 @@ module.exports = (socket, Database) => {
                 let user = browserblob.user;
                 const PrivilegeModel = new Privilege(Database, user);
                 let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
-                socket.emit(md5(Number(user)) + '_' + param, privilegeData);
-                socket.broadcast.emit(md5(Number(user)) + '_' + param, privilegeData);
+                // socket.emit(md5(Number(user)) + '_' + param, privilegeData);
+                socket.emit(melody1 + '_' + param, privilegeData);
+                // socket.broadcast.emit(md5(Number(user)) + '_' + param, privilegeData);
+                socket.broadcast.emit(melody1 + '_' + param, privilegeData);
+
             } else if (param === "specific_role") {
                 const RoleModel = new Role(Database);
                 let dataId = browserblob.dataId;

@@ -358,8 +358,7 @@
         }
 
         //Re-arrange sidebar base on privilege settings for a particular user
-        socket.on(melody.melody2+'_get_user_privileges', (data)=>{
-            console.log(data);
+        socket.on(melody.melody1+'_get_user_privileges', (data)=>{
             if (data.type == 'error') {
                 console.log(data.message);
             } else {
