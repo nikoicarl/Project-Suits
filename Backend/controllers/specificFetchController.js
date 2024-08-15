@@ -36,10 +36,19 @@ module.exports = (socket, Database) => {
                 let user = browserblob.user;
                 const PrivilegeModel = new Privilege(Database, user);
                 let privilegeData = (await PrivilegeModel.getPrivileges()).privilegeData;
-                // socket.emit(md5(Number(user)) + '_' + param, privilegeData);
-                socket.emit(melody1 + '_' + param, privilegeData);
-                // socket.broadcast.emit(md5(Number(user)) + '_' + param, privilegeData);
-                socket.broadcast.emit(melody1 + '_' + param, privilegeData);
+
+                if (privilegeData.pearson_specter.add_privilege == 'yes') {
+                    // socket.emit(md5(Number(user)) + '_' + param, privilegeData);
+                    socket.emit(melody1 + '_' + param, privilegeData);
+                    // socket.broadcast.emit(md5(Number(user)) + '_' + param, privilegeData);
+                    socket.broadcast.emit(melody1 + '_' + param, privilegeData);
+                    
+                }else{
+                    socket.emit(melody1 + '_' + param, {
+                        type: 'error',
+                        message: 'You do not have privilege to perform this operation'
+                    });
+                }
 
             } else if (param === "specific_role") {
                 const RoleModel = new Role(Database);

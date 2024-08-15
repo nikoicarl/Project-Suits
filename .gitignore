@@ -1,7 +1,4 @@
 node_modules/
 system
 stuff/uploads/*
-.env
-.env/*
-.env*
-*.env
+system.env/

@@ -362,6 +362,7 @@
             if (data.type == 'error') {
                 console.log(data.message);
             } else {
+                console.log(data, 'data from frontend');
                 if (data.pearson_specter.add_privilege != undefined) {
                     $('.hidden_privilege_data').val(JSON.stringify(data));
                     let html = ejs.render(Sidebar(), {privilege: data});
